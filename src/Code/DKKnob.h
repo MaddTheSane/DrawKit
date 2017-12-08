@@ -1,6 +1,6 @@
 //
 //  DKKnob.h
-///  DrawKit �2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 //
 //  Created by graham on 21/08/2006.
 ///

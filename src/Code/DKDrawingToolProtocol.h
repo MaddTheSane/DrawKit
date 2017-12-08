@@ -14,7 +14,7 @@
 @class DKDrawableObject, DKLayer;
 
 
-@protocol DKDrawingTool
+@protocol DKDrawingTool <NSObject>
 
 - (NSString*)		actionName;
 - (NSCursor*)		cursor;

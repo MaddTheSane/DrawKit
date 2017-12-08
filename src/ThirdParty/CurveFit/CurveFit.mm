@@ -1,6 +1,6 @@
 /*
  *  CurveFit.mm
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit Â©2005-2008 Apptree.net
  *
  *  Created by graham on 05/11/2006.
  *  Copyright 2006 Apptree.net. All rights reserved.

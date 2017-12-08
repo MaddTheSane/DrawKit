@@ -1,6 +1,6 @@
 //
 //  DKStrokeDash.m
-///  DrawKit �2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 //
 //  Created by graham on 10/09/2006.
 ///

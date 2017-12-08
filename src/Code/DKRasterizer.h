@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKRasterizer.h
-///  DrawKit �2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 23/11/2006.
 ///
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, DKClippingOption)
 @end
 
 
-extern NSString*	kDKRasterizerPasteboardType;
+extern NSPasteboardType	kDKRasterizerPasteboardType;
 
 extern NSString*	kDKRasterizerPropertyWillChange;
 extern NSString*	kDKRasterizerPropertyDidChange;

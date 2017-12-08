@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKUndoManager.m
-///  DrawKit ¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 22/06/2007, originally based on code by Will Thimbleby in the public domain
 ///
