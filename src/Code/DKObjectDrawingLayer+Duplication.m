@@ -51,23 +51,21 @@
 	{
 		// copy each object
 		
-		NSEnumerator*		iter = [objectsToDuplicate objectEnumerator];
-		DKDrawableObject*	o;
 		DKDrawableObject*	copy;
 		CGFloat				radius, angle, relAngle;
 		NSPoint				location;
 		
-		while(( o = [iter nextObject]))
+		for(DKDrawableObject *o in objectsToDuplicate)
 		{
 			copy = [o copy];
 			location = [copy location];
 			
 			relAngle = incRadians * ( i + 1 );
-			radius = hypotf( location.x - centre.x, location.y - centre.y );
-			angle = atan2f( location.y - centre.y, location.x - centre.x ) + relAngle;
+			radius = hypot( location.x - centre.x, location.y - centre.y );
+			angle = atan2( location.y - centre.y, location.x - centre.x ) + relAngle;
 			
-			location.x = centre.x + cosf( angle ) * radius;
-			location.y = centre.y + sinf( angle ) * radius;
+			location.x = centre.x + cos( angle ) * radius;
+			location.y = centre.y + sin( angle ) * radius;
 			
 			[copy setLocation:location];
 			
@@ -114,12 +112,10 @@
 	{
 		// copy each object
 		
-		NSEnumerator*		iter = [objectsToDuplicate objectEnumerator];
-		DKDrawableObject*	o;
 		DKDrawableObject*	copy;
 		NSPoint				location;
 		
-		while(( o = [iter nextObject]))
+		for(DKDrawableObject *o in objectsToDuplicate)
 		{
 			copy = [o copy];
 			location = [copy location];
@@ -159,29 +155,29 @@
 {
 	NSRect	lb = [object logicalBounds];
 	NSPoint	ocp = [object location];//NSMakePoint( NSMidX( lb ), NSMidY( lb ));
-	CGFloat	objAngle = atan2f( [object location].y - centre.y, [object location].x - centre.x );
+	CGFloat	objAngle = atan2( [object location].y - centre.y, [object location].x - centre.x );
 	CGFloat	r, radius, incAngle;
 	
 	// r is radius of a circle that encloses the object
 		
-	r = hypotf( lb.size.width, lb.size.height )  / 2.0;
+	r = hypot( lb.size.width, lb.size.height )  / 2.0;
 	
-	radius = hypotf( ocp.x - centre.x, ocp.y - centre.y );
-	incAngle = atanf( r / radius ) * 2.0;
+	radius = hypot( ocp.x - centre.x, ocp.y - centre.y );
+	incAngle = atan( r / radius ) * 2.0;
 	
 	// how many fit in a circle?
 	
-	NSInteger number = (NSInteger)((2 * pi) / incAngle) + 1;
+	NSInteger number = (NSInteger)((2 * M_PI) / incAngle) + 1;
 	
 	// to fit this many exactly will require a small increase in radius
 	
-	incAngle = ( 2 * pi ) / (CGFloat)number;
-	radius = r / tanf( incAngle * 0.5f );
+	incAngle = ( 2 * M_PI ) / (CGFloat)number;
+	radius = r / tan( incAngle * 0.5f );
 	
 	// set the duplication master at this radius from centre
 	
-	ocp.x = centre.x + radius * cosf( objAngle );
-	ocp.y = centre.y + radius * sinf( objAngle );
+	ocp.x = centre.x + radius * cos( objAngle );
+	ocp.y = centre.y + radius * sin( objAngle );
 	
 	[object setLocation:ocp];
 	
@@ -224,8 +220,6 @@
 	
 	for( i = 0; i < nCopies; ++i )
 	{
-		NSEnumerator*		iter = [objectsToDuplicate objectEnumerator];
-		DKDrawableObject*	o;
 		DKDrawableObject*	copy;
 		CGFloat				radius, angle, di, scale;
 		NSPoint				location;
@@ -233,21 +227,21 @@
 		
 		di = -inset * (i + 1) * 2.0;
 		
-		while(( o = [iter nextObject]))
+		for(DKDrawableObject *o in objectsToDuplicate)
 		{
 			copy = [o copy];
 			location = [copy location];
 			size = [copy size];
 			
-			radius = hypotf( location.x - centre.x, location.y - centre.y );
-			angle = atan2f( location.y - centre.y, location.x - centre.x );
+			radius = hypot( location.x - centre.x, location.y - centre.y );
+			angle = atan2( location.y - centre.y, location.x - centre.x );
 			size.width += di;
 			size.height += di;
 			
 			scale = ( size.width / [copy size].width );
 			
-			location.x = centre.x + cosf( angle ) * radius * scale;
-			location.y = centre.y + sinf( angle ) * radius * scale;
+			location.x = centre.x + cos( angle ) * radius * scale;
+			location.y = centre.y + sin( angle ) * radius * scale;
 			
 			[copy setSize:size];
 			[copy setLocation:location];

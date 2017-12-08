@@ -6,6 +6,7 @@
 //  Copyright 2008 Apptree.net. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "DKRouteFinder.h"
 
 static CGFloat		anneal( CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, NSInteger annealingSteps, const void* context );
@@ -204,17 +205,17 @@ static DKRouteAlgorithmType s_Algorithm = kDKUseNearestNeighbour;//kDKUseSimulat
 		
 		NSUInteger n = [array count] + 1;
 		
-#warning 64BIT: Inspect use of sizeof
 		mOrder = malloc( sizeof(NSInteger) * n );
 		NSInteger kludge = 1;
-#warning 64BIT: Inspect use of sizeof
+#if __LP64__
+		memset_pattern8(mOrder, &kludge, sizeof(NSInteger) * n);
+#else
 		memset_pattern4(mOrder, &kludge, sizeof(NSInteger) * n);
+#endif
 		
 		if(( mAlgorithm & kDKUseSimulatedAnnealing ) != 0 )
 		{
-#warning 64BIT: Inspect use of sizeof
 			mX = malloc( sizeof(CGFloat) * n );
-#warning 64BIT: Inspect use of sizeof
 			mY = malloc( sizeof(CGFloat) * n );
 			
 			NSInteger	k = 0;
@@ -286,7 +287,7 @@ static DKRouteAlgorithmType s_Algorithm = kDKUseNearestNeighbour;//kDKUseSimulat
 	{
 		p = [[arrayOfPoint objectAtIndex:k] pointValue];
 			
-		dist = hypotf( p.x - cvp.x, p.y - cvp.y );
+		dist = hypot( p.x - cvp.x, p.y - cvp.y );
 		
 		if( dist < shortestDistanceSoFar )
 		{
@@ -299,7 +300,7 @@ static DKRouteAlgorithmType s_Algorithm = kDKUseNearestNeighbour;//kDKUseSimulat
 			}
 			else
 			{
-				DKDirection ad = directionOfAngle(atan2f( p.y - cvp.y, p.x - cvp.x ));
+				DKDirection ad = directionOfAngle(atan2( p.y - cvp.y, p.x - cvp.x ));
 				
 				if ( ad == direction )
 				{
@@ -423,7 +424,7 @@ static DKRouteAlgorithmType s_Algorithm = kDKUseNearestNeighbour;//kDKUseSimulat
 	while(( val = [iter nextObject]))
 	{
 		pt = [val pointValue];
-		pl += hypotf( pt.x - pp.x, pt.y - pp.y );
+		pl += hypot( pt.x - pp.x, pt.y - pp.y );
 		pp = pt;
 	}
 	
@@ -478,8 +479,8 @@ static DKDirection	directionOfAngle( const CGFloat angle )
 {
 	// given an angle in radians, returns its basic direction.
 	
-	CGFloat fortyFiveDegrees = pi * 0.25f;
-	CGFloat oneThirtyFiveDegrees = pi * 0.75f;
+	CGFloat fortyFiveDegrees = M_PI * 0.25;
+	CGFloat oneThirtyFiveDegrees = M_PI * 0.75;
 	
 	if( angle >= -fortyFiveDegrees && angle < fortyFiveDegrees )
 		return kDirectionEast;
@@ -494,19 +495,12 @@ static DKDirection	directionOfAngle( const CGFloat angle )
 #pragma mark -
 #pragma mark - from Numerical Recipes in C (2nd ed. Ch 10. p448)
 
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 static NSInteger*		ivector(long nl, long nh);
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 static void		free_ivector(NSInteger *v, long nl, long nh);
-#warning 64BIT: Inspect use of long
 static CGFloat	ran3(long *idum);
-#warning 64BIT: Inspect use of unsigned long
 static NSInteger		irbit1(unsigned long *iseed);
 static NSInteger		metrop(CGFloat de,CGFloat t); 
-#warning 64BIT: Inspect use of long
-static CGFloat	ran3(long* idum); 
+static CGFloat	ran3(long* idum);
 static CGFloat	revcst(CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, NSInteger n[]); 
 static void		reverse(NSInteger iorder[], NSInteger ncity, NSInteger n[]); 
 static CGFloat	trncst(CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, NSInteger n[]); 
@@ -519,13 +513,10 @@ static void		trnspt(NSInteger iorder[], NSInteger ncity, NSInteger n[]);
 
 /* allocate an int vector with subscript range v[nl..nh] */
 
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 NSInteger*	ivector(long nl, long nh)
 {
 	NSInteger *v;
 
-#warning 64BIT: Inspect use of sizeof
 	v=(NSInteger *)malloc((size_t) ((nh-nl+1+NR_END)*sizeof(NSInteger)));
 	if ( v != NULL )
 		return v-nl+NR_END;
@@ -536,8 +527,6 @@ NSInteger*	ivector(long nl, long nh)
 
 /* free an int vector allocated with ivector() */
 
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 void	free_ivector(NSInteger *v, long nl, long nh)
 {
 	#pragma unused(nh)
@@ -551,14 +540,11 @@ void	free_ivector(NSInteger *v, long nl, long nh)
 #define MZ 0
 #define FAC (1.0/MBIG)
 
-#warning 64BIT: Inspect use of long
 CGFloat ran3(long *idum)
 {
 	static NSInteger inext,inextp;
-#warning 64BIT: Inspect use of long
 	static long ma[56];
 	static NSInteger iff=0;
-#warning 64BIT: Inspect use of long
 	long mj,mk;
 	NSInteger i,ii,k;
 
@@ -616,10 +602,8 @@ CGFloat ran3(long *idum)
 #define IB18 131072
 #define MASK (IB1+IB2+IB5)
 
-#warning 64BIT: Inspect use of unsigned long
 NSInteger irbit1(unsigned long *iseed)
 {
-#warning 64BIT: Inspect use of unsigned long
 	unsigned long newbit;
 
 	newbit = (*iseed & IB18) >> 17
@@ -643,7 +627,7 @@ function result is the final path length
 
 #pragma mark -
 #define	TFACTR 0.9		// Annealing schedule: reduce t by this factor on each step. 
-#define	ALEN(a,b,c,d)	_CGFloatSqrt(((b)-(a))*((b)-(a))+((d)-(c))*((d)-(c))) 
+#define	ALEN(a,b,c,d)	sqrt(((b)-(a))*((b)-(a))+((d)-(c))*((d)-(c))) 
 
 CGFloat	anneal( CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, NSInteger annealingSteps, const void* context ) 
 { 
@@ -651,10 +635,8 @@ CGFloat	anneal( CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, N
 	NSInteger		i, j, k, nsucc, nn, idec; 
 
 	static			NSInteger n[7]; 
-#warning 64BIT: Inspect use of long
-	static long		idum = -1; 
-#warning 64BIT: Inspect use of unsigned long
-	static unsigned long	iseed = 111; 
+	static long		idum = -1;
+	static unsigned long	iseed = 111;
 	CGFloat			path, de, t, previousPath; 
 
 	nover	= 100 * ncity;	// Maximum number of paths tried at any temperature. 
@@ -716,7 +698,7 @@ CGFloat	anneal( CGFloat x[], CGFloat y[], NSInteger iorder[], NSInteger ncity, N
 			if( idec == 0 )
 			{
 				// Do a transport. 
-				n[3] = n[2] + (NSInteger)(abs( nn-2 ) * ran3( &idum )) +1; 
+				n[3] = n[2] + (NSInteger)(labs( nn-2 ) * ran3( &idum )) +1;
 				n[3] = 1+(( n[3]-1 ) % ncity); 
 				
 				// Transport to a location not on the path. 
@@ -913,10 +895,9 @@ t is a temperature determined by the annealing schedule.
 
 NSInteger	metrop(CGFloat de, CGFloat t) 
 { 
-#warning 64BIT: Inspect use of long
-	static long gljdum = 1; 
+	static long gljdum = 1;
 	
-	return de < 0.0 || ran3(&gljdum) < _CGFloatExp(-de/t); 
+	return de < 0.0 || ran3(&gljdum) < exp(-de/t); 
 } 
  
 

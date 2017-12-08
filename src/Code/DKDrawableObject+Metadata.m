@@ -633,7 +633,7 @@ NSString*	kDKUndoableChangesUserDefaultsKey	= @"DKMetadataChangesAreNotUndoable"
 }
 
 
-- (void)		metadataDidChangeKey:(NSString*) key;
+- (void)		metadataDidChangeKey:(NSString*) key
 {
 	NSDictionary* userInfo = nil;
 	if( key )

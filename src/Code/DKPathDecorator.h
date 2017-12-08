@@ -40,9 +40,9 @@
 	NSMutableArray*		mScaleRandCache;
 }
 
-+ (DKPathDecorator*)	pathDecoratorWithImage:(NSImage*) image;
++ (instancetype)		pathDecoratorWithImage:(NSImage*) image;
 
-- (id)					initWithImage:(NSImage*) image;
+- (instancetype)		initWithImage:(NSImage*) image;
 
 - (void)				setImage:(NSImage*) image;
 - (NSImage*)			image;

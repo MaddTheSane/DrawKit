@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, DKDrawablePathInsertType)
 @private
 	NSBezierPath*			m_path;
 	NSBezierPath*			m_undoPath;
-	NSInteger				m_editPathMode;
+	DKDrawablePathCreationMode	m_editPathMode;
 	CGFloat					m_freehandEpsilon;
 	BOOL					m_extending;
 }
@@ -106,8 +106,7 @@ typedef NS_ENUM(NSInteger, DKDrawablePathInsertType)
 
 // creating paths
 
-- (void)				setPathCreationMode:(DKDrawablePathCreationMode) editPathMode;
-- (DKDrawablePathCreationMode)	pathCreationMode;
+@property DKDrawablePathCreationMode pathCreationMode;
 - (BOOL)				shouldEndPathCreationWithEvent:(NSEvent*) event;
 
 - (BOOL)				isOpenEndPoint:(NSInteger) partcode;

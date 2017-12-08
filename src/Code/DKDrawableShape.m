@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDrawableShape.m
-///  DrawKit ¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 13/08/2006.
 ///
@@ -887,13 +887,13 @@ static NSSize			sTempSavedOffset;
 	NSPoint oo = [self knobPoint:kDKDrawableShapeOriginTarget];
 	
 	CGFloat rotationKnobAngle = [self knobAngleFromOrigin:kDKDrawableShapeRotationHandle];
-	CGFloat angle = atan2f( rp.y - oo.y, rp.x - oo.x ) - rotationKnobAngle;
+	CGFloat angle = atan2( rp.y - oo.y, rp.x - oo.x ) - rotationKnobAngle;
 	
-	CGFloat dist = hypotf( rp.x - oo.x, rp.y - oo.y );
+	CGFloat dist = hypot( rp.x - oo.x, rp.y - oo.y );
 	
 	if ( constrain )
 	{
-		CGFloat rem = fmodf( angle, sAngleConstraint );
+		CGFloat rem = fmod( angle, sAngleConstraint );
 		
 		if ( rem > sAngleConstraint / 2.0 )
 			angle += ( sAngleConstraint - rem );
@@ -908,8 +908,8 @@ static NSSize			sTempSavedOffset;
 	
 	CGFloat ta = angle + rotationKnobAngle;
 	
-	sTempRotationPt.x = oo.x + ( dist * cosf( ta ));
-	sTempRotationPt.y = oo.y + ( dist * sinf( ta ));
+	sTempRotationPt.x = oo.x + ( dist * cos( ta ));
+	sTempRotationPt.y = oo.y + ( dist * sin( ta ));
 	
 	mBoundsCache = NSZeroRect;
 	[self notifyVisualChange];
@@ -984,18 +984,18 @@ static NSSize			sTempSavedOffset;
 		// rotation
 		
 		if ( rotate )
-			[self setAngle:atan2f( dy, dx ) - ka ];
+			[self setAngle:atan2( dy, dx ) - ka ];
 			
 		// scaling
 		
 		// normalise the mouse point by cancelling out any overall rotation.
 		
-		CGFloat	pa = atan2f( dy, dx ) - [self angle];
-		CGFloat	radius = hypotf( dx, dy );
+		CGFloat	pa = atan2( dy, dx ) - [self angle];
+		CGFloat	radius = hypot( dx, dy );
 		CGFloat	ndx, ndy;
 		
-		ndx = radius * cosf( pa );
-		ndy = radius * sinf( pa );
+		ndx = radius * cos( pa );
+		ndy = radius * sin( pa );
 		
 		// whether we are adjusting the scale width, height or both depends on which knob we have hit
 		
@@ -1441,7 +1441,7 @@ static NSSize			sTempSavedOffset;
 	dy = p.y - [self location].y;
 	dx = p.x - [self location].x;
 	
-	return atan2f( dy, dx ) - [self angle];
+	return atan2( dy, dx ) - [self angle];
 }
 
 
@@ -2567,7 +2567,7 @@ static NSSize			sTempSavedOffset;
 		// also make a small allowance for the rotation of the shape - this allows for the
 		// hypoteneuse of corners
 		
-		CGFloat f = ABS( sinf([self angle] * 2)) * ([[self style] maxStrokeWidth] * 0.36 );
+		CGFloat f = ABS( sin([self angle] * 2)) * ([[self style] maxStrokeWidth] * 0.36 );
 		
 		r = NSInsetRect( r, -f, -f );
 	}
@@ -2607,7 +2607,7 @@ static NSSize			sTempSavedOffset;
 			// also make a small allowance for the rotation of the shape - this allows for the
 			// hypoteneuse of corners
 			
-			CGFloat f = ABS( sinf([self angle] * 1.0)) * (MAX([[self style] maxStrokeWidth] * 0.5f, 1.0) * 0.25 );
+			CGFloat f = ABS( sin([self angle] * 1.0)) * (MAX([[self style] maxStrokeWidth] * 0.5f, 1.0) * 0.25 );
 			mBoundsCache = NSInsetRect( r, -( as.width + f ), -( as.height + f ));
 		}
 	}

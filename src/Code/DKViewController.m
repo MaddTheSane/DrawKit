@@ -1118,7 +1118,7 @@ static NSTimer* s_autoscrollTimer = nil;
 ///
 ///********************************************************************************************************************
 
-- (IBAction)				toggleSnapToGrid:(id) sender;
+- (IBAction)				toggleSnapToGrid:(id) sender
 {
 	#pragma unused(sender)
 	

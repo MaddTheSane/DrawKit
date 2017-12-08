@@ -182,44 +182,44 @@
 {
 	CGFloat   gama = 0.8;
 	NSInteger		wave;
-	double  red = 0.0;
-	double  green = 0.0;
-	double  blue = 0.0;
-	double  factor;
+	CGFloat  red = 0.0;
+	CGFloat  green = 0.0;
+	CGFloat  blue = 0.0;
+	CGFloat  factor;
 	
-	wave = _CGFloatTrunc(lambda);
+	wave = trunc(lambda);
 	
 	if ( wave < 380 || wave > 780 )
 		return [NSColor blackColor];
 		
 	if ( wave >= 380 && wave < 440 )
 	{
-		red = -(lambda - 440.0f)/(440.0f - 380.0f);
+		red = -(lambda - 440.0)/(440.0 - 380.0);
 		green = 0.0;
 		blue = 1.0;
 	}
 	else if ( wave >= 440 && wave < 490 )
 	{
 		red = 0.0;
-		green = (lambda - 440.0f)/(490.0f - 440.0f);
+		green = (lambda - 440.0)/(490.0 - 440.0);
 		blue = 1.0;
 	}
 	else if ( wave > 490 && wave < 510 )
 	{
 		red = 0.0;
 		green = 1.0;
-		blue = -(lambda - 510.0f)/(510.0f - 490.0f);
+		blue = -(lambda - 510.0)/(510.0 - 490.0);
 	}
 	else if ( wave >= 510 && wave < 580 )
 	{
-		red = (lambda - 510.0f)/(580.0f - 510.0f);
+		red = (lambda - 510.0)/(580.0 - 510.0);
 		green = 1.0;
 		blue = 0.0;
 	}
 	else if ( wave >= 580 && wave < 645 )
 	{
 		red = 1.0;
-		green = -(lambda - 645.0f)/(645.0f - 580.0f);
+		green = -(lambda - 645.0)/(645.0 - 580.0);
 		blue = 0.0;
 	}
 	else if ( wave >= 645 && wave <= 780 )
@@ -231,19 +231,19 @@
 	// Let the intensity fall off near the vision limits
  
 	if ( wave >= 380 && wave < 420 )
-		factor = 0.3 + 0.7 * (lambda - 380.0f) / (420.0f - 380.0f);
+		factor = 0.3 + 0.7 * (lambda - 380.0) / (420.0 - 380.0);
 	else if ( wave >= 420 && wave < 700 )
 		factor = 1.0;
 	else if ( wave >= 700 && wave <= 780 )
-		factor = 0.3 + 0.7 * (780.0f - lambda) / (780.0f - 700.0f);
+		factor = 0.3 + 0.7 * (780.0 - lambda) / (780.0 - 700.0);
 	else
 		factor = 0.0;
 		
 	// adjust rgb for gamma and factor:
 	
-	red		= powf( red * factor, gama );
-	green   = powf( green * factor, gama );
-	blue	= powf( blue * factor, gama );
+	red		= pow( red * factor, gama );
+	green   = pow( green * factor, gama );
+	blue	= pow( blue * factor, gama );
 	
 	LogEvent_(kInfoEvent, @"red: %f, green: %f, blue: %f", red, green, blue );
 
@@ -292,7 +292,7 @@
 			else
 				h += (NSInteger)v;
 			
-			rgb[k++] = (CGFloat)h / 255.0f;
+			rgb[k++] = (CGFloat)h / 255.0;
 		}
 	
 		c = [NSColor colorWithCalibratedRed:rgb[0] green:rgb[1] blue:rgb[2] alpha:1.0];
@@ -660,7 +660,7 @@
 ///
 ///********************************************************************************************************************
 
-- (NSColor*)			interpolatedColorToColor:(NSColor*) secondColor atValue:(CGFloat) interpValue;
+- (NSColor*)			interpolatedColorToColor:(NSColor*) secondColor atValue:(CGFloat) interpValue
 {
 	return [NSColor colorByInterpolatingFrom:self to:secondColor atValue:interpValue];
 }

@@ -174,7 +174,7 @@
 }
 
 
-- (CGFloat)		radialStartingRadius;
+- (CGFloat)		radialStartingRadius
 {
 	return [m_extensionData floatForKey:@"radialstartingradius"];
 }

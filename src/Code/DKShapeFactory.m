@@ -7,6 +7,7 @@
 ///	 This software is released subject to licensing conditions as detailed in DRAWKIT-LICENSING.TXT, which must accompany this source file. 
 //
 
+#include <tgmath.h>
 #import "DKShapeFactory.h"
 #import "DKDrawKitMacros.h"
 #import "LogEvent.h"
@@ -122,10 +123,10 @@ NSString*	kDKSpeechBalloonCornerRadius = @"kDKSpeechBalloonCornerRadius";
 	
 	for( i = 0; i < numberOfSides; i++ )
 	{
-		angle = (( 2 * pi * i ) / numberOfSides );
+		angle = (( 2 * M_PI * i ) / numberOfSides );
 		
-		p.x = radius * cosf( angle );
-		p.y = radius * sinf( angle );
+		p.x = radius * cos( angle );
+		p.y = radius * sin( angle );
 		
 		[path lineToPoint:p];
 	}
@@ -199,7 +200,7 @@ NSString*	kDKSpeechBalloonCornerRadius = @"kDKSpeechBalloonCornerRadius";
 + (NSBezierPath*)	star:(NSInteger) numberOfPoints innerDiameter:(CGFloat) diam
 {
 	CGFloat			angle, radius = 0.5;
-	NSInteger				i;
+	NSInteger		i;
 	NSBezierPath*	path = [NSBezierPath bezierPath];
 	NSPoint			p;
 	
@@ -213,17 +214,17 @@ NSString*	kDKSpeechBalloonCornerRadius = @"kDKSpeechBalloonCornerRadius";
 	
 	for( i = 0; i < ( numberOfPoints * 2 ); i++ )
 	{
-		angle = (( pi * i ) / numberOfPoints );
+		angle = (( M_PI * i ) / numberOfPoints );
 		
 		if (( i % 2 ) == 0 )
 		{
-			p.x = radius * cosf( angle );
-			p.y = radius * sinf( angle );
+			p.x = radius * cos( angle );
+			p.y = radius * sin( angle );
 		}
 		else
 		{
-			p.x = diam * cosf( angle ) / 2.0;
-			p.y = diam * sinf( angle ) / 2.0;
+			p.x = diam * cos( angle ) / 2.0;
+			p.y = diam * sin( angle ) / 2.0;
 		}
 		
 		[path lineToPoint:p];
@@ -328,10 +329,10 @@ NSString*	kDKSpeechBalloonCornerRadius = @"kDKSpeechBalloonCornerRadius";
 	// Make sure radius doesn't exceed a maximum size
 	
 	if( cr >= (mainRect.size.height /2) )
-		cr = _CGFloatTrunc(mainRect.size.height /2) -1;
+		cr = trunc(mainRect.size.height /2) -1;
 	
 	if( cr >= (mainRect.size.width /2) )
-		cr = _CGFloatTrunc(mainRect.size.width /2) -1;
+		cr = trunc(mainRect.size.width /2) -1;
 	
 	// Now draw our rectangle:
 	NSRect			innerRect = NSInsetRect( mainRect, cr, cr );	// Make rect with corners being centers of the corner circles.

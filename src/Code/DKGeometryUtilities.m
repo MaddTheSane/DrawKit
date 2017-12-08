@@ -253,7 +253,7 @@ CGFloat		PointFromLine( const NSPoint inPoint, const NSPoint a, const NSPoint b 
 {
 	NSPoint cp = NearestPointOnLine( inPoint, a, b );
 	
-	return hypotf(( inPoint.x - cp.x ), ( inPoint.y - cp.y ));
+	return hypot(( inPoint.x - cp.x ), ( inPoint.y - cp.y ));
 }
 
 
@@ -261,7 +261,7 @@ CGFloat		PointFromLine( const NSPoint inPoint, const NSPoint a, const NSPoint b 
 
 NSPoint		NearestPointOnLine( const NSPoint inPoint, const NSPoint a, const NSPoint b )
 {
-	CGFloat mag = hypotf(( b.x - a.x ), ( b.y - a.y ));
+	CGFloat mag = hypot(( b.x - a.x ), ( b.y - a.y ));
 	
 	if( mag > 0.0 )
 	{
@@ -291,7 +291,7 @@ NSInteger			PointInLineSegment( const NSPoint inPoint, const NSPoint a, const NS
 	// returns 0 if <inPoint> falls within the region defined by the line segment a-b, -1 if it's beyond the point a, 1 if beyond b. The "region" is an
 	// infinite plane defined by all possible lines parallel to a-b.
 	
-	CGFloat mag = hypotf(( b.x - a.x ), ( b.y - a.y ));
+	CGFloat mag = hypot(( b.x - a.x ), ( b.y - a.y ));
 	
 	if( mag > 0.0 )
 	{
@@ -346,7 +346,7 @@ NSPoint		Interpolate( const NSPoint a, const NSPoint b, const CGFloat proportion
 
 CGFloat		LineLength( const NSPoint a, const NSPoint b )
 {
-	return hypotf( b.x - a.x, b.y - a.y );
+	return hypot( b.x - a.x, b.y - a.y );
 }
 
 
@@ -398,8 +398,8 @@ NSPoint		EndPoint( NSPoint origin, CGFloat angle, CGFloat length )
 	
 	NSPoint		ep;
 	
-	ep.x = origin.x + ( cosf( angle ) * length );
-	ep.y = origin.y + ( sinf( angle ) * length );
+	ep.x = origin.x + ( cos( angle ) * length );
+	ep.y = origin.y + ( sin( angle ) * length );
 	return ep;
 }
 
@@ -408,7 +408,7 @@ CGFloat		Slope( const NSPoint a, const NSPoint b )
 {
 	// returns the slope of a line given its end points, in radians
 	
-	return atan2f( b.y - a.y, b.x - a.x );
+	return atan2( b.y - a.y, b.x - a.x );
 }
 
 
@@ -663,7 +663,7 @@ NSAffineTransform*	RotationTransform( const CGFloat angle, const NSPoint cp )
 #pragma mark bezier curve utils
 
 static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] );
-static NSInteger			FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger depth );
+static NSInteger			FindRoots( NSPoint* w, NSInteger degree, CGFloat* t, NSInteger depth );
 static NSInteger			CrossingCount( NSPoint* v, NSInteger degree );
 static NSInteger			ControlPolygonFlatEnough( NSPoint* v, NSInteger degree );
 static double		ComputeXIntercept( NSPoint* v, NSInteger degree);
@@ -689,9 +689,9 @@ static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
     NSPoint			c[4];				// V(i)'s - P
     NSPoint			d[3];				// V(i+1) - V(i)
     NSPoint*		w;					// Ctl pts of 5th-degree curve
-    double			cdTable[3][4];		// Dot product of c, d
+    CGFloat			cdTable[3][4];		// Dot product of c, d
     
-	static double z[3][4] = {	/* Precomputed "z" for cubics	*/
+	static CGFloat z[3][4] = {	/* Precomputed "z" for cubics	*/
 	{1.0, 0.6, 0.3, 0.1},
 	{0.4, 0.6, 0.6, 0.4},
 	{0.1, 0.3, 0.6, 1.0},
@@ -760,12 +760,12 @@ static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
  *	all of the roots in the interval [0, 1].  Return the number
  *	of roots found.
  */
-static NSInteger FindRoots( NSPoint* w, NSInteger degree, double* t, NSInteger depth )
+static NSInteger FindRoots( NSPoint* w, NSInteger degree, CGFloat* t, NSInteger depth )
 {  
     NSInteger			i;
     NSPoint 	Left[6], Right[6];	// control polygons
     NSInteger			left_count,	 right_count;
-    double		left_t[6], right_t[6];
+    CGFloat		left_t[6], right_t[6];
 
     switch ( CrossingCount( w, degree ))
 	{
@@ -851,11 +851,11 @@ static NSInteger CrossingCount( NSPoint* v, NSInteger degree )
 static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 {
     NSInteger			i;					// Index variable
-    double*		distance;			// Distances from pts to line
-    double		max_distance_above;	// maximum of these
-    double		max_distance_below;
-    double		error;				// Precision of root
-    double		intercept_1,
+    CGFloat*		distance;			// Distances from pts to line
+    CGFloat		max_distance_above;	// maximum of these
+    CGFloat		max_distance_below;
+    CGFloat		error;				// Precision of root
+    CGFloat		intercept_1,
 				intercept_2,
 				left_intercept,
 				right_intercept;
@@ -865,8 +865,8 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
     /* Find the  perpendicular distance		*/
     /* from each interior control point to 	*/
     /* line connecting V[0] and V[degree]	*/
-    distance = (double*) malloc((NSUInteger)(degree + 1) * sizeof(double));
-	double	abSquared;
+    distance = (CGFloat*) malloc((NSUInteger)(degree + 1) * sizeof(CGFloat));
+	CGFloat	abSquared;
 
 	/* Derive the implicit equation for line connecting first */
     /*  and last control points */
@@ -907,8 +907,8 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
     }
     free((char *)distance);
 
-	double	det, dInv;
-	double	a1, b1, c1, a2, b2, c2;
+	CGFloat	det, dInv;
+	CGFloat	a1, b1, c1, a2, b2, c2;
 
 	/*  Implicit equation for zero line */
 	a1 = 0.0;
@@ -960,10 +960,10 @@ static NSInteger ControlPolygonFlatEnough( NSPoint* v, NSInteger degree )
 
 static double ComputeXIntercept( NSPoint* v, NSInteger degree)
 {
-    double	XLK, YLK, XNM, YNM, XMK, YMK;
-    double	det, detInv;
-    double	S;
-    double	X;
+    CGFloat	XLK, YLK, XNM, YNM, XMK, YMK;
+    CGFloat	det, detInv;
+    CGFloat	S;
+    CGFloat	X;
 
     XLK = 1.0;
     YLK = 0.0;

@@ -30,7 +30,7 @@
 ///
 ///********************************************************************************************************************
 
-+ (DKShapeCluster*)		clusterWithObjects:(NSArray*) objects masterObject:(DKDrawableShape*) master;
++ (DKShapeCluster*)		clusterWithObjects:(NSArray*) objects masterObject:(DKDrawableShape*) master
 {
 	DKShapeCluster* cluster = [[DKShapeCluster alloc] initWithObjectsInArray:objects];
 

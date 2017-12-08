@@ -169,7 +169,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 	BOOL			hadFirstPoint = NO, isStar = NO;
 	CGFloat			pa, lpa, tip, valley, halfPi;
 	
-	halfPi = pi * 0.5f;
+	halfPi = M_PI * 0.5f;
 	p = fp = pp = NSZeroPoint;
 	lpa = 0;
 	
@@ -209,27 +209,27 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 				{
 					if (( i & 1 ) == 0 )
 					{
-						cp1.x = pp.x + valley * cosf( lpa + halfPi );
-						cp1.y = pp.y + valley * sinf( lpa + halfPi );
+						cp1.x = pp.x + valley * cos( lpa + halfPi );
+						cp1.y = pp.y + valley * sin( lpa + halfPi );
 					
-						cp2.x = p.x + tip * cosf( pa - halfPi );
-						cp2.y = p.y + tip * sinf( pa - halfPi );
+						cp2.x = p.x + tip * cos( pa - halfPi );
+						cp2.y = p.y + tip * sin( pa - halfPi );
 					}
 					else
 					{
-						cp1.x = pp.x + tip * cosf( lpa + halfPi );
-						cp1.y = pp.y + tip * sinf( lpa + halfPi );
+						cp1.x = pp.x + tip * cos( lpa + halfPi );
+						cp1.y = pp.y + tip * sin( lpa + halfPi );
 					
-						cp2.x = p.x + valley * cosf( pa - halfPi );
-						cp2.y = p.y + valley * sinf( pa - halfPi );
+						cp2.x = p.x + valley * cos( pa - halfPi );
+						cp2.y = p.y + valley * sin( pa - halfPi );
 					}
 				}
 				else
 				{
-					cp1.x = pp.x + tip * cosf( lpa + halfPi );
-					cp1.y = pp.y + tip * sinf( lpa + halfPi );
-					cp2.x = p.x + tip * cosf( pa - halfPi );
-					cp2.y = p.y + tip * sinf( pa - halfPi );
+					cp1.x = pp.x + tip * cos( lpa + halfPi );
+					cp1.y = pp.y + tip * sin( lpa + halfPi );
+					cp2.x = p.x + tip * cos( pa - halfPi );
+					cp2.y = p.y + tip * sin( pa - halfPi );
 				}
 				
 				[path curveToPoint:p controlPoint1:cp1 controlPoint2:cp2];
@@ -254,12 +254,12 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 
 - (void)			movePart:(NSInteger) pc toPoint:(NSPoint) mp constrainAngle:(BOOL) constrain
 {
-	CGFloat rad = hypotf( mp.x - mCentre.x, mp.y - mCentre.y );
-	CGFloat angle = atan2f( mp.y - mCentre.y, mp.x - mCentre.x );
+	CGFloat rad = hypot( mp.x - mCentre.x, mp.y - mCentre.y );
+	CGFloat angle = atan2( mp.y - mCentre.y, mp.x - mCentre.x );
 	
 	if( constrain )
 	{
-		CGFloat rem = fmodf( angle, sAngleConstraint );
+		CGFloat rem = fmod( angle, sAngleConstraint );
 		
 		if ( rem > sAngleConstraint / 2.0 )
 			angle += ( sAngleConstraint - rem );
@@ -308,7 +308,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 	// return the instantaneous angle of the vertex for the given partcode
 	
 	NSPoint vp = [self pointForPartcode:pc];
-	return atan2f( vp.y - [self location].y, vp.x - [self location].x );
+	return atan2( vp.y - [self location].y, vp.x - [self location].x );
 }
 
 
@@ -608,7 +608,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 		default:
 		{
 			NSInteger i = pc - kDKRegularPolyFirstVertexPart;
-			angle = (( 2 * pi * i) / [self numberOfSides]) + [self angle];
+			angle = (( 2 * M_PI * i) / [self numberOfSides]) + [self angle];
 	
 			if(( mInnerRadius >= 0.0 ) && ( i & 1 ) == 1 )
 				radius *= [self innerRadius];
@@ -618,8 +618,8 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 	
 	NSPoint kp;
 	
-	kp.x = mCentre.x + ( cosf( angle ) * radius);
-	kp.y = mCentre.y + ( sinf( angle ) * radius);
+	kp.x = mCentre.x + ( cos( angle ) * radius);
+	kp.y = mCentre.y + ( sin( angle ) * radius);
 	
 	return kp;
 }
@@ -902,7 +902,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 	radSize = [aTransform transformSize:radSize];
 		
 	[self setLocation:loc];
-	[self setRadius:hypotf( radSize.width, radSize.height ) / _CGFloatSqrt(2.0f)];
+	[self setRadius:hypot( radSize.width, radSize.height ) / sqrt(2.0f)];
 	[self setAngle:[self angle] + [aGroup angle]];
 }
 

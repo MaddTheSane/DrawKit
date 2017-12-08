@@ -83,8 +83,8 @@ static const CGFloat sin60 = 0.8660254038;
 	NSBezierPath* linkPath = [self bezierPathWithStandardChainLink];
 	NSAffineTransform* tfm = [NSAffineTransform transform];
 	
-	CGFloat		slope = atan2f( b.y - a.y, b.x - a.x );
-	CGFloat		length = hypotf( b.x - a.x, b.y - a.y );
+	CGFloat		slope = atan2( b.y - a.y, b.x - a.x );
+	CGFloat		length = hypot( b.x - a.x, b.y - a.y );
 	
 	[tfm translateXBy:a.x yBy:a.y];
 	[tfm scaleXBy:length yBy:length];
@@ -101,9 +101,9 @@ static const CGFloat sin60 = 0.8660254038;
 	// returns a path representing a roller chain sprocket having the pitch and number of teeeth specified. The sprocket is centred at the
 	// origin and is sized as needed to accommodate the number of teeth required.
 	
-	CGFloat toothAngle = pi / teeth;
-	CGFloat radius = pitch / ( 2 * sinf( toothAngle ));
-	CGFloat rollerRadius = pitch / 3.6f;
+	CGFloat toothAngle = M_PI / teeth;
+	CGFloat radius = pitch / ( 2 * sin( toothAngle ));
+	CGFloat rollerRadius = pitch / 3.6;
 	CGFloat toothRadius = pitch - rollerRadius;
 	
 	// make one tooth then copy it around the circle
@@ -111,21 +111,21 @@ static const CGFloat sin60 = 0.8660254038;
 	NSPoint			rp1, rp2;
 	NSBezierPath*	tooth = [NSBezierPath bezierPath];
 	
-	rp1.x = radius * cosf( toothAngle );
-	rp1.y = radius * sinf( toothAngle );
-	rp2.x = radius * cosf( -toothAngle );
-	rp2.y = radius * sinf( -toothAngle );
+	rp1.x = radius * cos( toothAngle );
+	rp1.y = radius * sin( toothAngle );
+	rp2.x = radius * cos( -toothAngle );
+	rp2.y = radius * sin( -toothAngle );
 	
 	// tooth root follows roller radius
 
-	CGFloat taDegrees = ( toothAngle * 180.0 ) / pi;
+	CGFloat taDegrees = ( toothAngle * 180.0 ) / M_PI;
 	
 	[tooth appendBezierPathWithArcWithCenter:rp1 radius:rollerRadius startAngle:180 + taDegrees endAngle:270 clockwise:NO];
 	
 	// flank of tooth follows the larger radius until it reaches the halfway point. The x3 here stops it slightly short so that
 	// the top edge of the tooth is flattened off a little
 	
-	CGFloat endAngle = ( cosf( pitch / ( 3 * toothRadius )) * 180.0 ) / pi;
+	CGFloat endAngle = ( cos( pitch / ( 3 * toothRadius )) * 180.0 ) / M_PI;
 	
 	[tooth appendBezierPathWithArcWithCenter:rp2 radius:toothRadius startAngle:90 endAngle:endAngle clockwise:YES];
 	[tooth appendBezierPathWithArcWithCenter:rp1 radius:toothRadius startAngle:360 - endAngle endAngle:270 clockwise:YES];
@@ -167,14 +167,14 @@ static const CGFloat sin60 = 0.8660254038;
 	
 	NSPoint			p;
 	NSBezierPath*	path = [self bezierPath];
-	CGFloat			xIncrement = pitch * 0.5f;
+	CGFloat			xIncrement = pitch * 0.5;
 	CGFloat			yIncrement = pitch * sin60;
 	CGFloat			phase = -1;
 	
 	// draw the top side thread
 	
 	p.x = 0;
-	p.y = (dia * -0.5f) + (yIncrement * 0.5f);
+	p.y = (dia * -0.5) + (yIncrement * 0.5);
 	[path moveToPoint:p];
 	
 	while( p.x < ( length - xIncrement ))
@@ -182,7 +182,7 @@ static const CGFloat sin60 = 0.8660254038;
 		p.x += xIncrement;
 		p.y += (phase * yIncrement);
 		[path lineToPoint:p];
-		phase *= -1.0f;
+		phase *= -1.0;
 	}
 	
 	// length is rounded up to nearest whole multiple of pitch
@@ -203,7 +203,7 @@ static const CGFloat sin60 = 0.8660254038;
 		p.x -= xIncrement;
 		p.y += (phase * yIncrement);
 		[path lineToPoint:p];
-		phase *= -1.0f;
+		phase *= -1.0;
 	}
 	
 	if( options & kThreadedBarLeftEndCapped )
@@ -225,12 +225,12 @@ static const CGFloat sin60 = 0.8660254038;
 {
 	NSPoint			p, opp;
 	NSBezierPath*	path = [self bezierPath];
-	CGFloat			xIncrement = pitch * 0.5f;
+	CGFloat			xIncrement = pitch * 0.5;
 	CGFloat			yIncrement = pitch * sin60;
 	CGFloat			phase = -1;
 
 	p.x = 0;
-	p.y = (dia * -0.5f) + (yIncrement * 0.5f);
+	p.y = (dia * -0.5) + (yIncrement * 0.5);
 	[path moveToPoint:p];
 		
 	while ( p.x < ( length - xIncrement ))
@@ -262,7 +262,7 @@ static const CGFloat sin60 = 0.8660254038;
 	
 	CGFloat fh = dia / sin60;
 	
-	NSRect	br = NSMakeRect( 0, fh * -0.5f, height, fh );
+	NSRect	br = NSMakeRect( 0, fh * -0.5, height, fh );
 	NSBezierPath* path = [self bezierPathWithRect:br];
 	
 	// cross lines
@@ -270,13 +270,13 @@ static const CGFloat sin60 = 0.8660254038;
 	NSPoint a, b;
 	
 	a.x = 0;
-	a.y = b.y = dia / 4.0f;
+	a.y = b.y = dia / 4.0;
 	b.x = height;
 	
 	[path moveToPoint:a];
 	[path lineToPoint:b];
 	
-	a.y -= dia * 0.5f;
+	a.y -= dia * 0.5;
 	b.y = a.y;
 	
 	[path moveToPoint:a];

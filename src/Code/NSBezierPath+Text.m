@@ -503,14 +503,14 @@ static NSDictionary*	s_TOPTextAttributes = nil;
 				
 				baseline = NSHeight( gbr ) - [[lm typesetter] baselineOffsetInLayoutManager:lm glyphIndex:glyphIndex];
 				
-				viewLocation.x -= baseline * cosf( angle + NINETY_DEGREES );
-				viewLocation.y -= baseline * sinf( angle + NINETY_DEGREES );
+				viewLocation.x -= baseline * cos( angle + NINETY_DEGREES );
+				viewLocation.y -= baseline * sin( angle + NINETY_DEGREES );
 				
 				// view location needs to be projected back along the baseline tangent by half the character width to align
 				// the character based on the middle of the glyph instead of the left edge
 				
-				viewLocation.x -= half * cosf( angle );
-				viewLocation.y -= half * sinf( angle );
+				viewLocation.x -= half * cos( angle );
+				viewLocation.y -= half * sin( angle );
 				
 				// cache the glyph positioning information to avoid recalculation next time round
 				
@@ -1351,7 +1351,7 @@ static NSDictionary*	s_TOPTextAttributes = nil;
 		p = [self pointOnPathAtLength:distance slope:&slope];
 		
 		if( alt && (( count & 1 ) == 1 ))
-			slope += pi;
+			slope += M_PI;
 		
 		temp = [path copy];
 		
@@ -1467,8 +1467,8 @@ static NSDictionary*	s_TOPTextAttributes = nil;
 			// point to use will be in this general direction but ensure link length is correct:
 			
 			angle = atan2( p.y - prevLink.y, p.x - prevLink.x );
-			p.x = prevLink.x + ( cosf( angle ) * radius );
-			p.y = prevLink.y + ( sinf( angle ) * radius );
+			p.x = prevLink.x + ( cos( angle ) * radius );
+			p.y = prevLink.y + ( sin( angle ) * radius );
 			
 			placedObject = [object placeLinkFromPoint:prevLink toPoint:p onPath:self linkNumber:linkCount++ userInfo:userInfo];
 			
@@ -1587,7 +1587,7 @@ static NSDictionary*	s_TOPTextAttributes = nil;
 		shouldStop = YES;
 	}
 	else if ( loop )
-		distance = fmodf( distance, length );
+		distance = fmod( distance, length );
 	
 	// move the target object to the calculated point
 	

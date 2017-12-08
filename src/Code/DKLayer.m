@@ -1480,7 +1480,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (void)			mouseDragged:(NSEvent*) event inView:(NSView*) view;
+- (void)			mouseDragged:(NSEvent*) event inView:(NSView*) view
 {
 	#pragma unused(event)
 	#pragma unused(view)
@@ -1501,7 +1501,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (void)			mouseUp:(NSEvent*) event inView:(NSView*) view;
+- (void)			mouseUp:(NSEvent*) event inView:(NSView*) view
 {
 	#pragma unused(event)
 	#pragma unused(view)

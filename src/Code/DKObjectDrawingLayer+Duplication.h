@@ -10,23 +10,24 @@
 
 #import "DKObjectDrawingLayer.h"
 
+@class DKDrawableObject;
 
 @interface DKObjectDrawingLayer (Duplication)
 
-- (NSArray*)	polarDuplicate:(NSArray*) objectsToDuplicate
+- (NSArray<DKDrawableObject*>*)polarDuplicate:(NSArray<DKDrawableObject*>*) objectsToDuplicate
 				centre:(NSPoint) centre
 				numberOfCopies:(NSInteger) nCopies
 				incrementAngle:(CGFloat) incRadians
 				rotateCopies:(BOOL) rotCopies;
 				
-- (NSArray*)	linearDuplicate:(NSArray*) objectsToDuplicate
+- (NSArray<DKDrawableObject*>*)linearDuplicate:(NSArray<DKDrawableObject*>*) objectsToDuplicate
 				offset:(NSSize) offset
 				numberOfCopies:(NSInteger) nCopies;
 				
-- (NSArray*)	autoPolarDuplicate:(DKDrawableObject*) object
+- (NSArray<DKDrawableObject*>*)autoPolarDuplicate:(DKDrawableObject*) object
 				centre:(NSPoint) centre;
 				
-- (NSArray*)	concentricDuplicate:(NSArray*) objectsToDuplicate
+- (NSArray<DKDrawableObject*>*)concentricDuplicate:(NSArray<DKDrawableObject*>*) objectsToDuplicate
 				centre:(NSPoint) centre
 				numberOfCopies:(NSInteger) nCopies
 				insetBy:(CGFloat) inset;

@@ -54,7 +54,7 @@ static NSDictionary*				sTraceParams = nil;	// use default
 }
 
 
-+ (void)			setPreferredQuantizationMethod:(DKColourQuantizationMethod) qm;
++ (void)			setPreferredQuantizationMethod:(DKColourQuantizationMethod) qm
 {
 	sQuantizationMethod = qm;
 }

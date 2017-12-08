@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDrawableObject.m
-///  DrawKit ¬¨¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 11/08/2006.
 ///
@@ -2226,7 +2226,7 @@ static NSRect s_oldBounds;
 	if( angle < 0 )
 		angle += 360.0f;
 		
-	return fmodf(angle, 360.0f);
+	return fmod(angle, 360.0f);
 }
 
 

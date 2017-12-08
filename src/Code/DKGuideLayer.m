@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKGuideLayer.m
-///  DrawKit ¬¨¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 28/08/2006.
 ///
@@ -199,7 +199,7 @@ static BOOL		sWasInside = NO;
 	
 	while(( guide = [iter nextObject]))
 	{
-		distance = _CGFloatFabs(pos - [guide guidePosition]);
+		distance = fabs(pos - [guide guidePosition]);
 		
 		if( distance < [self snapTolerance] && distance < nearestDistance )
 		{
@@ -235,7 +235,7 @@ static BOOL		sWasInside = NO;
 	
 	while(( guide = [iter nextObject]))
 	{
-		distance = _CGFloatFabs(pos - [guide guidePosition]);
+		distance = fabs(pos - [guide guidePosition]);
 		
 		if( distance < [self snapTolerance] && distance < nearestDistance )
 		{

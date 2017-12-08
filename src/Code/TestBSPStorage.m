@@ -6,6 +6,7 @@
 //  Copyright 2009 Apptree.net. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "TestBSPStorage.h"
 
 
@@ -31,7 +32,7 @@
 
 static CGFloat randomFloat( CGFloat minVal, CGFloat maxVal )
 {
-	CGFloat rf = fmodf((CGFloat)random(), maxVal - minVal);
+	CGFloat rf = fmod((CGFloat)random(), maxVal - minVal);
 	
 	return minVal + rf;
 }

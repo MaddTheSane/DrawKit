@@ -475,8 +475,8 @@ static Class	s_textEditorClass = Nil;
 	else
 	{
 		ps.width -= ([[self printInfo] leftMargin] + [[self printInfo] rightMargin]);
-		pagesAcross = MAX( 1, _CGFloatFloor(ds.width / ps.width));
-		if ( fmodf( ds.width, ps.width ) > 2.0 )
+		pagesAcross = MAX( 1, floor(ds.width / ps.width));
+		if ( fmod( ds.width, ps.width ) > 2.0 )
 			++pagesAcross;
 	}
 	
@@ -490,8 +490,8 @@ static Class	s_textEditorClass = Nil;
 	else
 	{
 		ps.height -= ([[self printInfo] topMargin] + [[self printInfo] bottomMargin]);
-		pagesDown = MAX( 1, _CGFloatFloor(ds.height / ps.height));
-		if ( fmodf( ds.height, ps.height ) > 2.0 )
+		pagesDown = MAX( 1, floor(ds.height / ps.height));
+		if ( fmod( ds.height, ps.height ) > 2.0 )
 			++pagesDown;
 	}
 	

@@ -8,6 +8,7 @@
 ///
 ///**********************************************************************************************************************************
 
+#include <tgmath.h>
 #import "DKHatching.h"
 #import "DKDrawKitMacros.h"
 #import "DKStrokeDash.h"
@@ -100,7 +101,7 @@
 
 + (DKHatching*)		hatchingWithDotPitch:(CGFloat) pitch diameter:(CGFloat) diameter
 {
-	DKHatching* hatch = [self hatchingWithLineWidth:diameter spacing:pitch angle:pi * 0.25];
+	DKHatching* hatch = [self hatchingWithLineWidth:diameter spacing:pitch angle:M_PI * 0.25];
 	
 	CGFloat		dashPattern[2];
 	
@@ -560,7 +561,7 @@
 		
 		NSInteger i, m;
 		
-		m = _CGFloatLround(cr.size.width / [self spacing]) + 1;
+		m = lround(cr.size.width / [self spacing]) + 1;
 		NSPoint		a, b;
 		
 		a.y = NSMinY( cr );
@@ -652,7 +653,7 @@
 		
 		[self setLeadIn:0.0];
 		[self setSpacing:8.0];
-		[self setAngle:pi/4.0]; //45 degrees
+		[self setAngle:M_PI/4.0]; //45 degrees
 		[self setWidth:0.25];
 		
 		[self setLineCapStyle:NSButtLineCapStyle];

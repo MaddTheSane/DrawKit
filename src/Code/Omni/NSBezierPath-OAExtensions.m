@@ -1274,7 +1274,7 @@ static int compareFloat(const void *a_, const void *b_)
 
 // load and save
 
-- (NSMutableDictionary *)propertyListRepresentation;
+- (NSMutableDictionary *)propertyListRepresentation
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     NSMutableArray *segments = [NSMutableArray array];
@@ -1410,7 +1410,7 @@ static inline NSUInteger _threeBitsForPoint(NSPoint point)
     return ((NSUInteger)(bothAxes / pow(10.0, floor(log10(bothAxes))))) & 0x7;
 }
 
-- (NSUInteger)hash;
+- (NSUInteger)hash
 {
     NSUInteger hashValue = 0;
     NSUInteger elementIndex, elementCount = [self elementCount];

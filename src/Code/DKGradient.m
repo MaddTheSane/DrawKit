@@ -276,7 +276,7 @@ static inline void			resolveHSV(CGFloat *color1, CGFloat *color2);
 ///
 ///********************************************************************************************************************
 
-- (void)				removeColorStop:(DKColorStop*) stop;
+- (void)				removeColorStop:(DKColorStop*) stop
 {
 	if ([[self colorStops] containsObject:stop])
 	{
@@ -559,16 +559,16 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 	ep.x = NSMidX( pb );
 	ep.y = NSMidY( pb );
 	
-	//radius = hypotf( pb.size.width, pb.size.height ) / 3.0;
+	//radius = hypot( pb.size.width, pb.size.height ) / 3.0;
 	r1 = pb.size.width / 2.0;
 	r2 = pb.size.height / 2.0;
 	
 	if ( [self gradientType] == kDKGradientTypeLinear )
 	{
-		sp.x = ep.x - r1 * cosf([self angle]);
-		sp.y = ep.y - r2 * sinf([self angle]);
-		ep.x = ep.x + r1 * cosf([self angle]);
-		ep.y = ep.y + r2 * sinf([self angle]);
+		sp.x = ep.x - r1 * cos([self angle]);
+		sp.y = ep.y - r2 * sin([self angle]);
+		ep.x = ep.x + r1 * cos([self angle]);
+		ep.y = ep.y + r2 * sin([self angle]);
 	}
 	else if([self gradientType] == kDKGradientTypeRadial && m_extensionData != nil )
 	{
@@ -584,7 +584,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 		sp.x = ep.x + co.x;
 		sp.y = ep.y + co.y;
 		sr = 0.0;
-		er = hypotf( pb.size.width, pb.size.height ) / 3.0;
+		er = hypot( pb.size.width, pb.size.height ) / 3.0;
 	}	
 
 	[self fillPath:path startingAtPoint:sp startRadius:sr endingAtPoint:ep endRadius:er];
@@ -876,7 +876,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 ///
 ///********************************************************************************************************************
 
-- (CGShadingRef)				newRadialShaderForStartingPoint:(NSPoint) sp startRadius:(CGFloat) sr endPoint:(NSPoint) ep endRadius:(CGFloat) er;
+- (CGShadingRef)				newRadialShaderForStartingPoint:(NSPoint) sp startRadius:(CGFloat) sr endPoint:(NSPoint) ep endRadius:(CGFloat) er
 {
 	return CGShadingCreateRadial([DKGradient sharedGradientColorSpace], *(CGPoint*)&sp, sr, *(CGPoint*)&ep, er, m_cbfunc, YES, YES );
 }
@@ -1015,7 +1015,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 
 - (void)				setAngleInDegrees:(CGFloat) degrees
 {
-	[self setAngle:(degrees * pi)/180.0f];
+	[self setAngle:(degrees * M_PI)/180.0];
 }
 
 
@@ -1035,7 +1035,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 
 - (CGFloat)				angleInDegrees
 {
-	return fmodf(([self angle] * 180.0f )/ pi, 360.0 );
+	return fmod(([self angle] * 180.0 )/ M_PI, 360.0 );
 }
 
 
@@ -1244,7 +1244,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 ///
 ///********************************************************************************************************************
 
-- (NSImage*) standardSwatchImage;
+- (NSImage*) standardSwatchImage
 {
 	return [self swatchImageWithSize:DKGradientSwatchSize withBorder:YES];
 }
@@ -1516,7 +1516,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 ///
 ///********************************************************************************************************************
 
-- (id)					initWithColor:(NSColor*) Color at:(CGFloat) pos;
+- (id)					initWithColor:(NSColor*) Color at:(CGFloat) pos
 {
 	self = [super init];
 	if (self != nil)
@@ -1642,7 +1642,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 ///
 ///********************************************************************************************************************
 
-- (void)		setPosition:(CGFloat) pos;
+- (void)		setPosition:(CGFloat) pos
 {
 	[[self owner] colorStopWillChangePosition:self];
 	position = LIMIT( pos, 0.0, 1.0 );
@@ -1821,20 +1821,20 @@ static inline double		powerMap( double x, double y )
 static inline double		sineMap( double x, double y )
 {
 	if ( y < 0 )
-		return sin( x * pi / 2.0 + 3.0 * pi / 2.0 ) + 1.0;
+		return sin( x * M_PI / 2.0 + 3.0 * M_PI / 2.0 ) + 1.0;
 	else
-		return sin( x * pi / 2.0 );
+		return sin( x * M_PI / 2.0 );
 }
 
 
 static inline void			transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
 	CGFloat R, G, B;
-	CGFloat H = fmodf(components[0],359),	//map to [0,360)
+	CGFloat H = fmod(components[0],359),	//map to [0,360)
 		  S = components[1],
 		  V = components[2];
 	
-	NSInteger   Hi = (NSInteger)_CGFloatFloor(H/60.) % 6;
+	NSInteger   Hi = (NSInteger)floor(H/60.) % 6;
 	CGFloat f  = H/60-Hi,
 		  p  = V*(1-S),
 		  q  = V*(1-f*S),

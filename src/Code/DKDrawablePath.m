@@ -1,6 +1,6 @@
 //
 //  DKDrawablePath.m
-///  DrawKit ¬¨¬®¬¨¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 //
 //  Created by graham on 10/09/2006.
 ///
@@ -30,7 +30,7 @@ NSString*		kDKPathOnPathHitDetectionPriorityDefaultsKey = @"kDKPathOnPathHitDete
 
 #pragma mark Static Vars
 static CGFloat			sAngleConstraint = 0.261799387799;	// 15 degrees
-static NSColor*			sInfoWindowColour = nil;
+static NSColor*			sinoWindowColour = nil;
 
 
 @interface DKDrawablePath (Private)
@@ -41,6 +41,7 @@ static NSColor*			sInfoWindowColour = nil;
 
 #pragma mark -
 @implementation DKDrawablePath
+@synthesize pathCreationMode = m_editPathMode;
 #pragma mark As a DKDrawablePath
 
 ///*********************************************************************************************************************
@@ -104,8 +105,8 @@ static NSColor*			sInfoWindowColour = nil;
 + (void)				setInfoWindowBackgroundColour:(NSColor*) colour
 {
 	[colour retain];
-	[sInfoWindowColour release];
-	sInfoWindowColour = colour;
+	[sinoWindowColour release];
+	sinoWindowColour = colour;
 }
 
 
@@ -125,7 +126,7 @@ static NSColor*			sInfoWindowColour = nil;
 
 + (NSColor*)			infoWindowBackgroundColour
 {
-	return sInfoWindowColour;
+	return sinoWindowColour;
 }
 
 
@@ -617,7 +618,7 @@ static NSColor*			sInfoWindowColour = nil;
 	{
 		for( k = 0; k < 2; ++k )
 		{
-			dist = hypotf( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
+			dist = hypot( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
 			
 			if ( dist <= tol )
 			{
@@ -634,7 +635,7 @@ static NSColor*			sInfoWindowColour = nil;
 				k = ( k == 0 )? 1 : 0;
 				j = ( j == 0 )? 1 : 0;
 				
-				dist = hypotf( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
+				dist = hypot( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
 				
 				if ( dist <= tol )
 					result = kDKPathBothEndsJoined;
@@ -693,7 +694,7 @@ static NSColor*			sInfoWindowColour = nil;
 	{
 		for( k = 0; k < 2; ++k )
 		{
-			dist = hypotf( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
+			dist = hypot( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
 			
 			if ( dist <= tol )
 			{
@@ -750,7 +751,7 @@ static NSColor*			sInfoWindowColour = nil;
 				k = ( k == 0 )? 1 : 0;
 				j = ( j == 0 )? 1 : 0;
 				
-				dist = hypotf( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
+				dist = hypot( p2[j].x - p1[k].x, p2[j].y - p1[k].y );
 				
 				if ( dist <= tol )
 				{
@@ -883,48 +884,6 @@ static NSColor*			sInfoWindowColour = nil;
 #pragma mark -
 ///*********************************************************************************************************************
 ///
-/// method:			setPathEditingMode:
-/// scope:			public instance method
-/// overrides:		
-/// description:	sets the "mode" of operation for creating new path objects
-/// 
-/// parameters:		<editPathMode> a constant indicating how a new path should be constructed.
-/// result:			none
-///
-/// notes:			paths are created by tools usually so this will be rarely needed. Pass 0 for the defalt mode which
-///					is to edit an existing path (once created all paths are logically the same)
-///
-///********************************************************************************************************************
-
-- (void)				setPathCreationMode:(DKDrawablePathCreationMode) editPathMode
-{
-	m_editPathMode = editPathMode;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			pathEditingMode
-/// scope:			public instance method
-/// overrides:		
-/// description:	gets the "mode" of operation for creating new path objects
-/// 
-/// parameters:		none
-/// result:			the current editing/creation mode
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (DKDrawablePathCreationMode)	pathCreationMode
-{
-	return m_editPathMode;
-}
-
-
-#pragma mark -
-///*********************************************************************************************************************
-///
 /// method:			pathCreateLoop:
 /// scope:			private instance method
 /// overrides:		
@@ -945,7 +904,7 @@ static NSColor*			sInfoWindowColour = nil;
 	// on entry, the path shouldn't yet exist.
 
 	NSEvent*	theEvent;
-	NSInteger			mask = NSLeftMouseDownMask | NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask | NSKeyDownMask;
+	NSEventMask			mask = NSLeftMouseDownMask | NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask | NSKeyDownMask;
 	NSView*		view = [[self layer] currentView];
 	BOOL		loop = YES;
 	BOOL		first = YES;
@@ -1124,7 +1083,7 @@ finish:
 	// move, then click. Or click-drag-release.
 	
 	NSEvent*	theEvent;
-	NSInteger			mask = NSLeftMouseDownMask | NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask;
+	NSEventMask			mask = NSLeftMouseDownMask | NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask;
 	NSView*		view = [[self layer] currentView];
 	BOOL		loop = YES, constrain = NO;
 	NSInteger			element, partcode;
@@ -1156,17 +1115,17 @@ finish:
 		{
 			// slope of line is forced to be on 15 degree intervals
 			
-			CGFloat	angle = atan2f( p.y - ip.y, p.x - ip.x );
-			CGFloat	rem = fmodf( angle, sAngleConstraint );
-			CGFloat	radius = hypotf( p.x - ip.x, p.y - ip.y );
+			CGFloat	angle = atan2( p.y - ip.y, p.x - ip.x );
+			CGFloat	rem = fmod( angle, sAngleConstraint );
+			CGFloat	radius = hypot( p.x - ip.x, p.y - ip.y );
 		
 			if ( rem > sAngleConstraint / 2.0 )
 				angle += ( sAngleConstraint - rem );
 			else
 				angle -= rem;
 				
-			p.x = ip.x + ( radius * cosf( angle ));
-			p.y = ip.y + ( radius * sinf( angle ));
+			p.x = ip.x + ( radius * cos( angle ));
+			p.y = ip.y + ( radius * sin( angle ));
 		}
 		
 		switch ([theEvent type])
@@ -1239,7 +1198,7 @@ finish:
 	// creates a polygon or multi-segment line. Each click makes a new node, double-click or click in first point to finish.
 	
 	NSEvent*	theEvent;
-	NSInteger	mask = NSLeftMouseDownMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask | NSKeyDownMask;
+	NSEventMask	mask = NSLeftMouseDownMask | NSMouseMovedMask | NSPeriodicMask | NSScrollWheelMask | NSKeyDownMask;
 	NSView*		view = [[self layer] currentView];
 	BOOL		loop = YES, constrain = NO;
 	NSInteger	element, partcode;
@@ -1326,17 +1285,17 @@ finish:
 		{
 			// slope of line is forced to be on 15 degree intervals
 			
-			CGFloat	angle = atan2f( p.y - lp.y, p.x - lp.x );
-			CGFloat	rem = fmodf( angle, sAngleConstraint );
-			CGFloat	radius = hypotf( p.x - lp.x, p.y - lp.y );
+			CGFloat	angle = atan2( p.y - lp.y, p.x - lp.x );
+			CGFloat	rem = fmod( angle, sAngleConstraint );
+			CGFloat	radius = hypot( p.x - lp.x, p.y - lp.y );
 		
 			if ( rem > sAngleConstraint / 2.0 )
 				angle += ( sAngleConstraint - rem );
 			else
 				angle -= rem;
 				
-			p.x = lp.x + ( radius * cosf( angle ));
-			p.y = lp.y + ( radius * sinf( angle ));
+			p.x = lp.x + ( radius * cos( angle ));
+			p.y = lp.y + ( radius * sin( angle ));
 		}
 
 		switch ([theEvent type])
@@ -1543,19 +1502,19 @@ finish:
 		
 		if ( constrain )
 		{
-			// slope of line is forced to be on 15¬¨¬®‚Äö√†√ª intervals
+			// slope of line is forced to be on 15° intervals
 			
-			CGFloat	angle = atan2f( p.y - lp.y, p.x - lp.x );
-			CGFloat	rem = fmodf( angle, sAngleConstraint );
-			CGFloat	rad = hypotf( p.x - lp.x, p.y - lp.y );
+			CGFloat	angle = atan2( p.y - lp.y, p.x - lp.x );
+			CGFloat	rem = fmod( angle, sAngleConstraint );
+			CGFloat	rad = hypot( p.x - lp.x, p.y - lp.y );
 		
 			if ( rem > sAngleConstraint / 2.0 )
 				angle += ( sAngleConstraint - rem );
 			else
 				angle -= rem;
 				
-			p.x = lp.x + ( rad * cosf( angle ));
-			p.y = lp.y + ( rad * sinf( angle ));
+			p.x = lp.x + ( rad * cos( angle ));
+			p.y = lp.y + ( rad * sin( angle ));
 		}
 
 		switch ([theEvent type])
@@ -1567,8 +1526,8 @@ finish:
 					// set radius as the distance from this click to the centre, and the
 					// start angle based on the slope of this line
 					
-					radius = hypotf( p.x - centre.x, p.y - centre.y );
-					startAngle = ( atan2f( p.y - centre.y, p.x - centre.x ) * 180.0 ) / pi;
+					radius = hypot( p.x - centre.x, p.y - centre.y );
+					startAngle = ( atan2( p.y - centre.y, p.x - centre.x ) * 180.0 ) / M_PI;
 					++phase;	// now setting the arc
 				}
 				else
@@ -1582,7 +1541,7 @@ finish:
 				if ( phase == 0 )
 				{
 					[path setControlPoint:p forPartcode:partcode];
-					radius = hypotf( p.x - centre.x, p.y - centre.y );
+					radius = hypot( p.x - centre.x, p.y - centre.y );
 					
 					if([[self class] displaysSizeInfoWhenDragging])
 					{			
@@ -1595,7 +1554,7 @@ finish:
 				}
 				else if ( phase == 1 )
 				{
-					endAngle = ( atan2f( p.y - centre.y, p.x - centre.x ) * 180.0 ) / pi;
+					endAngle = ( atan2( p.y - centre.y, p.x - centre.x ) * 180.0 ) / M_PI;
 					
 					[self setStyle:savedStyle];
 					[path removeAllPoints];

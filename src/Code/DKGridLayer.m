@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKGridLayer.m
-///  DrawKit ¬©2005-2008 Apptree.net
+///  DrawKit ©2005-2008 Apptree.net
 ///
 ///  Created by graham on 12/08/2006.
 ///
@@ -722,7 +722,7 @@ static NSColor*		sMajorColour = nil;
 	CGFloat		newLeft, newTop, newRight, newBottom;
 	
 	CGFloat dim = paper.width - marg;
-	CGFloat rem = fmodf( dim, q );
+	CGFloat rem = fmod( dim, q );
 	
 	if( rem < 0.001 )
 		rem = 0;
@@ -732,7 +732,7 @@ static NSColor*		sMajorColour = nil;
 	
 	marg = [[self drawing] topMargin] + [[self drawing] bottomMargin];
 	dim = paper.height - marg;
-	rem = fmodf( dim, q );
+	rem = fmod( dim, q );
 
 	if( rem < 0.001 )
 		rem = 0;
@@ -916,14 +916,14 @@ static NSColor*		sMajorColour = nil;
 - (NSPoint)					nearestGridIntersectionToPoint:(NSPoint) p
 {
 	CGFloat		dd = [self divisionDistance];
-	CGFloat		rem = fmodf( p.x - [[self drawing] leftMargin], dd );
+	CGFloat		rem = fmod( p.x - [[self drawing] leftMargin], dd );
 	
 	if ( rem > dd * 0.5f )
 		p.x += ( dd - rem );
 	else
 		p.x -= rem;
 	
-	rem = fmodf( p.y - [[self drawing] topMargin], dd );
+	rem = fmod( p.y - [[self drawing] topMargin], dd );
 	
 	if ( rem > dd * 0.5f )
 		p.y += ( dd - rem );
@@ -960,7 +960,7 @@ static NSColor*		sMajorColour = nil;
 	else
 	{
 		divs = [self divisionDistance];
-		rem = fmodf( size.width, divs );
+		rem = fmod( size.width, divs );
 		if ( rem > divs / 2.0 )
 			size.width += ( divs - rem );
 		else
@@ -971,7 +971,7 @@ static NSColor*		sMajorColour = nil;
 		size.height = interior.size.height;
 	else
 	{
-		rem = fmodf( size.height, divs );
+		rem = fmod( size.height, divs );
 		if ( rem > divs / 2.0 )
 			size.height += ( divs - rem );
 		else
@@ -1008,7 +1008,7 @@ static NSColor*		sMajorColour = nil;
 	else
 	{
 		divs = [self spanDistance];
-		rem = fmodf( size.width, divs );
+		rem = fmod( size.width, divs );
 		if ( rem > divs / 2.0 )
 			size.width += ( divs - rem );
 		else
@@ -1020,7 +1020,7 @@ static NSColor*		sMajorColour = nil;
 	else
 	{
 		divs = [self spanDistance];
-		rem = fmodf( size.height, divs );
+		rem = fmod( size.height, divs );
 		if ( rem > divs / 2.0 )
 			size.height += ( divs - rem );
 		else

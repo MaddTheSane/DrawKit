@@ -564,7 +564,7 @@
 		BFBFD3C20D9B607600680E6B /* NSMutableArray+DKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+DKAdditions.m"; sourceTree = "<group>"; };
 		BFC243570BAA499C00A1AA0F /* DKCIFilterRastGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCIFilterRastGroup.h; sourceTree = "<group>"; };
 		BFC243580BAA499C00A1AA0F /* DKCIFilterRastGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCIFilterRastGroup.m; sourceTree = "<group>"; };
-		BFC2439D0BAA51AC00A1AA0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BFC2439D0BAA51AC00A1AA0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BFC5842B0F1EB2B5005512CD /* DKBSPDirectObjectStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBSPDirectObjectStorage.h; sourceTree = "<group>"; };
 		BFC5842C0F1EB2B5005512CD /* DKBSPDirectObjectStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBSPDirectObjectStorage.m; sourceTree = "<group>"; };
 		BFC804320FAFD5DF00705ADB /* DKUnarchivingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUnarchivingHelper.h; sourceTree = "<group>"; };
@@ -1742,7 +1742,6 @@
 				NSZombieEnabled = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apptree.drawkit;
 				PRODUCT_NAME = GCDrawKit;
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1766,7 +1765,6 @@
 				INFOPLIST_FILE = DrawKitInfo.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apptree.drawkit;
 				PRODUCT_NAME = GCDrawKit;
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -1821,9 +1819,9 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wcast-align",
@@ -1889,8 +1887,8 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wcast-align",
@@ -1925,7 +1923,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1945,7 +1942,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};

@@ -129,7 +129,7 @@
 		
 		cp.x *= 1.5;
 		cp.y *= 1.5;
-		twopi = 2 * pi;
+		twopi = 2 * M_PI;
 		
 		unsigned long* p = (unsigned long*) buffer;
 		
@@ -139,7 +139,7 @@
 			{
 				// need to know angle of x,y relative to centre point which gives us an index into the colour table
 				
-				angle = atan2f((CGFloat) y - cp.y, (CGFloat) x - cp.x ) + pi;
+				angle = atan2((CGFloat) y - cp.y, (CGFloat) x - cp.x ) + M_PI;
 				colour = (NSUInteger)(( angle * (CGFloat) nColours ) / twopi );
 				
 				// add a bit of random dither to the colour

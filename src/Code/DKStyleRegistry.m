@@ -804,7 +804,7 @@ static BOOL				s_NoDKDefaults = NO;
 ///
 ///********************************************************************************************************************
 
-+ (void)					setShouldNotAddDKDefaultCategory:(BOOL) noDKDefaults;
++ (void)					setShouldNotAddDKDefaultCategory:(BOOL) noDKDefaults
 {
 	s_NoDKDefaults = noDKDefaults;
 }

@@ -187,7 +187,7 @@
 					ra = [[mMotifAngleRandCache objectAtIndex:mPlacementCount] floatValue];
 				else
 				{
-					ra = [DKRandom randomPositiveOrNegativeNumber] * 2.0 * pi * [self motifAngleRandomness];
+					ra = [DKRandom randomPositiveOrNegativeNumber] * 2.0 * M_PI * [self motifAngleRandomness];
 					[mMotifAngleRandCache addObject:[NSNumber numberWithFloat:ra]];
 				}
 				tempAngle = mangle;
