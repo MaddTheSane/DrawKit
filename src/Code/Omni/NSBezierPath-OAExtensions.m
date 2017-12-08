@@ -1193,7 +1193,7 @@ static double subpathElementLength( subpathWalkingState *iter, double errorBudge
     return cursor.currentElt;
 }
 
-static NSInteger compareFloat(const void *a_, const void *b_)
+static int compareFloat(const void *a_, const void *b_)
 {
     CGFloat a = *(const CGFloat *)a_;
     CGFloat b = *(const CGFloat *)b_;
@@ -1507,10 +1507,11 @@ static inline void combinePDranges(double *r, double *len, double r1, double r1l
 {
     double newP, newDL, newDR;
     
-    if (r1 <= r2)
-        newP = r1, newDL = r1len, newDR = r2len + (r2 - newP);
-    else
-        newP = r2, newDL = r2len, newDR = r1len + (r1 - newP);
+	if (r1 <= r2) {
+		newP = r1; newDL = r1len; newDR = r2len + (r2 - newP);
+	} else {
+		newP = r2; newDL = r2len; newDR = r1len + (r1 - newP);
+	}
     
     *r = newP;
     *len = MAX(newDL, newDR);
@@ -1520,10 +1521,11 @@ static inline void combineNDranges(double *r, double *len, double r1, double r1l
 {
     double newP, newDL, newDR;
     
-    if (r1 >= r2)
-        newP = r1, newDL = r1len, newDR = r2len + (r2 - newP);
-    else
-        newP = r2, newDL = r2len, newDR = r1len + (r1 - newP);
+	if (r1 >= r2) {
+		newP = r1; newDL = r1len; newDR = r2len + (r2 - newP);
+	} else {
+		newP = r2; newDL = r2len; newDR = r1len + (r1 - newP);
+	}
     
     *r = newP;
     *len = MIN(newDL, newDR);
@@ -1888,9 +1890,10 @@ NSInteger intersectionsBetweenCurveAndLine(const NSPoint *c, const NSPoint *a, s
     
     // Transform the problem so that the line segment goes from (0,0) to (1,0)
     // (this simplifies the math, and gets rid of the troublesome horizontal / vertical cases)
-    xcubic[0] = c[0].x - a[0].x, ycubic[0] = c[0].y - a[0].y;
-    for(i = 1; i < 4; i++)
-        xcubic[i] = c[i].x, ycubic[i] = c[i].y;
+	xcubic[0] = c[0].x - a[0].x; ycubic[0] = c[0].y - a[0].y;
+	for(i = 1; i < 4; i++) {
+		xcubic[i] = c[i].x; ycubic[i] = c[i].y;
+	}
     double lineLengthSquared = a[1].x*a[1].x + a[1].y*a[1].y;
     if (lineLengthSquared < EPSILON*EPSILON) {
         return 0;

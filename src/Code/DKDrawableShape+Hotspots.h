@@ -14,13 +14,12 @@
 @class DKHotspot;
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKHotspotState)
 {
 	kDKHotspotStateOff			= 0,
 	kDKHotspotStateOn			= 1,
 	kDKHotspotStateDisabled		= 2
-}
-DKHotspotState;
+};
 
 
 @interface DKDrawableShape (Hotspots)

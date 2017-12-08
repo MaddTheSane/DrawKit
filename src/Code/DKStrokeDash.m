@@ -1,6 +1,6 @@
 //
 //  DKStrokeDash.m
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 //
 //  Created by graham on 10/09/2006.
 ///
@@ -117,7 +117,7 @@ static NSUInteger euclid_hcf( NSUInteger a, NSUInteger b )
 #pragma mark -
 - (id)			initWithPattern:(CGFloat[]) dashes count:(NSInteger) count
 {
-	NSAssert(sizeof(dashes) <= 8 * sizeof(CGFloat), @"Expected dashes to be no more than 8 floats");
+	//NSAssert(sizeof(dashes) <= 8 * sizeof(CGFloat), @"Expected dashes to be no more than 8 floats");
 	self = [super init];
 	if (self != nil)
 	{

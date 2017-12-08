@@ -9,22 +9,20 @@
 #import <Cocoa/Cocoa.h>
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKRouteAlgorithmType)
 {
 	kDKUseSimulatedAnnealing		= 1,
 	kDKUseNearestNeighbour			= 2
-}
-DKRouteAlgorithmType;
+};
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKDirection)
 {
 	kDirectionEast					= 0,
 	kDirectionSouth					= 1,
 	kDirectionWest					= 2,
 	kDirectionNorth					= 3,
 	kDirectionAny					= -1
-}
-DKDirection;
+};
 
 
 @interface DKRouteFinder : NSObject

@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDrawableShape.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 13/08/2006.
 ///
@@ -15,17 +15,16 @@
 
 // edit operation constants tell the shape what info to display in the floater
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKShapeEditOperation)
 {
 	kDKShapeOperationResize		= 0,
 	kDKShapeOperationMove		= 1,
 	kDKShapeOperationRotate		= 2
-}
-DKShapeEditOperation;
+};
 
 
 
-@interface DKDrawableShape : DKDrawableObject <NSCoding, NSCopying>
+@interface DKDrawableShape : DKDrawableObject <NSCoding, NSCopying, NSDraggingDestination>
 {
 @private
 	NSBezierPath*			m_path;					// shape's path stored in canonical form (origin centred and with unit size)

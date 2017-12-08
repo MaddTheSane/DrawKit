@@ -251,7 +251,7 @@
 		return [stroke lineJoinStyle];
 	}
 	else
-		return NSButtLineCapStyle;
+		return NSMiterLineJoinStyle;
 }
 
 

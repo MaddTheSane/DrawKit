@@ -16,12 +16,11 @@
 @class DKShapeGroup;
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKVectorizingMethod)
 {
 	kDKVectorizeGrayscale	= 0,
 	kDKVectorizeColour		= 1
-}
-DKVectorizingMethod;
+};
 
 // this category implements very high-level vectorizing operations on an image shape. At its simplest,
 // it vectorizes the image using the default settings and replaces the image object by a group containing the

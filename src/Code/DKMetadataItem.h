@@ -12,7 +12,7 @@
 // data types storable by a DKMetadataItem
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKMetadataType)
 {
 	DKMetadataTypeUnknown			= -2,
 	DKMetadataMultipleTypesMarker	= -1,
@@ -31,8 +31,7 @@ typedef enum
 	DKMetadataTypeSize				= 12,
 	DKMetadataTypePoint				= 13,
 	DKMetadataTypeRect				= 14
-}
-DKMetadataType;
+};
 
 
 @interface DKMetadataItem : NSObject <NSCoding, NSCopying>
@@ -116,7 +115,7 @@ DKMetadataType;
 - (NSString*)			stringValue;
 - (NSAttributedString*)	attributedStringValue;
 - (NSInteger)			intValue;
-- (CGFloat)				floatValue;
+- (float)				floatValue;
 - (BOOL)				boolValue;
 - (NSColor*)			colourValue;
 - (NSSize)				sizeValue;

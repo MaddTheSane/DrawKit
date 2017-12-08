@@ -1192,7 +1192,7 @@ static NSString*	sDefault_string = @"Double-click to edit this text";
 	if( [pb addTypes:[NSArray arrayWithObjects:NSRTFPboardType, NSStringPboardType, nil] owner:self])
 	{
 		NSRange range = NSMakeRange( 0, [[self text] length]);
-		NSData* rtfData = [[self text] RTFFromRange:range documentAttributes:nil];
+		NSData* rtfData = [[self text] RTFFromRange:range documentAttributes:@{}];
 		
 		[pb setData:rtfData forType:NSRTFPboardType];
 		[pb setString:[self string] forType:NSStringPboardType];

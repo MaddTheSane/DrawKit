@@ -20,7 +20,7 @@
 
 - (NSString*)	address
 {
-	return [NSString stringWithFormat:@"0x%X", self];
+	return [NSString stringWithFormat:@"%p", self];
 }
 
 @end

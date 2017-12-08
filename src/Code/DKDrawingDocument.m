@@ -21,6 +21,10 @@
 #import "DKDrawingInfoLayer.h"
 #import "LogEvent.h"
 
+@interface DKDrawingDocument () <DKStyleRegistryDelegate>
+
+@end
+
 
 @interface DKSelectorWrapper : NSObject
 {

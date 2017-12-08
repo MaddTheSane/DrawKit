@@ -17,13 +17,12 @@
 
 // this type is used to set the scope of tools within a DK application:
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKDrawingToolScope)
 {
 	kDKToolScopeLocalToView		= 0,		// tools can be individually set per view
 	kDKToolScopeLocalToDocument	= 1,		// tools are set individually for the document, the same tool in all views of that document (default)
 	kDKToolScopeGlobal			= 2			// tools are set globally for the whole application
-}
-DKDrawingToolScope;
+};
 
 
 // controller class:

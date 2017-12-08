@@ -13,23 +13,24 @@
 
 // menu creation options:
 
-typedef enum
+typedef NS_OPTIONS(NSUInteger, DKCategoryMenuOptions)
 {
 	kDKIncludeRecentlyAddedItems	= ( 1 << 0 ),
 	kDKIncludeRecentlyUsedItems		= ( 1 << 1 ),
 	kDKIncludeAllItems				= ( 1 << 2 ),
 	kDKDontAddDividingLine			= ( 1 << 3 ),
 	kDKMenuIsPopUpMenu				= ( 1 << 4 )
-}
-DKCategoryMenuOptions;
+};
 
-typedef enum
+typedef NS_ENUM(NSUInteger, DKCatManagerMergeOptions)
 {
-	kDKReplaceExisting				= ( 1 << 1 ),		// objects passed in replace those with the same key (doc -> reg)
-	kDKReturnExisting				= ( 1 << 2 ),		// objects in reg with the same keys are returned (reg -> doc)
-	kDKAddAsNewVersions				= ( 1 << 3 )		// objects with the same keys are copied and registered again (reg || doc)
-}
-DKCatManagerMergeOptions;
+	//! objects passed in replace those with the same key (doc -> reg)
+	kDKReplaceExisting				= ( 1 << 1 ),
+	//! objects in reg with the same keys are returned (reg -> doc)
+	kDKReturnExisting				= ( 1 << 2 ),
+	//! objects with the same keys are copied and registered again (reg || doc)
+	kDKAddAsNewVersions				= ( 1 << 3 )
+};
 
 
 // the class
@@ -47,18 +48,17 @@ DKCatManagerMergeOptions;
 	BOOL					mRecentlyAddedEnabled;
 }
 
-+ (DKCategoryManager*)	categoryManager;
-+ (DKCategoryManager*)	categoryManagerWithDictionary:(NSDictionary*) dict;
++ (instancetype)		categoryManager;
++ (instancetype)		categoryManagerWithDictionary:(NSDictionary*) dict;
 + (NSArray*)			defaultCategories;
 + (NSString*)			categoryManagerKeyForObject:(id) obj;
 
-+ (id)					dearchivingHelper;
-+ (void)				setDearchivingHelper:(id) helper;
+@property (class, retain) id dearchivingHelper;
 
 // initialization
 
-- (id)					initWithData:(NSData*) data;
-- (id)					initWithDictionary:(NSDictionary*) dict;
+- (instancetype)		initWithData:(NSData*) data;
+- (instancetype)		initWithDictionary:(NSDictionary*) dict;
 
 // adding and retrieving objects
 

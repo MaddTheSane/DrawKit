@@ -15,15 +15,14 @@
 
 // possible values for the quantization method (not all implemented)
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKColourQuantizationMethod)
 {
 	kDKColourQuantizeUniform	= 0,		// implemented, very basic results but fast
 	kDKColourQuantizePopular555	= 1,
 	kDKColourQuantizePopular444	= 2,
 	kDKColourQuantizeOctree		= 3,		// implemented, fairly good results and fast
 	kDKColourQuantizeMedianCut	= 4
-}
-DKColourQuantizationMethod;
+};
 
 
 // category on NSImage returns lists of 'vector rep' objects (see below)

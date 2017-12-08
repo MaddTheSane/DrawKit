@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDistortionTransform.m
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 27/10/2006.
 ///
@@ -136,7 +136,7 @@ static NSPoint	Map( NSPoint inPoint, NSSize sourceSize, NSPoint quad[4])
 
 
 #pragma mark -
-- (void)			offsetByX:(float) dx byY:(float) dy
+- (void)			offsetByX:(CGFloat) dx byY:(CGFloat) dy
 {
 	m_q[0].x += dx;
 	m_q[1].x += dx;
@@ -149,7 +149,7 @@ static NSPoint	Map( NSPoint inPoint, NSSize sourceSize, NSPoint quad[4])
 }
 
 
-- (void)			shearHorizontallyBy:(float) dx
+- (void)			shearHorizontallyBy:(CGFloat) dx
 {
 	m_q[0].x += dx;
 	m_q[1].x += dx;
@@ -158,7 +158,7 @@ static NSPoint	Map( NSPoint inPoint, NSSize sourceSize, NSPoint quad[4])
 }
 
 
-- (void)			shearVerticallyBy:(float) dy
+- (void)			shearVerticallyBy:(CGFloat) dy
 {
 	m_q[0].y -= dy;
 	m_q[3].y -= dy;
@@ -167,7 +167,7 @@ static NSPoint	Map( NSPoint inPoint, NSSize sourceSize, NSPoint quad[4])
 }
 
 
-- (void)			differentialPerspectiveBy:(float) delta
+- (void)			differentialPerspectiveBy:(CGFloat) delta
 {
 	m_q[0].y += delta;
 	m_q[1].y -= delta;

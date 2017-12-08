@@ -167,7 +167,7 @@ NSString*	kDKImageDataManagerPasteboardType = @"net.apptree.drawkit.imgdatamgrty
 }
 
 
-- (NSImage*)		makeImageWithContentsOfURL:(NSURL*) url key:(NSString**) key;
+- (NSImage*)		makeImageWithContentsOfURL:(NSURL*) url key:(NSString**) key
 {
 	// read the data from the URL and proceed as for the data case
 	

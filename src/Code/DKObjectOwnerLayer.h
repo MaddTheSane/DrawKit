@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKObjectOwnerLayer.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 21/11/2006.
 ///
@@ -16,19 +16,18 @@
 
 // caching options
 
-typedef enum
+typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 {
 	kDKLayerCacheNone			= 0,				// no caching
 	kDKLayerCacheUsingPDF		= ( 1 << 0 ),		// layer is cached in a PDF Image Rep
 	kDKLayerCacheUsingCGLayer	= ( 1 << 1 ),		// layer is cached in a CGLayer bitmap
 	kDKLayerCacheObjectOutlines = ( 1 << 2 )		// objects are drawn using a simple outline stroke only
-}
-DKLayerCacheOption;
+};
 
 // the class
 
 
-@interface DKObjectOwnerLayer : DKLayer <NSCoding, DKDrawableContainer>
+@interface DKObjectOwnerLayer : DKLayer <NSCoding, DKDrawableContainer, NSDraggingDestination>
 {
 @private
 	id<DKObjectStorage>		mStorage;				// the object storage
@@ -46,17 +45,13 @@ DKLayerCacheOption;
 @protected
 	BOOL					mShowStorageDebugging;	// if YES, draws the debugging path for the storage on top (debugging feature only)
 }
-
-+ (void)				setDefaultLayerCacheOption:(DKLayerCacheOption) option;
-+ (DKLayerCacheOption)	defaultLayerCacheOption;
+@property (class) DKLayerCacheOption defaultLayerCacheOption;
 
 // setting the storage (n.b. storage is set by default, this is an advanced feature that you can ignore 99% of the time):
 
-+ (void)				setStorageClass:(Class) aClass;
-+ (Class)				storageClass;
+@property (class) Class storageClass;
 
-- (void)				setStorage:(id<DKObjectStorage>) storage;
-- (id<DKObjectStorage>) storage;
+@property (retain) id <DKObjectStorage>storage;
 
 // as a container for a DKDrawableObject:
 
@@ -64,27 +59,26 @@ DKLayerCacheOption;
 
 // the list of objects:
 
-- (void)				setObjects:(NSArray*) objs;				// KVC/KVO compliant
-- (NSArray*)			objects;								// KVC/KVO compliant
-- (NSArray*)			availableObjects;
-- (NSArray*)			availableObjectsInRect:(NSRect) aRect;
-- (NSArray*)			availableObjectsOfClass:(Class) aClass;
+@property (copy) NSArray<DKDrawableObject*> *objects; // KVC/KVO compliant
+- (NSArray<DKDrawableObject*>*)			availableObjects;
+- (NSArray<DKDrawableObject*>*)			availableObjectsInRect:(NSRect) aRect;
+- (NSArray<DKDrawableObject*>*)			availableObjectsOfClass:(Class) aClass;
 
-- (NSArray*)			visibleObjects;
-- (NSArray*)			visibleObjectsInRect:(NSRect) aRect;
-- (NSArray*)			objectsWithStyle:(DKStyle*) style;
-- (NSArray*)			objectsReturning:(NSInteger) answer toSelector:(SEL) selector;
+- (NSArray<DKDrawableObject*>*)			visibleObjects;
+- (NSArray<DKDrawableObject*>*)			visibleObjectsInRect:(NSRect) aRect;
+- (NSArray<DKDrawableObject*>*)			objectsWithStyle:(DKStyle*) style;
+- (NSArray<DKDrawableObject*>*)			objectsReturning:(NSInteger) answer toSelector:(SEL) selector;
 
 // getting objects:
 
-- (NSUInteger)			countOfObjects;							// KVC/KVO compliant
+@property (readonly) NSUInteger countOfObjects;							// KVC/KVO compliant
 - (DKDrawableObject*)	objectInObjectsAtIndex:(NSUInteger) indx;	// KVC/KVO compliant
 - (DKDrawableObject*)	topObject;
 - (DKDrawableObject*)	bottomObject;
 - (NSUInteger)			indexOfObject:(DKDrawableObject*) obj;
 
-- (NSArray*)			objectsAtIndexes:(NSIndexSet*) set;		// KVC/KVO compliant
-- (NSIndexSet*)			indexesOfObjectsInArray:(NSArray*) objs;
+- (NSArray<DKDrawableObject*>*)			objectsAtIndexes:(NSIndexSet*) set;		// KVC/KVO compliant
+- (NSIndexSet*)			indexesOfObjectsInArray:(NSArray<DKDrawableObject*>*) objs;
 
 // adding and removing objects:
 // note that the 'objects' property is fully KVC/KVO compliant because where necessary all methods call some directly KVC/KVO compliant method internally.
@@ -94,28 +88,28 @@ DKLayerCacheOption;
 - (void)				insertObject:(DKDrawableObject*) obj inObjectsAtIndex:(NSUInteger) indx;				// KVC/KVO compliant
 - (void)				removeObjectFromObjectsAtIndex:(NSUInteger) indx;										// KVC/KVO compliant
 - (void)				replaceObjectInObjectsAtIndex:(NSUInteger) indx withObject:(DKDrawableObject*) obj;	// KVC/KVO compliant
-- (void)				insertObjects:(NSArray*) objs atIndexes:(NSIndexSet*) set;							// KVC/KVO compliant
+- (void)				insertObjects:(NSArray<DKDrawableObject*>*) objs atIndexes:(NSIndexSet*) set;							// KVC/KVO compliant
 - (void)				removeObjectsAtIndexes:(NSIndexSet*) set;											// KVC/KVO compliant
 
 // general purpose adding/removal (call through to KVC/KVO methods as necessary, but can't be observed directly)
 
 - (void)				addObject:(DKDrawableObject*) obj;
 - (void)				addObject:(DKDrawableObject*) obj atIndex:(NSUInteger) index;
-- (void)				addObjectsFromArray:(NSArray*) objs;
-- (BOOL)				addObjectsFromArray:(NSArray*) objs relativeToPoint:(NSPoint) origin pinToInterior:(BOOL) pin;
-- (BOOL)				addObjectsFromArray:(NSArray*) objs bounds:(NSRect) bounds relativeToPoint:(NSPoint) origin pinToInterior:(BOOL) pin;
+- (void)				addObjectsFromArray:(NSArray<DKDrawableObject*>*) objs;
+- (BOOL)				addObjectsFromArray:(NSArray<DKDrawableObject*>*) objs relativeToPoint:(NSPoint) origin pinToInterior:(BOOL) pin;
+- (BOOL)				addObjectsFromArray:(NSArray<DKDrawableObject*>*) objs bounds:(NSRect) bounds relativeToPoint:(NSPoint) origin pinToInterior:(BOOL) pin;
 
 - (void)				removeObject:(DKDrawableObject*) obj;
 - (void)				removeObjectAtIndex:(NSUInteger) indx;
-- (void)				removeObjectsInArray:(NSArray*) objs;
+- (void)				removeObjectsInArray:(NSArray<DKDrawableObject*>*) objs;
 - (void)				removeAllObjects;
 
 // enumerating objects (typically for drawing)
 
 - (NSEnumerator*)		objectEnumeratorForUpdateRect:(NSRect) rect inView:(NSView*) aView;
 - (NSEnumerator*)		objectEnumeratorForUpdateRect:(NSRect) rect inView:(NSView*) aView options:(DKObjectStorageOptions) options;
-- (NSArray*)			objectsForUpdateRect:(NSRect) rect inView:(NSView*) aView;
-- (NSArray*)			objectsForUpdateRect:(NSRect) rect inView:(NSView*) aView options:(DKObjectStorageOptions) options;
+- (NSArray<DKDrawableObject*>*)			objectsForUpdateRect:(NSRect) rect inView:(NSView*) aView;
+- (NSArray<DKDrawableObject*>*)			objectsForUpdateRect:(NSRect) rect inView:(NSView*) aView options:(DKObjectStorageOptions) options;
 
 // updating & drawing objects:
 
@@ -151,19 +145,16 @@ DKLayerCacheOption;
 // restacking multiple objects:
 
 - (void)				moveObjectsAtIndexes:(NSIndexSet*) set toIndex:(NSUInteger) indx;
-- (void)				moveObjectsInArray:(NSArray*) objs toIndex:(NSUInteger) indx;
+- (void)				moveObjectsInArray:(NSArray<DKDrawableObject*>*) objs toIndex:(NSUInteger) indx;
 
 // clipboard ops:
 
 - (void)				addObjects:(NSArray*) objects fromPasteboard:(NSPasteboard*) pb atDropLocation:(NSPoint) p;
 - (BOOL)				updatePasteCountWithPasteboard:(NSPasteboard*) pb;
-- (BOOL)				isRecordingPasteOffset;
-- (void)				setRecordingPasteOffset:(BOOL) record;
+@property (getter=isRecordingPasteOffset) BOOL recordingPasteOffset;
 - (NSInteger)			pasteCount;
-- (NSPoint)				pasteOrigin;
-- (void)				setPasteOrigin:(NSPoint) po;
-- (NSSize)				pasteOffset;
-- (void)				setPasteOffset:(NSSize) offset;
+@property NSPoint pasteOrigin;
+@property NSSize pasteOffset;
 - (void)				setPasteOffsetX:(CGFloat) x y:(CGFloat) y;
 - (void)				objects:(NSArray*) objects wereDraggedFromPoint:(NSPoint) startPt toPoint:(NSPoint) endPt;
 
@@ -181,16 +172,13 @@ DKLayerCacheOption;
 
 // options:
 
-- (void)				setAllowsEditing:(BOOL) editable;
-- (BOOL)				allowsEditing;
-- (void)				setAllowsSnapToObjects:(BOOL) snap;
-- (BOOL)				allowsSnapToObjects;
+@property BOOL allowsEditing;
+@property BOOL allowsSnapToObjects;
 
 - (void)				setLayerCacheOption:(DKLayerCacheOption) option;
 - (DKLayerCacheOption)	layerCacheOption;
 
-- (BOOL)				isHighlightedForDrag;
-- (void)				setHighlightedForDrag:(BOOL) highlight;
+@property (getter=isHighlightedForDrag) BOOL highlightedForDrag;
 - (void)				drawHighlightingForDrag;
 
 

@@ -12,17 +12,17 @@
 
 
 @class DKStyle;
+@protocol DKStyleRegistryDelegate;
 
 // options flags - control behaviour when styles from a document are merged with the registry
 
-typedef enum
+typedef NS_OPTIONS(NSUInteger, DKStyleMergeOptions)
 {
-	kDKIgnoreUnsharedStyles		= ( 1 << 0 ),		// compatibility with old registry - styles with sharing off are ignored
-	kDKReplaceExistingStyles	= ( 1 << 1 ),		// styles passed in replace those with the same key (doc -> reg)
-	kDKReturnExistingStyles		= ( 1 << 2 ),		// styles in reg with the same keys are returned (reg -> doc)
-	kDKAddStylesAsNewVersions	= ( 1 << 3 )		// styles with the same keys are copied and registered again (reg || doc)
-}
-DKStyleMergeOptions;
+	kDKIgnoreUnsharedStyles		= ( 1 << 0 ),		//!< compatibility with old registry - styles with sharing off are ignored
+	kDKReplaceExistingStyles	= ( 1 << 1 ),		//!< styles passed in replace those with the same key (doc -> reg)
+	kDKReturnExistingStyles		= ( 1 << 2 ),		//!< styles in reg with the same keys are returned (reg -> doc)
+	kDKAddStylesAsNewVersions	= ( 1 << 3 )		//!< styles with the same keys are copied and registered again (reg || doc)
+};
 
 
 // values you can test for in result of compareStylesInSet:
@@ -59,7 +59,7 @@ enum
 
 // merging sets of styles read in with a document
 
-+ (NSSet*)					mergeStyles:(NSSet*) styles inCategories:(NSArray*) styleCategories options:(DKStyleMergeOptions) options mergeDelegate:(id) aDel;
++ (NSSet*)					mergeStyles:(NSSet*) styles inCategories:(NSArray*) styleCategories options:(DKStyleMergeOptions) options mergeDelegate:(id<DKStyleRegistryDelegate>) aDel;
 + (NSDictionary*)			compareStylesInSet:(NSSet*) styles;
 
 // high-level data access
@@ -90,9 +90,9 @@ enum
 - (NSArray*)				styleNamesInCategory:(NSString*) catName;
 
 - (BOOL)					writeToFile:(NSString*) path atomically:(BOOL) atom;
-- (BOOL)					readFromFile:(NSString*) path mergeOptions:(DKStyleMergeOptions) options mergeDelegate:(id) aDel;
+- (BOOL)					readFromFile:(NSString*) path mergeOptions:(DKStyleMergeOptions) options mergeDelegate:(id<DKStyleRegistryDelegate>) aDel;
 
-- (DKStyle*)				mergeFromStyle:(DKStyle*) aStyle mergeDelegate:(id) aDel;
+- (DKStyle*)				mergeFromStyle:(DKStyle*) aStyle mergeDelegate:(id<DKStyleRegistryDelegate>) aDel;
 
 - (void)					removeAllStyles;
 
@@ -113,20 +113,21 @@ extern NSString*		kDKStyleRegistryTextStylesCategory;
 
 // notifications
 
-extern NSString*		kDKStyleRegistryDidFlagPossibleUIChange;
+extern NSNotificationName		kDKStyleRegistryDidFlagPossibleUIChange;
 extern NSString*		kDKStyleWasRegisteredNotification;
 extern NSString*		kDKStyleWasRemovedFromRegistryNotification;
 extern NSString*		kDKStyleWasEditedWhileRegisteredNotification;
 
 // delegate informal protocol allows the delegate to decide which of a pair of styles should be used
 
-@interface NSObject (DKStyleRegistryDelegate)
+@protocol DKStyleRegistryDelegate <NSObject>
 
+@optional
 - (DKStyle*)			registry:(DKStyleRegistry*) reg shouldReplaceStyle:(DKStyle*) regStyle withStyle:(DKStyle*) docStyle;
 
 @end
 
-@interface NSObject (StyleRegistrySubstitution)
+@protocol StyleRegistrySubstitution <NSObject>
 
 - (DKStyleRegistry*)	applicationWillReturnStyleRegistry;
 

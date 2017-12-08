@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDrawingView.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit Â©2005-2008 Apptree.net
 ///
 ///  Created by graham on 11/08/2006.
 ///
@@ -14,13 +14,12 @@
 @class DKDrawing, DKLayer, DKViewController;
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKCropMarkKind)
 {
 	DKCropMarksNone		= 0,
 	DKCropMarksCorners	= 1,
 	DKCropMarksEdges	= 2
-}
-DKCropMarkKind;
+};
 
 
 @interface DKDrawingView : GCZoomView
@@ -45,7 +44,7 @@ DKCropMarkKind;
 + (NSColor*)			pageBreakColour;
 + (NSColor*)			backgroundColour;
 + (NSPoint)				pointForLastContextualMenuEvent;
-+ (NSImage*)			imageResourceNamed:(NSString*) name;
++ (NSImage*)			imageResourceNamed:(NSImageName) name;
 
 // setting the class to use for the temporary text editor
 

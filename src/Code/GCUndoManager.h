@@ -14,20 +14,18 @@
 
 // internal undo manager state is one of these constants
 
-typedef enum
+typedef NS_ENUM(NSInteger, GCUndoManagerState)
 {
 	kGCUndoCollectingTasks		= 0,
 	kGCUndoIsUndoing			= 1,
 	kGCUndoIsRedoing			= 2
-}
-GCUndoManagerState;
+};
 
-typedef enum
+typedef NS_ENUM(NSInteger, GCUndoTaskCoalescingKind)
 {
 	kGCCoalesceLastTask			= 0,
 	kGCCoalesceAllMatchingTasks	= 1
-}
-GCUndoTaskCoalescingKind;
+};
 
 
 @class GCUndoGroup, GCUndoManagerProxy, GCConcreteUndoTask;
@@ -66,8 +64,7 @@ GCUndoTaskCoalescingKind;
 - (void)				endUndoGrouping;
 
 - (NSUInteger)			groupingLevel;
-- (BOOL)				groupsByEvent;
-- (void)				setGroupsByEvent:(BOOL) groupByEvent;
+@property BOOL groupsByEvent;
 
 - (NSArray*)			runLoopModes;
 - (void)				setRunLoopModes:(NSArray*) modes;
@@ -197,8 +194,7 @@ GCUndoTaskCoalescingKind;
 	GCUndoGroup*		mGroupRef;
 }
 
-- (GCUndoGroup*)		parentGroup;
-- (void)				setParentGroup:(GCUndoGroup*) parent;
+@property (assign) GCUndoGroup *parentGroup;
 - (void)				perform;
 
 @end

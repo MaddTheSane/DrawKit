@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKDrawingInfoLayer.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 27/08/2006.
 ///
@@ -11,16 +11,14 @@
 #import "DKLayer.h"
 
 
-// placement of info panel:
-
-typedef enum
+//! placement of info panel:
+typedef NS_ENUM(NSInteger, DKInfoBoxPlacement)
 {
 	kDKDrawingInfoPlaceBottomRight		= 0,
 	kDKDrawingInfoPlaceBottomLeft		= 1,
 	kDKDrawingInfoPlaceTopLeft			= 2,
 	kDKDrawingInfoPlaceTopRight			= 3
-}
-DKInfoBoxPlacement;
+};
 
 
 
@@ -34,17 +32,13 @@ DKInfoBoxPlacement;
 
 // general settings:
 
-- (void)				setSize:(NSSize) size;
-- (NSSize)				size;
+@property NSSize size;
 
-- (void)				setPlacement:(DKInfoBoxPlacement) placement;
-- (DKInfoBoxPlacement)	placement;
+@property DKInfoBoxPlacement placement;
 
-- (void)				setBackgroundColour:(NSColor*) colour;
-- (NSColor*)			backgroundColour;
+@property (retain) NSColor *backgroundColour;
 
-- (void)				setDrawsBorder:(BOOL) border;
-- (BOOL)				drawsBorder;
+@property BOOL drawsBorder;
 
 // internal stuff:
 

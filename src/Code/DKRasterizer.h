@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKRasterizer.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 23/11/2006.
 ///
@@ -18,13 +18,12 @@
 // clipping values:
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKClippingOption)
 {
 	kDKClippingNone			= 0,
 	kDKClipOutsidePath		= 1,
 	kDKClipInsidePath		= 2
-}
-DKClippingOption;
+};
 
 
 

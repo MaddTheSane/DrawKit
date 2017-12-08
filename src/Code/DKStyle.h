@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKStyle.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 13/08/2006.
 ///
@@ -17,25 +17,23 @@
 // swatch types that can be passed to -styleSwatchWithSize:type:
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKStyleSwatchType)
 {
 	kDKStyleSwatchAutomatic			= -1,
 	kDKStyleSwatchRectanglePath		= 0,
 	kDKStyleSwatchCurvePath			= 1
-}
-DKStyleSwatchType;
+};
 
 
 // options that can be passed to -derivedStyleWithPasteboard:withOptions:
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 {
 	kDKDerivedStyleDefault			= 0,
 	kDKDerivedStyleForPathHint		= 1,
 	kDKDerivedStyleForShapeHint		= 2
-}
-DKDerivedStyleOptions;
+};
 
 
 

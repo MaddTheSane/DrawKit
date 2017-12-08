@@ -68,7 +68,7 @@ NSString*		DKMultipleMetadataItemsPBoardType = @"com.apptree.dk.multimeta";
 }
 
 
-+ (NSString*)			localizedDisplayNameForType:(DKMetadataType) type;
++ (NSString*)			localizedDisplayNameForType:(DKMetadataType) type
 {
 	switch( type )
 	{
@@ -738,7 +738,7 @@ NSString*		DKMultipleMetadataItemsPBoardType = @"com.apptree.dk.multimeta";
 
 
 
-- (CGFloat)				floatValue
+- (float)				floatValue
 {
 	return [[self convertValue:[self value] toType:DKMetadataTypeReal wasLossy:NULL] floatValue];
 }
@@ -1053,7 +1053,7 @@ NSString*		DKMultipleMetadataItemsPBoardType = @"com.apptree.dk.multimeta";
 			}
 			
 		default:
-			NSLog(@"an unknown type (%d) was passed to DKMetadataItem <%@> for conversion, value = %@", type, self, inValue);
+			NSLog(@"an unknown type (%ld) was passed to DKMetadataItem <%@> for conversion, value = %@", (long)type, self, inValue);
 			break;
 	}
 	

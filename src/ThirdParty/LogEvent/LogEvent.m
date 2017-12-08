@@ -605,12 +605,12 @@ void LogLoggingState(NSArray* eventTypeNames)
 	return self; // Singleton's do not modify their retain count.
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
-	return UINT_MAX; // Denotes an object, such as a singleton, that cannot be released.
+	return NSUIntegerMax; // Denotes an object, such as a singleton, that cannot be released.
 }
 
-- (void)release
+- (oneway void)release
 {
 	// Singleton's do nothing.
 }

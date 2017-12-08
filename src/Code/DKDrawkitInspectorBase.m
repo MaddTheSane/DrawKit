@@ -85,7 +85,7 @@
 {
 #pragma unused(subsel, object )
 	
-	NSLog(@"subselection of <%@ 0x%x> changed: %@", NSStringFromClass([object class]), object, subsel );
+	NSLog(@"subselection of <%@ %p> changed: %@", NSStringFromClass([object class]), object, subsel );
 	
 	// override to do something useful
 }

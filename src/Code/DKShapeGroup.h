@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKShapeGroup.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit Â©2005-2008 Apptree.net
 ///
 ///  Created by graham on 28/10/2006.
 ///
@@ -16,13 +16,12 @@
 
 // caching options
 
-typedef enum
+typedef NS_OPTIONS(NSUInteger, DKGroupCacheOption)
 {
 	kDKGroupCacheNone			= 0,
 	kDKGroupCacheUsingPDF		= ( 1 << 0 ),
 	kDKGroupCacheUsingCGLayer	= ( 1 << 1 )
-}
-DKGroupCacheOption;
+};
 
 
 

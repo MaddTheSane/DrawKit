@@ -929,7 +929,7 @@ static void		dragFunction_mouseUp( const void* obj, void* context )
 ///
 ///********************************************************************************************************************
 
-- (void)					proxyDragObjectsAsGroup:(NSArray*) objects inLayer:(DKObjectDrawingLayer*) layer toPoint:(NSPoint) p event:(NSEvent*) event dragPhase:(DKEditToolDragPhase) ph;
+- (void)					proxyDragObjectsAsGroup:(NSArray*) objects inLayer:(DKObjectDrawingLayer*) layer toPoint:(NSPoint) p event:(NSEvent*) event dragPhase:(DKEditToolDragPhase) ph
 {
 #pragma unused(event)
 	

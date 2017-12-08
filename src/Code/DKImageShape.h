@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKImageShape.m
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit Â©2005-2008 Apptree.net
 ///
 ///  Created by graham on 23/08/2006.
 ///
@@ -10,14 +10,12 @@
 
 #import "DKDrawableShape.h"
 
-// option constants for crop or scale image
-
-typedef enum
+//! option constants for crop or scale image
+typedef NS_ENUM(NSInteger, DKImageCroppingOptions)
 {
 	kDKImageScaleToPath		= 0,
 	kDKImageCropToPath		= 1
-}
-DKImageCroppingOptions;
+};
 
 
 // the class

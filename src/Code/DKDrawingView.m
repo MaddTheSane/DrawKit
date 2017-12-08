@@ -218,9 +218,7 @@ NSString* kDKTextEditorUndoesTypingPrefsKey					= @"kDKTextEditorUndoesTyping";
 
 + (NSImage*)			imageResourceNamed:(NSString*) name
 {
-	NSString *path = [[NSBundle bundleForClass:self] pathForImageResource:name];
-	NSImage *image = [[NSImage alloc] initByReferencingFile:path];
-	return [image autorelease];
+	return [[NSBundle bundleForClass:self] imageForResource:name];
 }
 
 
@@ -1603,8 +1601,8 @@ static Class	s_textEditorClass = Nil;
 	
 	if([self inLiveResize])
 	{
-		NSRect	rects[4];
-        int		count;
+		NSRect		rects[4];
+        NSInteger	count;
 		
         [self getRectsExposedDuringLiveResize:rects count:&count];
         

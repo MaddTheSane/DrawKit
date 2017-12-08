@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKGridLayer.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 12/08/2006.
 ///
@@ -11,12 +11,11 @@
 #import "DKLayer.h"
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKGridMeasurementSystem)
 {
 	kDKMetricDrawingGrid			= 0,
 	kDKImperialDrawingGrid
-}
-DKGridMeasurementSystem;
+};
 
 
 @interface DKGridLayer : DKLayer <NSCoding>
@@ -59,18 +58,17 @@ DKGridMeasurementSystem;
 + (NSColor*)				defaultMajorColour;
 + (void)					setDefaultGridThemeColour:(NSColor*) colour;
 
-+ (DKGridLayer*)			standardMetricGridLayer;
-+ (DKGridLayer*)			standardImperialGridLayer;
-+ (DKGridLayer*)			standardImperialPCBGridLayer;
++ (instancetype)			standardMetricGridLayer;
++ (instancetype)			standardImperialGridLayer;
++ (instancetype)			standardImperialPCBGridLayer;
 
 // setting up the grid
 
 - (void)					setMetricDefaults;
 - (void)					setImperialDefaults;
 
-// using the grid as the master grid for a drawing
-
-- (BOOL)					isMasterGrid;
+//! using the grid as the master grid for a drawing
+@property (readonly, getter=isMasterGrid) BOOL masterGrid;
 
 // one-stop shop for setting grid, drawing and rulers in one hit:
 
@@ -85,8 +83,7 @@ DKGridMeasurementSystem;
 
 - (CGFloat)					spanDistance;
 - (CGFloat)					divisionDistance;
-- (void)					setZeroPoint:(NSPoint) zero;
-- (NSPoint)					zeroPoint;
+@property NSPoint zeroPoint;
 - (NSUInteger)				divisions;
 - (NSUInteger)				majors;
 - (CGFloat)					spanMultiplier;

@@ -15,13 +15,12 @@
 
 // modes of operation for this tool:
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKPathToolMode)
 {
 	kDKPathDeletePointMode		= 0,
 	kDKPathInsertPointMode		= 1,
 	kDKPathDeleteElementMode	= 2
-}
-DKPathToolMode;
+};
 
 
 

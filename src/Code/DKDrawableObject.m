@@ -3675,7 +3675,7 @@ static NSRect s_oldBounds;
 
 - (NSString*)		description
 {
-	return [NSString stringWithFormat:@"%@ size: %@, loc: %@, angle: %.4f, offset: %@, locked: %@, style: %@, container: %x, storage: %@, user info:%@",
+	return [NSString stringWithFormat:@"%@ size: %@, loc: %@, angle: %.4f, offset: %@, locked: %@, style: %@, container: %p, storage: %@, user info:%@",
 				[super description],
 				NSStringFromSize([self size]),
 				NSStringFromPoint([self location]),

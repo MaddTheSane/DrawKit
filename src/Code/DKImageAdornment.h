@@ -15,13 +15,12 @@
 
 // fitting options:
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKImageFittingOption)
 {
-	kDKScaleToFitBounds					= 0,			// scale setting ignored - image will fill bounds
-	kDKScaleToFitPreservingAspectRatio	= 1,			// scale setting ignored - image will fit bounds with original aspect ratio preserved
-	kDKClipToBounds						= 2				// scales according to setting, but clipped to object's path if size exceeds it
-}
-DKImageFittingOption;
+	kDKScaleToFitBounds					= 0,			//!< scale setting ignored - image will fill bounds
+	kDKScaleToFitPreservingAspectRatio	= 1,			//!< scale setting ignored - image will fit bounds with original aspect ratio preserved
+	kDKClipToBounds						= 2				//!< scales according to setting, but clipped to object's path if size exceeds it
+};
 
 
 

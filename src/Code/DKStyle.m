@@ -2248,7 +2248,7 @@ static BOOL					sSubstitute = NO;
 
 - (NSString*)			description
 {
-	return [NSString stringWithFormat:@"%@ <0x%x> '%@' [%@]", NSStringFromClass([self class]), self, [self name], [self uniqueKey]];
+	return [NSString stringWithFormat:@"%@ <%p> '%@' [%@]", NSStringFromClass([self class]), self, [self name], [self uniqueKey]];
 }
 
 // n.b. isEqual: defines equality more loosely than isEqualToStyle: which also considers the timestamp

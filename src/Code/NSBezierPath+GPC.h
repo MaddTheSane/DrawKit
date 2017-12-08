@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  NSBezierPath+GPC.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 31/10/2006.
 ///
@@ -16,21 +16,19 @@
 
 // path simplifying constants - auto will not simplify when both source paths consist only of line segments
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKPathUnflatteningPolicy)
 {
 	kDKPathUnflattenNever	= 0,
 	kDKPathUnflattenAlways	= 1,
 	kDKPathUnflattenAuto	= 2
-}
-DKPathUnflatteningPolicy;
+};
 
 
 @interface NSBezierPath (GPC)
 
 
 + (NSBezierPath*)		bezierPathWithGPCPolygon:(gpc_polygon*) poly;
-+ (void)				setPathUnflatteningPolicy:(DKPathUnflatteningPolicy) sp;
-+ (DKPathUnflatteningPolicy) pathUnflatteningPolicy;
+@property (class) DKPathUnflatteningPolicy pathUnflatteningPolicy;
 
 - (gpc_polygon*)		gpcPolygon;
 - (gpc_polygon*)		gpcPolygonWithFlatness:(CGFloat) flatness;

@@ -690,11 +690,11 @@
 	
 	[rgb getRed:&r green:&g blue:&b alpha:&a];
 	
-	hr = (NSInteger) floor( r * 255.0f );
-	hg = (NSInteger) floor( g * 255.0f );
-	hb = (NSInteger) floor( b * 255.0f );
+	hr = (NSInteger) floor( r * 255.0 );
+	hg = (NSInteger) floor( g * 255.0 );
+	hb = (NSInteger) floor( b * 255.0 );
 	
-	NSString* s = [NSString stringWithFormat:@"#%02X%02X%02X", hr, hg, hb ];
+	NSString* s = [NSString stringWithFormat:@"#%02lX%02lX%02lX", (long)hr, (long)hg, (long)hb ];
 
 	return s;
 }

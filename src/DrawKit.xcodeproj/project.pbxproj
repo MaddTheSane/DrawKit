@@ -335,7 +335,7 @@
 		96F516010B89DBBC0047BA96 /* DKGridLayer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKGridLayer.m; path = Code/DKGridLayer.m; sourceTree = "<group>"; };
 		96F516020B89DBBC0047BA96 /* DKGuideLayer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKGuideLayer.h; path = Code/DKGuideLayer.h; sourceTree = "<group>"; };
 		96F516030B89DBBC0047BA96 /* DKGuideLayer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKGuideLayer.m; path = Code/DKGuideLayer.m; sourceTree = "<group>"; };
-		96F516040B89DBBC0047BA96 /* DKImageOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKImageOverlayLayer.h; path = Code/DKImageOverlayLayer.h; sourceTree = "<group>"; };
+		96F516040B89DBBC0047BA96 /* DKImageOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKImageOverlayLayer.h; path = Code/DKImageOverlayLayer.h; sourceTree = "<group>"; };
 		96F516050B89DBBC0047BA96 /* DKImageOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKImageOverlayLayer.m; path = Code/DKImageOverlayLayer.m; sourceTree = "<group>"; };
 		96F516070B89DBBC0047BA96 /* DKObjectOwnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKObjectOwnerLayer.h; path = Code/DKObjectOwnerLayer.h; sourceTree = "<group>"; };
 		96F516080B89DBBC0047BA96 /* DKObjectOwnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKObjectOwnerLayer.m; path = Code/DKObjectOwnerLayer.m; sourceTree = "<group>"; };
@@ -349,13 +349,13 @@
 		96F516120B89DBBD0047BA96 /* DKLayer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKLayer.m; path = Code/DKLayer.m; sourceTree = "<group>"; };
 		96F516140B89DBBD0047BA96 /* DKDrawableObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKDrawableObject.h; path = Code/DKDrawableObject.h; sourceTree = "<group>"; };
 		96F516150B89DBBD0047BA96 /* DKDrawableObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKDrawableObject.m; path = Code/DKDrawableObject.m; sourceTree = "<group>"; };
-		96F516160B89DBBD0047BA96 /* DKDrawableShape.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKDrawableShape.h; path = Code/DKDrawableShape.h; sourceTree = "<group>"; };
+		96F516160B89DBBD0047BA96 /* DKDrawableShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKDrawableShape.h; path = Code/DKDrawableShape.h; sourceTree = "<group>"; };
 		96F516170B89DBBD0047BA96 /* DKDrawableShape.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKDrawableShape.m; path = Code/DKDrawableShape.m; sourceTree = "<group>"; };
 		96F516180B89DBBD0047BA96 /* DKReshapableShape.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKReshapableShape.h; path = Code/DKReshapableShape.h; sourceTree = "<group>"; };
 		96F516190B89DBBD0047BA96 /* DKReshapableShape.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKReshapableShape.m; path = Code/DKReshapableShape.m; sourceTree = "<group>"; };
-		96F5161A0B89DBBD0047BA96 /* DKImageShape.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKImageShape.h; path = Code/DKImageShape.h; sourceTree = "<group>"; };
+		96F5161A0B89DBBD0047BA96 /* DKImageShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKImageShape.h; path = Code/DKImageShape.h; sourceTree = "<group>"; };
 		96F5161B0B89DBBD0047BA96 /* DKImageShape.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKImageShape.m; path = Code/DKImageShape.m; sourceTree = "<group>"; };
-		96F5161E0B89DBBD0047BA96 /* DKShapeGroup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKShapeGroup.h; path = Code/DKShapeGroup.h; sourceTree = "<group>"; };
+		96F5161E0B89DBBD0047BA96 /* DKShapeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKShapeGroup.h; path = Code/DKShapeGroup.h; sourceTree = "<group>"; };
 		96F5161F0B89DBBD0047BA96 /* DKShapeGroup.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKShapeGroup.m; path = Code/DKShapeGroup.m; sourceTree = "<group>"; };
 		96F516200B89DBBD0047BA96 /* DKDrawablePath.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKDrawablePath.h; path = Code/DKDrawablePath.h; sourceTree = "<group>"; };
 		96F516210B89DBBD0047BA96 /* DKDrawablePath.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKDrawablePath.m; path = Code/DKDrawablePath.m; sourceTree = "<group>"; };
@@ -400,7 +400,7 @@
 		96F5164D0B89DBBD0047BA96 /* DKDistortionTransform.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; name = DKDistortionTransform.mm; path = Code/DKDistortionTransform.mm; sourceTree = "<group>"; };
 		96F5164E0B89DBBD0047BA96 /* NSDictionary+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+DeepCopy.h"; path = "Code/NSDictionary+DeepCopy.h"; sourceTree = "<group>"; };
 		96F5164F0B89DBBD0047BA96 /* NSDictionary+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+DeepCopy.m"; path = "Code/NSDictionary+DeepCopy.m"; sourceTree = "<group>"; };
-		96F516510B89DBBD0047BA96 /* DKDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DKDrawingView.h; path = Code/DKDrawingView.h; sourceTree = "<group>"; };
+		96F516510B89DBBD0047BA96 /* DKDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKDrawingView.h; path = Code/DKDrawingView.h; sourceTree = "<group>"; };
 		96F516520B89DBBD0047BA96 /* DKDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DKDrawingView.m; path = Code/DKDrawingView.m; sourceTree = "<group>"; };
 		96F516530B89DBBD0047BA96 /* DKDrawingView+Drop.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "DKDrawingView+Drop.m"; path = "Code/DKDrawingView+Drop.m"; sourceTree = "<group>"; };
 		96F516540B89DBBD0047BA96 /* GCZoomView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GCZoomView.h; path = Code/GCZoomView.h; sourceTree = "<group>"; };
@@ -1485,6 +1485,9 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "DrawKit" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -1728,8 +1731,6 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1749,6 +1750,7 @@
 				INFOPLIST_FILE = DrawKitInfo.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				NSZombieEnabled = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apptree.drawkit;
 				PRODUCT_NAME = GCDrawKit;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1759,8 +1761,6 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1775,6 +1775,7 @@
 				GCC_PREFIX_HEADER = Code/DKDrawKit_Prefix.pch;
 				INFOPLIST_FILE = DrawKitInfo.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apptree.drawkit;
 				PRODUCT_NAME = GCDrawKit;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1784,10 +1785,24 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1808,6 +1823,7 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
@@ -1815,7 +1831,8 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WARNING_CFLAGS = (
@@ -1838,6 +1855,23 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -1856,6 +1890,7 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -1864,7 +1899,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WARNING_CFLAGS = (
@@ -1888,8 +1923,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1908,6 +1941,7 @@
 					SenTestingKit,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = octest;
@@ -1918,8 +1952,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -1937,6 +1969,7 @@
 					SenTestingKit,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = octest;

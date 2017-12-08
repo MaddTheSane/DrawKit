@@ -1,6 +1,6 @@
 //
 //  GCInfoFloater.m
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 //
 //  Created by graham on 02/10/2006.
 ///
@@ -32,7 +32,7 @@
 
 #pragma mark -
 - (id)	initWithContentRect:(NSRect) contentRect
-		styleMask:(NSUInteger) styleMask
+		styleMask:(NSWindowStyleMask) styleMask
 		backing:(NSBackingStoreType) bufferingType
 		defer:(BOOL) deferCreation
 {

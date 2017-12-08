@@ -1,6 +1,6 @@
 ///**********************************************************************************************************************************
 ///  DKGradient.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 ///
 ///  Created by graham on 2/03/05.
 ///
@@ -14,36 +14,31 @@
 @class DKColorStop;
 
 
-// gradient type:
-
-typedef enum
+//! gradient type:
+typedef NS_ENUM(NSInteger, DKGradientType)
 {
 	kDKGradientTypeLinear		= 0,
 	kDKGradientTypeRadial		= 1,
 	kDKGradientSweptAngle		= 3
-}
-DKGradientType;
+};
 
-// gradient blending mode:
-
-typedef enum
+//! gradient blending mode:
+typedef NS_ENUM(NSInteger, DKGradientBlending)
 {
 	kDKGradientRGBBlending			= 0,
 	kDKGradientHSBBlending			= 1,
 	kDKGradientAlphaBlending		= 64
-}
-DKGradientBlending;
+};
 
 
-typedef enum
+typedef NS_ENUM(NSInteger, DKGradientInterpolation)
 {
 	kDKGradientInterpLinear			= 0,
 	kDKGradientInterpQuadratic		= 2,
 	kDKGradientInterpCubic			= 3,
 	kDKGradientInterpSinus			= 4,
 	kDKGradientInterpSinus2			= 5
-}
-DKGradientInterpolation;
+};
 
 // A DKGradient encapsulates gradient/shading drawing.
 

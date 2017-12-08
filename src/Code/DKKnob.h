@@ -1,6 +1,6 @@
 //
 //  DKKnob.h
-///  DrawKit ©2005-2008 Apptree.net
+///  DrawKit ï¿½2005-2008 Apptree.net
 //
 //  Created by graham on 21/08/2006.
 ///
@@ -11,14 +11,12 @@
 #import "DKCommonTypes.h"
 
 
-// visual flags, used internally
-
-typedef enum
+//! visual flags, used internally
+typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 {
 	kDKKnobDrawsStroke				= ( 1 << 0 ),
 	kDKKnobDrawsFill				= ( 1 << 1 )
-}
-DKKnobDrawingFlags;
+};
 
 
 @class DKHandle;
@@ -44,8 +42,7 @@ DKKnobDrawingFlags;
 
 // main high-level methods that will be called by clients
 
-- (void)			setOwner:(id<DKKnobOwner>) owner;
-- (id<DKKnobOwner>)	owner;
+@property (assign) id<DKKnobOwner>	owner;
 
 - (void)			drawKnobAtPoint:(NSPoint) p ofType:(DKKnobType) knobType userInfo:(id) userInfo;
 - (void)			drawKnobAtPoint:(NSPoint) p ofType:(DKKnobType) knobType angle:(CGFloat) radians userInfo:(id) userInfo;
