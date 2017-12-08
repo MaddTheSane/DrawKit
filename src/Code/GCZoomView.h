@@ -26,12 +26,9 @@
 	DKRetriggerableTimer*	mRT;
 }
 
-+ (void)				setScrollwheelZoomEnabled:(BOOL) enable;
-+ (BOOL)				scrollwheelZoomEnabled;
-+ (void)				setScrollwheelModiferKeyMask:(NSUInteger) aMask;
-+ (NSUInteger)			scrollwheelModifierKeyMask;
-+ (void)				setScrollwheelInverted:(BOOL) inverted;
-+ (BOOL)				scrollwheelInverted;
+@property (class) BOOL scrollwheelZoomEnabled;
+@property (class) NSEventModifierFlags scrollwheelModifierKeyMask;
+@property (class) BOOL scrollwheelInverted;
 
 - (IBAction)			zoomIn: (id) sender;
 - (IBAction)			zoomOut: (id) sender;
@@ -51,15 +48,12 @@
 - (NSPoint)				centredPointInDocView;
 - (void)				scrollPointToCentre:(NSPoint) aPoint;
 
-- (void)				setScale:(CGFloat) sc;
-- (CGFloat)				scale;
+@property (nonatomic) CGFloat scale;
 
-- (BOOL)				isChangingScale;
+@property (readonly, getter=isChangingScale) BOOL changingScale;
 
-- (void)				setMinimumScale:(CGFloat) scmin;
-- (CGFloat)				minimumScale;
-- (void)				setMaximumScale:(CGFloat) scmax;
-- (CGFloat)				maximumScale;
+@property CGFloat minimumScale;
+@property CGFloat maximumScale;
 
 @end
 
@@ -68,8 +62,8 @@
 
 
 
-extern NSString*	kDKDrawingViewWillChangeScale;
-extern NSString*	kDKDrawingViewDidChangeScale;
+extern NSNotificationName	kDKDrawingViewWillChangeScale;
+extern NSNotificationName	kDKDrawingViewDidChangeScale;
 
 extern NSString*	kDKScrollwheelModifierKeyMaskPreferenceKey;
 extern NSString*	kDKDrawingDisableScrollwheelZoomPrefsKey;

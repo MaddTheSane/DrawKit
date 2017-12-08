@@ -12,7 +12,7 @@
 #import "DKRetriggerableTimer.h"
 #import "LogEvent.h"
 
-@interface GCZoomView (Private)
+@interface GCZoomView ()
 
 - (void)	stopScaleChange;
 - (void)	startScaleChange;
@@ -32,6 +32,10 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 
 #pragma mark -
 @implementation GCZoomView
+@synthesize scale = m_scale;
+@synthesize minimumScale = mMinScale;
+@synthesize maximumScale = mMaxScale;
+@synthesize changingScale = mIsChangingScale;
 
 
 ///*********************************************************************************************************************
@@ -85,7 +89,7 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 ///
 ///********************************************************************************************************************
 
-+ (void)				setScrollwheelModiferKeyMask:(NSUInteger) aMask
++ (void)				setScrollwheelModiferKeyMask:(NSEventModifierFlags) aMask
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:aMask forKey:kDKScrollwheelModifierKeyMaskPreferenceKey];
 }
@@ -104,9 +108,9 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 ///
 ///********************************************************************************************************************
 
-+ (NSUInteger)			scrollwheelModifierKeyMask
++ (NSEventModifierFlags)			scrollwheelModifierKeyMask
 {
-	NSUInteger mask = [[NSUserDefaults standardUserDefaults] integerForKey:kDKScrollwheelModifierKeyMaskPreferenceKey];
+	NSEventModifierFlags mask = [[NSUserDefaults standardUserDefaults] integerForKey:kDKScrollwheelModifierKeyMaskPreferenceKey];
 	
 	if( mask == 0 )
 		mask = NSAlternateKeyMask;
@@ -544,25 +548,6 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 
 ///*********************************************************************************************************************
 ///
-/// method:			scale
-/// scope:			public method
-/// description:	returns the current view scale (zoom)
-/// 
-/// parameters:		none
-/// result:			the current scale
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (CGFloat)				scale
-{
-	return m_scale;
-}
-
-
-///*********************************************************************************************************************
-///
 /// method:			isChangingScale
 /// scope:			public method
 /// description:	returns whether the scale is being changed
@@ -577,88 +562,6 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 ///					but reverts to a higher quality when things settle.
 ///
 ///********************************************************************************************************************
-
-- (BOOL)				isChangingScale
-{
-	return mIsChangingScale;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			setMinimumScale
-/// scope:			public method
-/// description:	sets the minimum permitted view scale (zoom)
-/// 
-/// parameters:		<scmin> the minimum scale
-/// result:			none
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (void)				setMinimumScale:(CGFloat) scmin
-{
-	mMinScale = scmin;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			minimumScale
-/// scope:			public method
-/// description:	returns the minimum permitted view scale (zoom)
-/// 
-/// parameters:		none
-/// result:			the minimum scale
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (CGFloat)				minimumScale
-{
-	return mMinScale;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			setMaximumScale
-/// scope:			public method
-/// description:	sets the maximum permitted view scale (zoom)
-/// 
-/// parameters:		<scmax> the maximum scale
-/// result:			none
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (void)				setMaximumScale:(CGFloat) scmax
-{
-	mMaxScale = scmax;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			maximumScale
-/// scope:			public method
-/// description:	returns the maximum permitted view scale (zoom)
-/// 
-/// parameters:		none
-/// result:			the maximum scale
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (CGFloat)				maximumScale
-{
-	return mMaxScale;
-}
-
 
 #pragma mark -
 

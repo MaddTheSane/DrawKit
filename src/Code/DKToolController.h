@@ -15,13 +15,12 @@
 
 @class DKDrawingTool, DKUndoManager;
 
-// this type is used to set the scope of tools within a DK application:
-
+//! this type is used to set the scope of tools within a DK application:
 typedef NS_ENUM(NSInteger, DKDrawingToolScope)
 {
-	kDKToolScopeLocalToView		= 0,		// tools can be individually set per view
-	kDKToolScopeLocalToDocument	= 1,		// tools are set individually for the document, the same tool in all views of that document (default)
-	kDKToolScopeGlobal			= 2			// tools are set globally for the whole application
+	kDKToolScopeLocalToView		= 0,		//!< tools can be individually set per view
+	kDKToolScopeLocalToDocument	= 1,		//!< tools are set individually for the document, the same tool in all views of that document (default)
+	kDKToolScopeGlobal			= 2			//!< tools are set globally for the whole application
 };
 
 
@@ -38,11 +37,9 @@ typedef NS_ENUM(NSInteger, DKDrawingToolScope)
 	BOOL				mAbortiveMouseDown;	// YES flagged after exception during mouse down - rejects drag and up events
 }
 
-+ (void)				setDrawingToolOperatingScope:(DKDrawingToolScope) scope;
-+ (DKDrawingToolScope)	drawingToolOperatingScope;
+@property (class) DKDrawingToolScope drawingToolOperatingScope;
 
-+ (void)				setToolsAutoActivateValidLayer:(BOOL) autoActivate;
-+ (BOOL)				toolsAutoActivateValidLayer;
+@property (class) BOOL toolsAutoActivateValidLayer;
 
 - (void)				setDrawingTool:(DKDrawingTool*) aTool;
 - (void)				setDrawingToolWithName:(NSString*) name;
@@ -66,9 +63,9 @@ typedef NS_ENUM(NSInteger, DKDrawingToolScope)
 
 // notifications:
 
-extern NSString*		kDKWillChangeToolNotification;
-extern NSString*		kDKDidChangeToolNotification;
-extern NSString*		kDKDidChangeToolAutoRevertStateNotification;
+extern NSNotificationName		kDKWillChangeToolNotification;
+extern NSNotificationName		kDKDidChangeToolNotification;
+extern NSNotificationName		kDKDidChangeToolAutoRevertStateNotification;
 
 // defaults keys:
 

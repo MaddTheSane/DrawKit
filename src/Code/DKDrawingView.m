@@ -70,6 +70,7 @@ NSString* kDKTextEditorUndoesTypingPrefsKey					= @"kDKTextEditorUndoesTyping";
 #pragma mark -
 @implementation DKDrawingView
 #pragma mark As a DKDrawingView
+@synthesize controller = mControllerRef;
 
 
 ///*********************************************************************************************************************
@@ -257,46 +258,6 @@ static Class	s_textEditorClass = Nil;
 
 #pragma mark -
 #pragma mark - the view's controller
-
-///*********************************************************************************************************************
-///
-/// method:			setController:
-/// scope:			public instance method
-/// overrides:
-/// description:	set the view's controller
-/// 
-/// parameters:		<aController> the controller for this view
-/// result:			none
-///
-/// notes:			do not call this directly - the controller will call it to set up the relationship at the right
-///					time.
-///
-///********************************************************************************************************************
-
-- (void)				setController:(DKViewController*) aController
-{
-	mControllerRef = aController;
-}
-
-
-///*********************************************************************************************************************
-///
-/// method:			controller
-/// scope:			public instance method
-/// overrides:
-/// description:	return the view's controller
-/// 
-/// parameters:		none
-/// result:			the controller
-///
-/// notes:			
-///
-///********************************************************************************************************************
-
-- (DKViewController*)	controller
-{
-	return mControllerRef;
-}
 
 
 ///*********************************************************************************************************************

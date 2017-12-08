@@ -16,9 +16,9 @@
 
 typedef NS_ENUM(NSInteger, DKCropMarkKind)
 {
-	DKCropMarksNone		= 0,
-	DKCropMarksCorners	= 1,
-	DKCropMarksEdges	= 2
+	DKCropMarksNone		NS_SWIFT_NAME(DKCropMarkKind.none) = 0,
+	DKCropMarksCorners	NS_SWIFT_NAME(DKCropMarkKind.corners) = 1,
+	DKCropMarksEdges	NS_SWIFT_NAME(DKCropMarkKind.edges) = 2
 };
 
 
@@ -40,24 +40,20 @@ typedef NS_ENUM(NSInteger, DKCropMarkKind)
 
 + (DKDrawingView*)		currentlyDrawingView;
 + (void)				pop;
-+ (void)				setPageBreakColour:(NSColor*) colour;
-+ (NSColor*)			pageBreakColour;
-+ (NSColor*)			backgroundColour;
-+ (NSPoint)				pointForLastContextualMenuEvent;
+@property (class, retain) NSColor *pageBreakColour;
+@property (class, readonly, copy) NSColor *backgroundColour;
+@property (class, readonly) NSPoint pointForLastContextualMenuEvent;
 + (NSImage*)			imageResourceNamed:(NSImageName) name;
 
 // setting the class to use for the temporary text editor
 
-+ (Class)				classForTextEditor;
-+ (void)				setClassForTextEditor:(Class) aClass;
-+ (void)				setTextEditorAllowsTypingUndo:(BOOL) allowUndo;
-+ (BOOL)				textEditorAllowsTypingUndo;
+@property (class) Class classForTextEditor;
+@property (class) BOOL textEditorAllowsTypingUndo;
 
 // the view's controller
 
 - (DKViewController*)	makeViewController;
-- (void)				setController:(DKViewController*) aController;
-- (DKViewController*)	controller;
+@property (assign) DKViewController *controller;
 - (void)				replaceControllerWithController:(DKViewController*) newController;
 
 // automatic drawing info
@@ -69,12 +65,10 @@ typedef NS_ENUM(NSInteger, DKCropMarkKind)
 
 - (NSBezierPath*)		pageBreakPathWithExtension:(CGFloat) amount options:(DKCropMarkKind) options;
 
-- (void)				setPageBreaksVisible:(BOOL) pbVisible;
-- (BOOL)				pageBreaksVisible;
+@property BOOL pageBreaksVisible;
 - (void)				drawPageBreaks;
 
-- (void)				setPrintCropMarkKind:(DKCropMarkKind) kind;
-- (DKCropMarkKind)		printCropMarkKind;
+@property DKCropMarkKind printCropMarkKind;
 - (void)				drawCropMarks;
 
 - (void)				setPrintInfo:(NSPrintInfo*) printInfo;
@@ -114,17 +108,17 @@ typedef NS_ENUM(NSInteger, DKCropMarkKind)
 
 
 
-extern NSString* kDKDrawingViewDidBeginTextEditing;
-extern NSString* kDKDrawingViewTextEditingContentsDidChange;
-extern NSString* kDKDrawingViewDidEndTextEditing;
-extern NSString* kDKDrawingViewWillCreateAutoDrawing;
-extern NSString* kDKDrawingViewDidCreateAutoDrawing;
+extern NSNotificationName kDKDrawingViewDidBeginTextEditing;
+extern NSNotificationName kDKDrawingViewTextEditingContentsDidChange;
+extern NSNotificationName kDKDrawingViewDidEndTextEditing;
+extern NSNotificationName kDKDrawingViewWillCreateAutoDrawing;
+extern NSNotificationName kDKDrawingViewDidCreateAutoDrawing;
 
-extern NSString* kDKDrawingMouseDownLocation;
-extern NSString* kDKDrawingMouseDraggedLocation;
-extern NSString* kDKDrawingMouseUpLocation;
-extern NSString* kDKDrawingMouseMovedLocation;
-extern NSString* kDKDrawingViewRulersChanged;
+extern NSNotificationName kDKDrawingMouseDownLocation;
+extern NSNotificationName kDKDrawingMouseDraggedLocation;
+extern NSNotificationName kDKDrawingMouseUpLocation;
+extern NSNotificationName kDKDrawingMouseMovedLocation;
+extern NSNotificationName kDKDrawingViewRulersChanged;
 
 extern NSString* kDKDrawingMouseLocationInView;
 extern NSString* kDKDrawingMouseLocationInDrawingUnits;
