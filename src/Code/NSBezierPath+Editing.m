@@ -419,7 +419,7 @@ static inline NSInteger		elementIndexForPartcode( const NSInteger pc );
 		{
 			p[1] = p[2] = NSZeroPoint;
 			element = [self elementAtIndex:i associatedPoints:p];
-			ec = ((NSUInteger) element << 10 ) ^ roundtol( p[0].x ) ^ roundtol( p[1].x ) ^ roundtol( p[2].x ) ^ roundtol( p[0].y ) ^ roundtol( p[1].y ) ^ roundtol( p[2].y );
+			ec = ((NSUInteger) element << 10 ) ^ lround( p[0].x ) ^ lround( p[1].x ) ^ lround( p[2].x ) ^ lround( p[0].y ) ^ lround( p[1].y ) ^ lround( p[2].y );
 			cs ^= ec;
 		}
 	}
@@ -604,7 +604,7 @@ static inline NSInteger		elementIndexForPartcode( const NSInteger pc );
 }
 
 
-- (NSInteger)					partcodeHitByPoint:(NSPoint) p tolerance:(CGFloat) t startingFromElement:(NSInteger) startElement prioritiseOnPathPoints:(BOOL) onpPriority;
+- (NSInteger)					partcodeHitByPoint:(NSPoint) p tolerance:(CGFloat) t startingFromElement:(NSInteger) startElement prioritiseOnPathPoints:(BOOL) onpPriority
 {
 	// given a point <p>, this detects whether any of the control points in the path were hit. A hit has to
 	// be within <t> of the point's position. Returns the partcode of the point hit, or 0 if not hit. If <onpPriority> is YES, on-path points
