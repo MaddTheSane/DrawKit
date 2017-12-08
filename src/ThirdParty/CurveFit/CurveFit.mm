@@ -16,7 +16,7 @@
 
 
 
-NSBezierPath*			curveFitPath(NSBezierPath* inPath, float epsilon)
+NSBezierPath*			curveFitPath(NSBezierPath* inPath, CGFloat epsilon)
 {
 	// given an input path in vector form (flattened), this converts it to the C++ data structure list of points and processes it via the
 	// curve fit method in the bezier-utils lib. It then converts the result back to NSBezierPath form. Note - the caller is responsible for passing
@@ -94,7 +94,7 @@ NSBezierPath*			curveFitPath(NSBezierPath* inPath, float epsilon)
 }
 
 
-NSBezierPath*		smartCurveFitPath( NSBezierPath* inPath, float epsilon, float cornerAngleThreshold )
+NSBezierPath*		smartCurveFitPath( NSBezierPath* inPath, CGFloat epsilon, CGFloat cornerAngleThreshold )
 {
 	// this curve fits a flattened path, but is much smarter about which parts of the path to curve fit and which to leave alone. It
 	// also properly deals with separate subpaths within the original path (holes).
@@ -102,14 +102,14 @@ NSBezierPath*		smartCurveFitPath( NSBezierPath* inPath, float epsilon, float cor
 	// a line segment that is longer than a given threshhold is not curve-fitted, and sharp corners also define boundaries for curve
 	// segments. Existing curved segments are copied to the result without any changes.
 	
-	int						i, ec = [inPath elementCount];
+	NSInteger				i, ec = [inPath elementCount];
 	NSBezierPathElement		elem;
 	NSPoint					ap[3], np[3];
 	NSPoint					lastPoint = NSZeroPoint;
 	NSPoint					firstPoint = NSZeroPoint;
 	NSBezierPath*			result;
 	NSBezierPath*			temp;
-	float					angle;
+	CGFloat					angle;
 	
 	result = [NSBezierPath bezierPath];
 	[result setWindingRule:[inPath windingRule]];

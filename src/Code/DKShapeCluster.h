@@ -18,7 +18,7 @@
 }
 
 
-+ (DKShapeCluster*)		clusterWithObjects:(NSArray*) objects masterObject:(DKDrawableShape*) master;
++ (instancetype)		clusterWithObjects:(NSArray*) objects masterObject:(DKDrawableShape*) master;
 
 - (void)				setMasterObject:(DKDrawableShape*) master;
 - (DKDrawableShape*)	masterObject;

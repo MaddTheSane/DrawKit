@@ -9,6 +9,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+// options:
+
+
+typedef NS_OPTIONS(NSUInteger, DKBezierPath)
+{
+	kThreadedBarLeftEndCapped			= 1 << 0,
+	kThreadedBarRightEndCapped			= 1 << 1,
+	kThreadedBarThreadLinesDrawn		= 1 << 2,
+	kFastenerCentreLine					= 1 << 3,
+	kFastenerHasCapHead					= 1 << 4,
+	kHexFastenerFaceCurvesDrawn			= 1 << 5
+};
 
 @interface NSBezierPath (Shapes)
 
@@ -37,20 +49,6 @@
 + (NSBezierPath*)		bezierPathWithCropMarksForRect:(NSRect) aRect extension:(CGFloat) ext;
 
 @end
-
-
-// options:
-
-
-enum
-{
-	kThreadedBarLeftEndCapped			= 1 << 0,
-	kThreadedBarRightEndCapped			= 1 << 1,
-	kThreadedBarThreadLinesDrawn		= 1 << 2,
-	kFastenerCentreLine					= 1 << 3,
-	kFastenerHasCapHead					= 1 << 4,
-	kHexFastenerFaceCurvesDrawn			= 1 << 5
-};
 
 
 /*

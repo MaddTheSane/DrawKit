@@ -94,8 +94,8 @@
 		96F516B30B89DBBE0047BA96 /* DKDrawingTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F5165B0B89DBBE0047BA96 /* DKDrawingTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F516B40B89DBBE0047BA96 /* DKDrawingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F5165C0B89DBBE0047BA96 /* DKDrawingTool.m */; };
 		96F516C30B89DBE60047BA96 /* gpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 96F516B70B89DBE60047BA96 /* gpc.c */; settings = {COMPILER_FLAGS = "-Wno-switch-default -Wno-uninitialized"; }; };
-		96F516C40B89DBE60047BA96 /* gpc.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F516B80B89DBE60047BA96 /* gpc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96F516C50B89DBE60047BA96 /* CurveFit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F516B90B89DBE60047BA96 /* CurveFit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96F516C40B89DBE60047BA96 /* gpc.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F516B80B89DBE60047BA96 /* gpc.h */; };
+		96F516C50B89DBE60047BA96 /* CurveFit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F516B90B89DBE60047BA96 /* CurveFit.h */; };
 		96F516D70B89DC050047BA96 /* controlKnob.tif in Resources */ = {isa = PBXBuildFile; fileRef = 96F516CE0B89DC050047BA96 /* controlKnob.tif */; };
 		96F516D80B89DC050047BA96 /* marker_v_bottom.tif in Resources */ = {isa = PBXBuildFile; fileRef = 96F516CF0B89DC050047BA96 /* marker_v_bottom.tif */; };
 		96F516D90B89DC050047BA96 /* marker_h_left.tif in Resources */ = {isa = PBXBuildFile; fileRef = 96F516D00B89DC050047BA96 /* marker_h_left.tif */; };
@@ -120,7 +120,7 @@
 		AA869B5C0D905D67001B10DB /* lists.h in Headers */ = {isa = PBXBuildFile; fileRef = BFDB14280C2D02D10034C27C /* lists.h */; };
 		AA89A3970D7DE9DA0092F050 /* Rect.png in Resources */ = {isa = PBXBuildFile; fileRef = AA89A3960D7DE9DA0092F050 /* Rect.png */; };
 		AA91597C0D9DFECA00905699 /* Logging.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA9159780D9DFECA00905699 /* Logging.xib */; };
-		AA91597D0D9DFECA00905699 /* LogEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AA91597A0D9DFECA00905699 /* LogEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA91597D0D9DFECA00905699 /* LogEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AA91597A0D9DFECA00905699 /* LogEvent.h */; };
 		AA91597E0D9DFECA00905699 /* LogEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AA91597B0D9DFECA00905699 /* LogEvent.m */; };
 		BF0350330F3A93A20042C98B /* NSBezierPath+Text.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0350310F3A93A20042C98B /* NSBezierPath+Text.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF0350340F3A93A20042C98B /* NSBezierPath+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0350320F3A93A20042C98B /* NSBezierPath+Text.m */; };
@@ -269,7 +269,7 @@
 		BFCD54660D863865001A1A4E /* DKCommonTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BFCD54650D863865001A1A4E /* DKCommonTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFCE7AB80F5A7D3400C20648 /* DKDrawableContainerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = BFCE7AB60F5A7D3400C20648 /* DKDrawableContainerProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFD211AD0E2C28C80081C007 /* NSBezierPath-OAExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD211AA0E2C28C80081C007 /* NSBezierPath-OAExtensions.m */; };
-		BFD211AE0E2C28C80081C007 /* NSBezierPath-OAExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD211AB0E2C28C80081C007 /* NSBezierPath-OAExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BFD211AE0E2C28C80081C007 /* NSBezierPath-OAExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD211AB0E2C28C80081C007 /* NSBezierPath-OAExtensions.h */; };
 		BFD211AF0E2C28C80081C007 /* NSBezierPath-OAInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD211AC0E2C28C80081C007 /* NSBezierPath-OAInternal.h */; };
 		BFD211C90E2C2CBD0081C007 /* NSBezierPath+Combinatorial.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD211C70E2C2CBD0081C007 /* NSBezierPath+Combinatorial.m */; };
 		BFD211CA0E2C2CBD0081C007 /* NSBezierPath+Combinatorial.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD211C80E2C2CBD0081C007 /* NSBezierPath+Combinatorial.h */; };
@@ -324,7 +324,7 @@
 		089C1667FE841158C02AAC07 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		32DBCF5E0370ADEE00C91783 /* DKDrawKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrawKit_Prefix.pch; sourceTree = "<group>"; };
-		55D64C411FDA27EA0061878C /* GCDrawKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDrawKit.h; sourceTree = "<group>"; };
+		55D64C411FDA27EA0061878C /* GCDrawKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDrawKit.h; sourceTree = "<group>"; };
 		665B1470161EB2DD001A15E5 /* release notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "release notes"; sourceTree = "<group>"; };
 		665B1471161EB2DD001A15E5 /* Subclassing Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Subclassing Notes.txt"; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* DrawKitInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DrawKitInfo.plist; sourceTree = "<group>"; };
