@@ -10,6 +10,7 @@
 #import "DKGeometryUtilities.h"
 #import "DKLayer.h"
 #import "LogEvent.h"
+#import "DKDrawableObject.h"
 
 @implementation DKPasteboardInfo
 
@@ -57,7 +58,7 @@
 		
 		NSMutableDictionary*	clDict = [NSMutableDictionary dictionary];
 		NSEnumerator*			iter = [objects objectEnumerator];
-		id						obj;
+		DKDrawableObject*						obj;
 		NSString*				classname;
 		NSNumber*				count;
 		NSRect					br = NSZeroRect;

@@ -58,7 +58,8 @@ static NSArray*	s_selectionColours = nil;
 {
 	[listOfColours retain];
 	[s_selectionColours release];
-	s_selectionColours = listOfColours;
+	s_selectionColours = [listOfColours copy];
+	[listOfColours release];
 }
 
 
@@ -82,7 +83,7 @@ static NSArray*	s_selectionColours = nil;
 	{
 		NSMutableArray* list = [NSMutableArray array];
 
-		static CGFloat colours[][3] = {{ 0.5,0.9,1 },	// light blue
+		static const CGFloat colours[][3] = {{ 0.5,0.9,1 },	// light blue
 									{ 1,0,0 },			// red
 									{ 0,1,0 },			// green
 									{ 0,0.7,0.7 },		// cyanish
@@ -100,7 +101,7 @@ static NSArray*	s_selectionColours = nil;
 		[self setSelectionColours:list];
 	}
 	
-	return s_selectionColours;
+	return [NSArray arrayWithArray:s_selectionColours];
 }
 
 
@@ -273,10 +274,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (void)			setLayerGroup:(DKLayerGroup*) group
-{
-	m_groupRef = group;
-}
+@synthesize layerGroup = m_groupRef;
 
 
 ///*********************************************************************************************************************
@@ -292,10 +290,6 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (DKLayerGroup*)	layerGroup
-{
-	return m_groupRef;
-}
 
 
 ///*********************************************************************************************************************
@@ -583,10 +577,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (NSColor*)		selectionColour
-{
-	return m_selectionColour;
-}
+@synthesize selectionColour = m_selectionColour;
 
 
 #pragma mark -
@@ -1048,6 +1039,11 @@ static NSArray*	s_selectionColours = nil;
 	return [self locked] || ![self visible];
 }
 
++(NSSet<NSString *> *)keyPathsForValuesAffectingLockedOrHidden
+{
+	return [NSSet setWithObjects:@"locked", @"visible", nil];
+}
+
 
 ///*********************************************************************************************************************
 ///
@@ -1063,10 +1059,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (NSString*)		uniqueKey
-{
-	return mLayerUniqueKey;
-}
+@synthesize uniqueKey = mLayerUniqueKey;
 
 #pragma mark -
 ///*********************************************************************************************************************
@@ -1117,10 +1110,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (NSString*)		layerName
-{
-	return m_name;
-}
+@synthesize layerName = m_name;
 
 
 
@@ -1263,10 +1253,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (void)			setShouldDrawToPrinter:(BOOL) printIt
-{
-	m_printed = printIt;
-}
+@synthesize shouldDrawToPrinter = m_printed;
 
 
 ///*********************************************************************************************************************
@@ -1283,10 +1270,6 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (BOOL)			shouldDrawToPrinter
-{
-	return m_printed;
-}
 
 
 #pragma mark -

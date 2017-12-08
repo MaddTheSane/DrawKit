@@ -13,7 +13,7 @@
 
 @interface DKDrawingView (DropHandling)
 
-- (DKLayer*)			activeLayer;
+- (DKLayer<NSDraggingDestination>*)			activeLayer;
 
 @end
 

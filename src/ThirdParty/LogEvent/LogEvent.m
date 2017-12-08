@@ -541,16 +541,7 @@ void LogLoggingState(NSArray* eventTypeNames)
 	
 	if( result == NSAlertDefaultReturn )
 	{
-		FSRef fileRef;
-		NSDictionary *environment = [NSDictionary dictionaryWithObject: @"YES" forKey: @"NSZombieEnabled"];
-		NSString* execPath = [[NSBundle mainBundle] executablePath];
-		
-		const char* executablePath = [execPath UTF8String];
-		
-		FSPathMakeRef((UInt8*) executablePath, &fileRef, nil);
-		LSApplicationParameters appParameters = {0, kLSLaunchDefaults | kLSLaunchNewInstance, &fileRef, nil, (CFDictionaryRef)environment, nil, nil};
-		
-		LSOpenApplication(&appParameters, nil);
+		[[NSWorkspace sharedWorkspace] launchApplicationAtURL:[[NSBundle mainBundle] bundleURL] options:NSWorkspaceLaunchNewInstance | NSWorkspaceLaunchDefault configuration:@{NSWorkspaceLaunchConfigurationEnvironment:@{@"NSZombieEnabled": @"YES"}} error:NULL];
 		
 		[NSApp terminate: nil];
 	}

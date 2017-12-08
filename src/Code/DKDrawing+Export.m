@@ -173,8 +173,8 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 	
 	// encode it to data using Image I/O
 	
-	CFMutableDataRef data = CFDataCreateMutable( kCFAllocatorDefault, 0 );
-	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( data, kUTTypeJPEG, 1, NULL );
+	NSMutableData *data = [NSMutableData data];
+	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( (CFMutableDataRef)data, kUTTypeJPEG, 1, NULL );
 
 	CGImageDestinationAddImage( destRef, image, (CFDictionaryRef)options );
 	
@@ -183,10 +183,9 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 	CFRelease( destRef );
 	
 	if ( result )
-		return [(NSData*)data autorelease];
+		return data;
 	else
 	{
-		CFRelease( data );
 		return nil;
 	}
 }
@@ -273,8 +272,8 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 
 	// encode it to data using Image I/O
 	
-	CFMutableDataRef data = CFDataCreateMutable( kCFAllocatorDefault, 0 );
-	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( data, kUTTypeTIFF, 1, NULL );
+	NSMutableData *data = [NSMutableData data];
+	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( (CFMutableDataRef)data, kUTTypeTIFF, 1, NULL );
 
 	CGImageDestinationAddImage( destRef, image, (CFDictionaryRef)options );
 	
@@ -283,10 +282,9 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 	CFRelease( destRef );
 	
 	if ( result )
-		return [(NSData*)data autorelease];
+		return data;
 	else
 	{
-		CFRelease( data );
 		return nil;
 	}
 }
@@ -344,8 +342,8 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 
 	// encode it to data using Image I/O
 	
-	CFMutableDataRef data = CFDataCreateMutable( kCFAllocatorDefault, 0 );
-	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( data, kUTTypePNG, 1, NULL );
+	NSMutableData *data = [NSMutableData data];
+	CGImageDestinationRef destRef = CGImageDestinationCreateWithData( (CFMutableDataRef)data, kUTTypePNG, 1, NULL );
 
 	CGImageDestinationAddImage( destRef, image, (CFDictionaryRef)options );
 	
@@ -354,10 +352,9 @@ NSString* kDKExportedImageRelativeScale = @"kDKExportedImageRelativeScale";
 	CFRelease( destRef );
 	
 	if ( result )
-		return [(NSData*)data autorelease];
+		return data;
 	else
 	{
-		CFRelease( data );
 		return nil;
 	}
 }

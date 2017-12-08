@@ -35,8 +35,7 @@
 	CGFloat					mAlpha;					// alpha value applied to layer as a whole
 }
 
-+ (void)			setSelectionColours:(NSArray*) listOfColours;
-+ (NSArray*)		selectionColours;
+@property (class, copy) NSArray<NSColor*> *selectionColours;
 + (NSColor*)		selectionColourForIndex:(NSUInteger) index;
 
 // owning drawing:
@@ -50,16 +49,15 @@
 
 // layer group hierarchy:
 
-- (void)			setLayerGroup:(DKLayerGroup*) group;
-- (DKLayerGroup*)	layerGroup;
-- (NSUInteger)		indexInGroup;
+@property (assign) DKLayerGroup *layerGroup;
+@property (readonly) NSUInteger indexInGroup;
 - (BOOL)			isChildOfGroup:(DKLayerGroup*) aGroup;
-- (NSUInteger)		level;
+@property (readonly) NSUInteger level;
 
 // drawing:
 
 - (void)			drawRect:(NSRect) rect inView:(DKDrawingView*) aView;
-- (BOOL)			isOpaque;
+@property (readonly, getter=isOpaque) BOOL opaque;
 - (void)			setNeedsDisplay:(BOOL) update;
 - (void)			setNeedsDisplayInRect:(NSRect) rect;
 - (void)			setNeedsDisplayInRects:(NSSet*) setOfRects;
@@ -68,8 +66,8 @@
 - (void)			beginDrawing;
 - (void)			endDrawing;
 
-- (void)			setSelectionColour:(NSColor*) colour;
-- (NSColor*)		selectionColour;
+//! The preferred selection colour for this layer.
+@property (nonatomic, retain) NSColor *selectionColour;
 
 - (NSImage*)		thumbnailImageWithSize:(NSSize) size;
 - (NSImage*)		thumbnail;
@@ -77,11 +75,9 @@
 - (BOOL)			writePDFDataToPasteboard:(NSPasteboard*) pb;
 - (NSBitmapImageRep*) bitmapRepresentationWithDPI:(NSUInteger) dpi;
 
-- (void)			setClipsDrawingToInterior:(BOOL) clip;
-- (BOOL)			clipsDrawingToInterior;
+@property BOOL clipsDrawingToInterior;
 
-- (void)			setAlpha:(CGFloat) alpha;
-- (CGFloat)			alpha;
+@property CGFloat alpha;
 
 // managing ruler markers:
 
@@ -92,30 +88,26 @@
 
 // states:
 
-- (void)			setLocked:(BOOL) locked;
-- (BOOL)			locked;
-- (void)			setVisible:(BOOL) visible;
-- (BOOL)			visible;
-- (BOOL)			isActive;
-- (BOOL)			lockedOrHidden;
+@property BOOL locked;
+@property BOOL visible;
+@property (readonly, getter=isActive) BOOL active;
+@property (readonly) BOOL lockedOrHidden;
 
-- (void)			setLayerName:(NSString*) name;
-- (NSString*)		layerName;
+@property (copy, nonatomic) NSString *layerName;
 
 // user info support
 
-- (void)				setUserInfo:(NSMutableDictionary*) info;
-- (void)				addUserInfo:(NSDictionary*) info;
-- (NSMutableDictionary*)userInfo;
+- (void)				setUserInfo:(NSMutableDictionary<NSString*,id>*) info;
+- (void)				addUserInfo:(NSDictionary<NSString*,id>*) info;
+- (NSMutableDictionary<NSString*,id>*)userInfo;
 - (id)					userInfoObjectForKey:(NSString*) key;
 - (void)				setUserInfoObject:(id) obj forKey:(NSString*) key;
 
-- (NSString*)		uniqueKey;
+@property (readonly, copy) NSString *uniqueKey;
 
 // print this layer?
 
-- (void)			setShouldDrawToPrinter:(BOOL) printIt;
-- (BOOL)			shouldDrawToPrinter;
+@property BOOL shouldDrawToPrinter;
 
 // becoming/resigning active:
 
@@ -146,10 +138,8 @@
 
 // supporting per-layer knob handling - default defers to the drawing as before
 
-- (void)			setKnobs:(DKKnob*) knobs;
-- (DKKnob*)			knobs;
-- (void)			setKnobsShouldAdustToViewScale:(BOOL) ka;
-- (BOOL)			knobsShouldAdjustToViewScale;
+@property (nonatomic, retain) DKKnob *knobs;
+@property (nonatomic) BOOL knobsShouldAdjustToViewScale;
 
 // pasteboard types for drag/drop etc:
 
@@ -190,10 +180,10 @@
 @end
 
 
-extern NSString*	kDKLayerLockStateDidChange;
-extern NSString*	kDKLayerVisibleStateDidChange;
-extern NSString*	kDKLayerNameDidChange;
-extern NSString*	kDKLayerSelectionHighlightColourDidChange;
+extern NSNotificationName	kDKLayerLockStateDidChange;
+extern NSNotificationName	kDKLayerVisibleStateDidChange;
+extern NSNotificationName	kDKLayerNameDidChange;
+extern NSNotificationName	kDKLayerSelectionHighlightColourDidChange;
 
 /*
 
