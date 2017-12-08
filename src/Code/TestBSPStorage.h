@@ -6,12 +6,12 @@
 //  Copyright 2009 Apptree.net. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DKBSPDirectObjectStorage.h"
 
 
 
-@interface TestBSPStorage : SenTestCase
+@interface TestBSPStorage : XCTestCase
 
 
 - (void)	testBSPStorage;

@@ -447,7 +447,7 @@
 		BF2EE3CC0F6550DE00B8CFFD /* DKAuxiliaryMenus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKAuxiliaryMenus.h; sourceTree = "<group>"; };
 		BF2EE3CD0F6550DE00B8CFFD /* DKAuxiliaryMenus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKAuxiliaryMenus.m; sourceTree = "<group>"; };
 		BF2EE3D10F6557C900B8CFFD /* DK_Auxiliary_Menus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DK_Auxiliary_Menus.xib; sourceTree = "<group>"; };
-		BF2EE49B0F66011D00B8CFFD /* DKUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DKUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF2EE49B0F66011D00B8CFFD /* DKUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DKUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF2EE49C0F66011D00B8CFFD /* DKUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DKUnitTests-Info.plist"; sourceTree = "<group>"; };
 		BF2EE4B10F6602A400B8CFFD /* TestBSPStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestBSPStorage.h; sourceTree = "<group>"; };
 		BF2EE4B20F6602A400B8CFFD /* TestBSPStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestBSPStorage.m; sourceTree = "<group>"; };
@@ -658,7 +658,7 @@
 			isa = PBXGroup;
 			children = (
 				9660E6100BEF442B00B6A38C /* GCDrawKit.framework */,
-				BF2EE49B0F66011D00B8CFFD /* DKUnitTests.octest */,
+				BF2EE49B0F66011D00B8CFFD /* DKUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1477,7 +1477,6 @@
 				BF2EE4960F66011C00B8CFFD /* Resources */,
 				BF2EE4970F66011C00B8CFFD /* Sources */,
 				BF2EE4980F66011C00B8CFFD /* Frameworks */,
-				BF2EE4990F66011C00B8CFFD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1485,8 +1484,8 @@
 			);
 			name = DKUnitTests;
 			productName = DKUnitTests;
-			productReference = BF2EE49B0F66011D00B8CFFD /* DKUnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = BF2EE49B0F66011D00B8CFFD /* DKUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1544,22 +1543,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BF2EE4990F66011C00B8CFFD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
@@ -1943,7 +1926,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1964,7 +1946,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DKUnitTests;
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
