@@ -32,20 +32,20 @@ typedef NS_ENUM(NSInteger, DKInfoBoxPlacement)
 
 // general settings:
 
-@property NSSize size;
+@property (nonatomic) NSSize size;
 
-@property DKInfoBoxPlacement placement;
+@property (nonatomic) DKInfoBoxPlacement placement;
 
 @property (retain) NSColor *backgroundColour;
 
-@property BOOL drawsBorder;
+@property (nonatomic) BOOL drawsBorder;
 
 // internal stuff:
 
-- (NSRect)				infoBoxRect;
+@property (readonly) NSRect infoBoxRect;
 - (void)				drawInfoInRect:(NSRect) br;
 - (NSDictionary*)		attributesForDrawingInfoItem:(NSString*) key;
-- (void)				drawString:(NSString*) str inRect:(NSRect) r withAttributes:(NSDictionary*) attr;
+- (void)				drawString:(NSString*) str inRect:(NSRect) r withAttributes:(NSDictionary<NSAttributedStringKey, id>*) attr;
 
 - (NSAttributedString*)	labelForDrawingInfoItem:(NSString*) key;
 - (NSRect)				layoutRectForDrawingInfoItem:(NSString*) key inRect:(NSRect) bounds;

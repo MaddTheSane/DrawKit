@@ -14,36 +14,60 @@
 
 @class DKDrawableObject, DKStyle;
 
-// caching options
-
+//! caching options
 typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 {
-	kDKLayerCacheNone			= 0,				// no caching
-	kDKLayerCacheUsingPDF		= ( 1 << 0 ),		// layer is cached in a PDF Image Rep
-	kDKLayerCacheUsingCGLayer	= ( 1 << 1 ),		// layer is cached in a CGLayer bitmap
-	kDKLayerCacheObjectOutlines = ( 1 << 2 )		// objects are drawn using a simple outline stroke only
+	kDKLayerCacheNone			= 0,				//!< no caching
+	kDKLayerCacheUsingPDF		= ( 1 << 0 ),		//!< layer is cached in a PDF Image Rep
+	kDKLayerCacheUsingCGLayer	= ( 1 << 1 ),		//!< layer is cached in a CGLayer bitmap
+	kDKLayerCacheObjectOutlines = ( 1 << 2 )		//!< objects are drawn using a simple outline stroke only
 };
 
 // the class
 
-
+/*!
+ 
+ This layer class can be the owner of any number of DKDrawableObjects. It implements the ability to contain and render
+ these objects.
+ 
+ It does NOT support the concept of a selection, or of a list of selected objects (DKObjectDrawingLayer subclasses this to
+ provide that functionality).
+ 
+ This split between the owner/renderer layer and selection allows a more fine-grained opportunity to subclass for different
+ application needs.
+ 
+ Layer caching:
+ 
+ When a layer is NOT active, it may boost drawing performance to cache the layer's contents offscreen. This is especially beneficial
+ if you are using many layers. By setting the cache option, you can control how caching is done. If set to "none", objects
+ are never drawn using a cache, but simply drawn in the usual way. If "pdf", the cache is an NSPDFImageRep, which stores the image
+ as a PDF and so draws it at full vector quality at all zoom scales. If "CGLayer", an offscreen CGLayer is used which gives the
+ fastest rendering but will show pixellation at higher zooms. If both pdf and CGLayer are set, both caches will be created and
+ the CGLayer one used when DKDrawing has its "low quality" hint set, and the PDF rep otherwise.
+ 
+ The cache is only used for screen drawing.
+ 
+ NOTE: PDF caching has been shown to be actually slower when there are many objects, espcially with advanced storage in use. This is
+ because it's an all-or-nothing rendering proposition which direct drawing of a layer's objects is not.
+ 
+ */
 @interface DKObjectOwnerLayer : DKLayer <NSCoding, DKDrawableContainer, NSDraggingDestination>
 {
 @private
-	id<DKObjectStorage>		mStorage;				// the object storage
-	NSPoint					m_pasteAnchor;			// used when recording the paste/duplication offset
-	BOOL					m_allowEditing;			// YES to allow editing of objects, NO to prevent
-	BOOL					m_allowSnapToObjects;	// YES to let snapping look for other objects
-	DKDrawableObject*		mNewObjectPending;		// temporary object being created - is drawn and handled as a normal object but can be deleted without undo
-	DKLayerCacheOption		mLayerCachingOption;	// see constants defined above
-	NSRect					mCacheBounds;			// the bounds rect of the cached layer or PDF rep - used to accurately position the cache when drawn
-	BOOL					m_inDragOp;				// YES if a drag is happening over the layer
-	NSSize					m_pasteOffset;			// distance to offset a pasted object
-	BOOL					m_recordPasteOffset;	// set to YES following a paste, and NO following a drag. When YES, paste offset is recorded.
-	NSInteger				mPasteboardLastChange;	// last change count recorded during a paste
-	NSInteger				mPasteCount;			// number of repeated paste operations since last new paste
+	id<DKObjectStorage>		mStorage;				//!< the object storage
+	NSPoint					m_pasteAnchor;			//!< used when recording the paste/duplication offset
+	BOOL					m_allowEditing;			//!< YES to allow editing of objects, NO to prevent
+	BOOL					m_allowSnapToObjects;	//!< YES to let snapping look for other objects
+	DKDrawableObject*		mNewObjectPending;		//!< temporary object being created - is drawn and handled as a normal object but can be deleted without undo
+	DKLayerCacheOption		mLayerCachingOption;	//!< see constants defined above
+	NSRect					mCacheBounds;			//!< the bounds rect of the cached layer or PDF rep - used to accurately position the cache when drawn
+	BOOL					m_inDragOp;				//!< YES if a drag is happening over the layer
+	NSSize					m_pasteOffset;			//!< distance to offset a pasted object
+	BOOL					m_recordPasteOffset;	//!< set to YES following a paste, and NO following a drag. When YES, paste offset is recorded.
+	NSInteger				mPasteboardLastChange;	//!< last change count recorded during a paste
+	NSInteger				mPasteCount;			//!< number of repeated paste operations since last new paste
 @protected
-	BOOL					mShowStorageDebugging;	// if YES, draws the debugging path for the storage on top (debugging feature only)
+	BOOL					mShowStorageDebugging;	//!< if YES, draws the debugging path for the storage on top (debugging feature only)
 }
 @property (class) DKLayerCacheOption defaultLayerCacheOption;
 
@@ -204,44 +228,15 @@ typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 #endif
 
 
-extern NSString*		kDKDrawableObjectPasteboardType;
-extern NSString*		kDKDrawableObjectInfoPasteboardType;
-extern NSString*		kDKLayerDidReorderObjects;
+extern NSPasteboardType const kDKDrawableObjectPasteboardType;
+extern NSPasteboardType const kDKDrawableObjectInfoPasteboardType;
+extern NSPasteboardType const kDKLayerDidReorderObjects;
 
-extern NSString*		kDKLayerWillAddObject;
-extern NSString*		kDKLayerDidAddObject;
-extern NSString*		kDKLayerWillRemoveObject;
-extern NSString*		kDKLayerDidRemoveObject;
+extern NSNotificationName const kDKLayerWillAddObject;
+extern NSNotificationName const kDKLayerDidAddObject;
+extern NSNotificationName const kDKLayerWillRemoveObject;
+extern NSNotificationName const kDKLayerDidRemoveObject;
 
 
 #define	DEFAULT_PASTE_OFFSET	20
 
-
-
-
-/*
-
-This layer class can be the owner of any number of DKDrawableObjects. It implements the ability to contain and render
-these objects.
-
-It does NOT support the concept of a selection, or of a list of selected objects (DKObjectDrawingLayer subclasses this to
-provide that functionality).
-
-This split between the owner/renderer layer and selection allows a more fine-grained opportunity to subclass for different
-application needs.
-
-Layer caching:
-
-When a layer is NOT active, it may boost drawing performance to cache the layer's contents offscreen. This is especially beneficial
-if you are using many layers. By setting the cache option, you can control how caching is done. If set to "none", objects
-are never drawn using a cache, but simply drawn in the usual way. If "pdf", the cache is an NSPDFImageRep, which stores the image
-as a PDF and so draws it at full vector quality at all zoom scales. If "CGLayer", an offscreen CGLayer is used which gives the
-fastest rendering but will show pixellation at higher zooms. If both pdf and CGLayer are set, both caches will be created and
-the CGLayer one used when DKDrawing has its "low quality" hint set, and the PDF rep otherwise.
-
-The cache is only used for screen drawing.
- 
-NOTE: PDF caching has been shown to be actually slower when there are many objects, espcially with advanced storage in use. This is
-because it's an all-or-nothing rendering proposition which direct drawing of a layer's objects is not.
-
-*/

@@ -36,7 +36,7 @@
 @end
 
 
-extern NSString*		kDKDrawableObjectInfoPasteboardType;
+extern NSPasteboardType const kDKDrawableObjectInfoPasteboardType;
 
 
 /*

@@ -14,7 +14,26 @@
 @class DKDrawing, DKDrawingView, DKLayerGroup, DKDrawableObject, DKKnob, DKStyle, GCInfoFloater;
 
 // generic layer class:
-
+/*!
+ 
+ drawing layers are lightweight objects which represent a layer. They are owned by a DKDrawing which manages the
+ stacking order and invokes the drawRect: method as needed. The other state variables control whether the layer is
+ visible, locked, etc.
+ 
+ DKDrawing will not ever call a drawRect: on a layer that returns NO for visible.
+ 
+ if isOpaque returns YES, layers that are stacked below this one will not be drawn, even if they are visible. isOpaque
+ returns NO by default.
+ 
+ locked layers should not be editable, but this must be enforced by subclasses, as this class contains no editing
+ features. However, locked layers will never receive mouse event calls so generally this will be enough.
+ 
+ As layers are retained by the drawing, this does not retain the drawing.
+ 
+ By definition the bounds of the layer is the same as the bounds of the drawing.
+ 
+ 
+ */
 @interface DKLayer : NSObject <NSCoding, DKKnobOwner, NSUserInterfaceValidations>
 {
 @private
@@ -52,7 +71,7 @@
 @property (assign) DKLayerGroup *layerGroup;
 @property (readonly) NSUInteger indexInGroup;
 - (BOOL)			isChildOfGroup:(DKLayerGroup*) aGroup;
-@property (readonly) NSUInteger level;
+@property (readonly) NSInteger level;
 
 // drawing:
 
@@ -83,8 +102,7 @@
 
 - (void)			updateRulerMarkersForRect:(NSRect) rect;
 - (void)			hideRulerMarkers;
-- (void)			setRulerMarkerUpdatesEnabled:(BOOL) enable;
-- (BOOL)			rulerMarkerUpdatesEnabled;
+@property BOOL rulerMarkerUpdatesEnabled;
 
 // states:
 
@@ -111,13 +129,13 @@
 
 // becoming/resigning active:
 
-- (BOOL)			layerMayBecomeActive;
+@property (readonly) BOOL layerMayBecomeActive;
 - (void)			layerDidBecomeActiveLayer;
 - (void)			layerDidResignActiveLayer;
 
 // permitting deleton:
 
-- (BOOL)			layerMayBeDeleted;
+@property (readonly) BOOL layerMayBeDeleted;
 
 // mouse event handling:
 
@@ -139,11 +157,12 @@
 // supporting per-layer knob handling - default defers to the drawing as before
 
 @property (nonatomic, retain) DKKnob *knobs;
+- (void)			setKnobsShouldAdustToViewScale:(BOOL) ka DEPRECATED_ATTRIBUTE;
 @property (nonatomic) BOOL knobsShouldAdjustToViewScale;
 
 // pasteboard types for drag/drop etc:
 
-- (NSArray*)		pasteboardTypesForOperation:(DKPasteboardOperationType) op;
+- (NSArray<NSPasteboardType>*)pasteboardTypesForOperation:(DKPasteboardOperationType) op;
 - (BOOL)			pasteboard:(NSPasteboard*) pb hasAvailableTypeForOperation:(DKPasteboardOperationType) op;
 
 // style utilities (implemented by subclasses such as DKObjectOwnerLayer)
@@ -185,23 +204,4 @@ extern NSNotificationName	kDKLayerVisibleStateDidChange;
 extern NSNotificationName	kDKLayerNameDidChange;
 extern NSNotificationName	kDKLayerSelectionHighlightColourDidChange;
 
-/*
 
-drawing layers are lightweight objects which represent a layer. They are owned by a DKDrawing which manages the
-stacking order and invokes the drawRect: method as needed. The other state variables control whether the layer is
-visible, locked, etc.
-
-DKDrawing will not ever call a drawRect: on a layer that returns NO for visible.
-
-if isOpaque returns YES, layers that are stacked below this one will not be drawn, even if they are visible. isOpaque
-returns NO by default.
-
-locked layers should not be editable, but this must be enforced by subclasses, as this class contains no editing
-features. However, locked layers will never receive mouse event calls so generally this will be enough.
-
-As layers are retained by the drawing, this does not retain the drawing.
-
-By definition the bounds of the layer is the same as the bounds of the drawing.
-
-
-*/

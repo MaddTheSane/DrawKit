@@ -35,14 +35,12 @@
 
 // default settings:
 
-+ (void)				setSelectionIsShownWhenInactive:(BOOL) visInactive;
-+ (BOOL)				selectionIsShownWhenInactive;
-+ (void)				setDefaultSelectionChangesAreUndoable:(BOOL) undoSel;
-+ (BOOL)				defaultSelectionChangesAreUndoable;
+@property (class) BOOL selectionIsShownWhenInactive;
+@property (class) BOOL defaultSelectionChangesAreUndoable;
 
 // convenience constructor:
 
-+ (DKObjectDrawingLayer*) layerWithObjectsInArray:(NSArray*) objects;
++ (instancetype) layerWithObjectsInArray:(NSArray*) objects;
 
 // useful lists of objects:
 
@@ -70,8 +68,7 @@
 
 // the selection:
 
-- (void)				setSelection:(NSSet*) sel;
-- (NSSet*)				selection;
+@property (copy) NSSet *selection;
 - (DKDrawableObject*)	singleSelection;
 - (NSUInteger)			countOfSelection;
 
@@ -95,19 +92,18 @@
 // useful selection tests:
 
 - (BOOL)				isSelectedObject:(DKDrawableObject*) obj;
-- (BOOL)				isSelectionNotEmpty;
-- (BOOL)				isSingleObjectSelected;
+@property (readonly, getter=isSelectionNotEmpty) BOOL selectionNotEmpty;
+@property (readonly, getter=isSingleObjectSelected) BOOL singleObjectSelected;
 - (BOOL)				selectionContainsObjectOfClass:(Class) c;
-- (NSRect)				selectionBounds;
-- (NSRect)				selectionLogicalBounds;
+@property (readonly) NSRect selectionBounds;
+@property (readonly) NSRect selectionLogicalBounds;
 
 // selection undo stuff:
 
-- (void)				setSelectionChangesAreUndoable:(BOOL) undoable;
-- (BOOL)				selectionChangesAreUndoable;
+@property BOOL selectionChangesAreUndoable;
 - (void)				recordSelectionForUndo;
 - (void)				commitSelectionUndoWithActionName:(NSString*) actionName;
-- (BOOL)				selectionHasChangedFromRecorded;
+@property (readonly) BOOL selectionHasChangedFromRecorded;
 
 // making images of the selected objects:
 
@@ -123,20 +119,15 @@
 
 // options:
 
-- (void)				setDrawsSelectionHighlightsOnTop:(BOOL) onTop;
-- (BOOL)				drawsSelectionHighlightsOnTop;
-- (void)				setAllowsObjectsToBeTargetedByDrags:(BOOL) allow;
-- (BOOL)				allowsObjectsToBeTargetedByDrags;
-- (void)				setSelectionVisible:(BOOL) vis;
-- (BOOL)				selectionVisible;
-- (void)				setMultipleSelectionAutoForwarding:(BOOL) autoForward;
-- (BOOL)				multipleSelectionAutoForwarding;
+@property BOOL drawsSelectionHighlightsOnTop;
+@property BOOL allowsObjectsToBeTargetedByDrags;
+@property BOOL selectionVisible;
+@property BOOL multipleSelectionAutoForwarding;
 - (BOOL)				multipleSelectionValidatedMenuItem:(NSMenuItem*) item;
 
 // drag + drop:
 
-- (void)				setDragExclusionRect:(NSRect) aRect;
-- (NSRect)				dragExclusionRect;
+@property NSRect dragExclusionRect;
 - (void)				beginDragOfSelectedObjectsWithEvent:(NSEvent*) event inView:(NSView*) view;
 - (void)				drawingSizeChanged:(NSNotification*) note;
 
@@ -193,8 +184,8 @@ enum
 };
 
 
-extern NSString*		kDKLayerSelectionDidChange;
-extern NSString*		kDKLayerKeyObjectDidChange;
+extern NSNotificationName const kDKLayerSelectionDidChange;
+extern NSNotificationName const kDKLayerKeyObjectDidChange;
 
 /*
 

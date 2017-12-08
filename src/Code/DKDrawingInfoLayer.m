@@ -22,6 +22,9 @@ NSString*	kDKDrawingInfoTextLabelAttributes = @"kDKDrawingInfoTextLabelAttribute
 #pragma mark -
 @implementation DKDrawingInfoLayer
 #pragma mark As a DKDrawingInfoLayer
+@synthesize size = m_size;
+@synthesize placement = m_placement;
+@synthesize drawsBorder = m_drawBorder;
 
 - (void)		setSize:(NSSize) size
 {
@@ -32,12 +35,6 @@ NSString*	kDKDrawingInfoTextLabelAttributes = @"kDKDrawingInfoTextLabelAttribute
 		m_size = size;
 		[self setNeedsDisplay:YES];
 	}
-}
-
-
-- (NSSize)		size
-{
-	return m_size;
 }
 
 
@@ -79,12 +76,6 @@ NSString*	kDKDrawingInfoTextLabelAttributes = @"kDKDrawingInfoTextLabelAttribute
 		m_drawBorder = border;
 		[self setNeedsDisplay:YES];
 	}
-}
-
-
-- (BOOL)		drawsBorder
-{
-	return m_drawBorder;
 }
 
 

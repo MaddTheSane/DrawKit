@@ -27,6 +27,7 @@
 }
 
 @property (class) BOOL scrollwheelZoomEnabled;
++ (void)				setScrollwheelModiferKeyMask:(NSEventModifierFlags) aMask DEPRECATED_ATTRIBUTE;
 @property (class) NSEventModifierFlags scrollwheelModifierKeyMask;
 @property (class) BOOL scrollwheelInverted;
 

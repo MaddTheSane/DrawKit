@@ -75,7 +75,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 		if (m_layers == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)
@@ -162,7 +162,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (NSUInteger)			countOfLayers
+- (NSInteger)			countOfLayers
 {
 	return[m_layers count];
 }
@@ -184,11 +184,11 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (NSUInteger)			indexOfHighestOpaqueLayer
+- (NSInteger)			indexOfHighestOpaqueLayer
 {
 	// returns the index of the topmost layer that returns YES for isOpaque.
 
-	NSUInteger i = 0;
+	NSInteger i = 0;
 	
 	do
 	{
@@ -381,7 +381,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (void)				addLayer:(DKLayer*) aLayer aboveLayerIndex:(NSUInteger) layerIndex
+- (void)				addLayer:(DKLayer*) aLayer aboveLayerIndex:(NSInteger) layerIndex
 {
 	NSAssert( aLayer != nil, @"cannot add a nil layer");
 
@@ -411,7 +411,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (void)				insertObject:(DKLayer*) aLayer inLayersAtIndex:(NSUInteger) layerIndex
+- (void)				insertObject:(DKLayer*) aLayer inLayersAtIndex:(NSInteger) layerIndex
 {
 	NSAssert( aLayer != nil, @"cannot insert a nil layer");
 	
@@ -472,7 +472,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (void)				removeObjectFromLayersAtIndex:(NSUInteger) layerIndex
+- (void)				removeObjectFromLayersAtIndex:(NSInteger) layerIndex
 {
 	NSAssert( layerIndex < [self countOfLayers], @"layer index out of range in removeLayerFromLayersAtIndex:");
 
@@ -575,7 +575,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (DKLayer*)		objectInLayersAtIndex:(NSUInteger) layerIndex
+- (DKLayer*)		objectInLayersAtIndex:(NSInteger) layerIndex
 {
 	NSAssert1( layerIndex < [self countOfLayers], @"bad layer index %ld (overrange)", (long)layerIndex);
 	
@@ -641,7 +641,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (NSUInteger)		indexOfLayer:(DKLayer*) aLayer
+- (NSInteger)		indexOfLayer:(DKLayer*) aLayer
 {
 	return [[self layers] indexOfObjectIdenticalTo:aLayer];
 }
@@ -1218,7 +1218,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (void)				moveLayer:(DKLayer*) aLayer toIndex:(NSUInteger) i
+- (void)				moveLayer:(DKLayer*) aLayer toIndex:(NSInteger) i
 {
 	// all other layer stacking methods call this one, which implements undo and notification
 	
@@ -1227,7 +1227,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 	
 	if( ![self locked])
 	{
-		NSUInteger k = [self indexOfLayer:aLayer];
+		NSInteger k = [self indexOfLayer:aLayer];
 		
 		if( k == NSNotFound )
 			return;
@@ -1454,7 +1454,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 ///
 ///********************************************************************************************************************
 
-- (NSUInteger)				level
+- (NSInteger)				level
 {
 	if([self layerGroup] == nil )
 		return 0;

@@ -790,10 +790,8 @@ static NSColor*		sMajorColour = nil;
 ///
 ///********************************************************************************************************************
 
-- (NSColor*)		spanColour
-{
-	return m_spanColour;
-}
+
+@synthesize spanColour=m_spanColour;
 
 
 ///*********************************************************************************************************************
@@ -823,10 +821,7 @@ static NSColor*		sMajorColour = nil;
 }
 
 
-- (NSColor*)				divisionColour
-{
-	return m_divisionColour;
-}
+@synthesize divisionColour = m_divisionColour;
 
 ///*********************************************************************************************************************
 ///
@@ -855,10 +850,7 @@ static NSColor*		sMajorColour = nil;
 }
 
 
-- (NSColor*)				majorColour
-{
-	return m_majorColour;
-}
+@synthesize majorColour=m_majorColour;
 
 
 ///*********************************************************************************************************************

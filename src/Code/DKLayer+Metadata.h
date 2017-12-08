@@ -21,16 +21,15 @@ typedef NS_ENUM(NSInteger, DKLayerMetadataSchema)
 
 @interface DKLayer (Metadata)
 
-+ (void)		setMetadataChangesAreUndoable:(BOOL) undo;
-+ (BOOL)		metadataChangesAreUndoable;
+@property (class) BOOL metadataChangesAreUndoable;
 
 - (void)					setupMetadata;
-- (NSMutableDictionary*)	metadata;
-- (DKLayerMetadataSchema)	schema;
-- (NSArray*)				metadataKeys;
+- (NSMutableDictionary<NSString*,id>*)	metadata;
+@property (readonly) DKLayerMetadataSchema schema;
+@property (readonly, copy) NSArray<NSString*> *metadataKeys;
 
-- (void)		addMetadata:(NSDictionary*) dict;
-- (void)		setMetadata:(NSDictionary*) dict;
+- (void)		addMetadata:(NSDictionary<NSString*,id>*) dict;
+- (void)		setMetadata:(NSDictionary<NSString*,id>*) dict;
 
 - (void)		setMetadataItem:(DKMetadataItem*) item forKey:(NSString*) key;
 - (DKMetadataItem*)	metadataItemForKey:(NSString*) key;
@@ -58,9 +57,9 @@ typedef NS_ENUM(NSInteger, DKLayerMetadataSchema)
 - (NSSize)		sizeForKey:(NSString*) key;
 
 - (void)		updateMetadataKeys;
-- (NSUInteger)	metadataChecksum;
+@property (readonly) NSUInteger metadataChecksum;
 
-- (BOOL)		supportsMetadata;
+@property (readonly) BOOL supportsMetadata;
 - (void)		metadataWillChangeKey:(NSString*) key;
 - (void)		metadataDidChangeKey:(NSString*) key;
 
@@ -68,14 +67,14 @@ typedef NS_ENUM(NSInteger, DKLayerMetadataSchema)
 
 extern NSString*	kDKLayerMetadataUserInfoKey;
 extern NSString*	kDKLayerMetadataUndoableChangesUserDefaultsKey;
-extern NSString*	kDKMetadataWillChangeNotification;
-extern NSString*	kDKMetadataDidChangeNotification;
+extern NSNotificationName	kDKMetadataWillChangeNotification;
+extern NSNotificationName	kDKMetadataDidChangeNotification;
 
 
 
 @interface DKLayer (MetadataDeprecated)
 
-- (void)		setMetadataObject:(id) obj forKey:(id) key;
+- (void)		setMetadataObject:(id) obj forKey:(id) key DEPRECATED_ATTRIBUTE;
 
 @end
 

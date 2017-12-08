@@ -50,12 +50,9 @@ typedef NS_ENUM(NSInteger, DKGridMeasurementSystem)
 
 // setting class defaults:
 
-+ (void)					setDefaultSpanColour:(NSColor*) colour;
-+ (NSColor*)				defaultSpanColour;
-+ (void)					setDefaultDivisionColour:(NSColor*) colour;
-+ (NSColor*)				defaultDivisionColour;
-+ (void)					setDefaultMajorColour:(NSColor*) colour;
-+ (NSColor*)				defaultMajorColour;
+@property (class, retain) NSColor *defaultSpanColour;
+@property (class, retain) NSColor *defaultDivisionColour;
+@property (class, retain) NSColor *defaultMajorColour;
 + (void)					setDefaultGridThemeColour:(NSColor*) colour;
 
 + (instancetype)			standardMetricGridLayer;
@@ -81,37 +78,30 @@ typedef NS_ENUM(NSInteger, DKGridMeasurementSystem)
 
 // other settings:
 
-- (CGFloat)					spanDistance;
-- (CGFloat)					divisionDistance;
+@property (readonly) CGFloat spanDistance;
+@property (readonly) CGFloat divisionDistance;
 @property NSPoint zeroPoint;
-- (NSUInteger)				divisions;
-- (NSUInteger)				majors;
-- (CGFloat)					spanMultiplier;
+@property (readonly) NSUInteger divisions;
+@property (readonly) NSUInteger majors;
+@property (readonly) CGFloat spanMultiplier;
 
 // hiding elements of the grid
 
-- (void)					setDivisionsHidden:(BOOL) hide;
-- (BOOL)					divisionsHidden;
-- (void)					setSpansHidden:(BOOL) hide;
-- (BOOL)					spansHidden;
-- (void)					setMajorsHidden:(BOOL) hide;
-- (BOOL)					majorsHidden;
+@property BOOL divisionsHidden;
+@property BOOL spansHidden;
+@property BOOL majorsHidden;
 
 // managing rulers and margins
 
-- (void)					setRulerSteps:(NSUInteger) steps;
-- (NSUInteger)				rulerSteps;
+@property NSUInteger rulerSteps;
 - (void)					synchronizeRulers;
 - (void)					tweakDrawingMargins;
 
 // colours for grid display
 
-- (void)					setSpanColour:(NSColor*) colour;
-- (NSColor*)				spanColour;
-- (void)					setDivisionColour:(NSColor*) colour;
-- (NSColor*)				divisionColour;
-- (void)					setMajorColour:(NSColor*) colour;
-- (NSColor*)				majorColour;
+@property (nonatomic, retain) NSColor *spanColour;
+@property (nonatomic, retain) NSColor *divisionColour;
+@property (nonatomic, retain) NSColor *majorColour;
 - (void)					setGridThemeColour:(NSColor*) colour;
 - (NSColor*)				themeColour;
 

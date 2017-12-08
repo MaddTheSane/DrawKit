@@ -33,11 +33,11 @@
 #endif
 
 #pragma mark Contants (Non-localized)
-NSString*		kDKDrawableDidChangeNotification			= @"kDKDrawableDidChangeNotification";
-NSString*		kDKDrawableStyleWillBeDetachedNotification	= @"kDKDrawableStyleWillBeDetachedNotification";
-NSString*		kDKDrawableStyleWasAttachedNotification		= @"kDKDrawableStyleWasAttachedNotification";
-NSString*		kDKDrawableDoubleClickNotification			= @"kDKDrawableDoubleClickNotification";
-NSString*		kDKDrawableSubselectionChangedNotification	= @"kDKDrawableSubselectionChangedNotification";
+NSString* const kDKDrawableDidChangeNotification			= @"kDKDrawableDidChangeNotification";
+NSString* const kDKDrawableStyleWillBeDetachedNotification	= @"kDKDrawableStyleWillBeDetachedNotification";
+NSString* const kDKDrawableStyleWasAttachedNotification		= @"kDKDrawableStyleWasAttachedNotification";
+NSString* const kDKDrawableDoubleClickNotification			= @"kDKDrawableDoubleClickNotification";
+NSString* const kDKDrawableSubselectionChangedNotification	= @"kDKDrawableSubselectionChangedNotification";
 
 NSString*		kDKDrawableOldStyleKey		= @"old_style";
 NSString*		kDKDrawableNewStyleKey		= @"new_style";

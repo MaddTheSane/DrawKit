@@ -15,6 +15,10 @@
 
 @implementation DKImageOverlayLayer
 #pragma mark As a DKImageOverlayLayer
+@synthesize opacity=m_opacity;
+@synthesize image=m_image;
+@synthesize coverageMethod=m_coverageMethod;
+
 - (id)			initWithImage:(NSImage*) image
 {
 	self = [self init];
@@ -52,12 +56,6 @@
 }
 
 
-- (NSImage*)	image
-{
-	return m_image;
-}
-
-
 #pragma mark -
 - (void)		setOpacity:(CGFloat) op
 {
@@ -69,12 +67,6 @@
 }
 
 
-- (CGFloat)		opacity
-{
-	return m_opacity;
-}
-
-
 #pragma mark -
 - (void)		setCoverageMethod:(DKImageCoverageFlags) cm
 {
@@ -83,12 +75,6 @@
 		m_coverageMethod = cm;
 		[self setNeedsDisplay:YES];
 	}
-}
-
-
-- (DKImageCoverageFlags) coverageMethod
-{
-	return m_coverageMethod;
 }
 
 

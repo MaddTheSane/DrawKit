@@ -326,12 +326,12 @@ enum
 
 // constant strings:
 
-extern NSString*		kDKDrawableObjectPasteboardType;
-extern NSString*		kDKDrawableDidChangeNotification;
-extern NSString*		kDKDrawableStyleWillBeDetachedNotification;
-extern NSString*		kDKDrawableStyleWasAttachedNotification;
-extern NSString*		kDKDrawableDoubleClickNotification;
-extern NSString*		kDKDrawableSubselectionChangedNotification;
+extern NSPasteboardType const kDKDrawableObjectPasteboardType;
+extern NSString*const	kDKDrawableDidChangeNotification;
+extern NSString*const	kDKDrawableStyleWillBeDetachedNotification;
+extern NSString*const	kDKDrawableStyleWasAttachedNotification;
+extern NSString*const	kDKDrawableDoubleClickNotification;
+extern NSString*const	kDKDrawableSubselectionChangedNotification;
 
 // keys for items in user info sent with notifications
 

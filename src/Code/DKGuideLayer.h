@@ -14,7 +14,21 @@
 
 @class DKGuide;
 
-
+/*!
+ 
+ A guide layer implements any number of horizontal and vertical guidelines and provides methods for snapping points and rectangles
+ to them.
+ 
+ A drawing typically has one guide layer, though you are not limited to just one - however since DKDrawing will generally provide
+ snapping to both guides and grid as a high-level method, having more than one guide layer can create ambiguities for the user
+ unless your client code takes account of the possibility of multiple guide layers.
+ 
+ The default snap tolerance for guides is 6 points.
+ 
+ By default guides don't snap to the grid. You can force a guide to snap to the grid even if this setting is off by dragging with
+ the shift key down.
+ 
+ */
 @interface DKGuideLayer : DKLayer <NSCoding>
 {
 @private
@@ -31,8 +45,7 @@
 
 // default snapping tolerance:
 
-+ (void)				setDefaultSnapTolerance:(CGFloat) tol;
-+ (CGFloat)				defaultSnapTolerance;
+@property (class) CGFloat defaultSnapTolerance;
 
 // adding and removing guides:
 
@@ -42,41 +55,34 @@
 - (DKGuide*)			createVerticalGuideAndBeginDraggingFromPoint:(NSPoint) p;
 - (DKGuide*)			createHorizontalGuideAndBeginDraggingFromPoint:(NSPoint) p;
 
-- (NSArray*)			guides;
-- (void)				setGuides:(NSArray*) guides;
+@property (copy) NSArray<DKGuide*> *guides;
 
 // finding guides close to a given position
 
 - (DKGuide*)			nearestVerticalGuideToPosition:(CGFloat) pos;
 - (DKGuide*)			nearestHorizontalGuideToPosition:(CGFloat) pos;
-- (NSArray*)			verticalGuides;
-- (NSArray*)			horizontalGuides;
+- (NSArray<DKGuide*>*)	verticalGuides;
+- (NSArray<DKGuide*>*)	horizontalGuides;
 
 // setting a common colour for the guides:
 
-- (void)				setGuideColour:(NSColor*) colour;
-- (NSColor*)			guideColour;
+@property (retain) NSColor *guideColour;
 
 // set whether guides snap to grid or not
 
-- (void)				setGuidesSnapToGrid:(BOOL) gridsnap;
-- (BOOL)				guidesSnapToGrid;
+@property BOOL guidesSnapToGrid;
 
 // set the snapping tolerance for this layer
 
-- (void)				setSnapTolerance:(CGFloat) tol;
-- (CGFloat)				snapTolerance;
+@property CGFloat snapTolerance;
 
 // set whether the info window is displayed or not
 
-- (void)				setShowsDragInfoWindow:(BOOL) showsIt;
-- (BOOL)				showsDragInfoWindow;
+@property BOOL showsDragInfoWindow;
 
-- (void)				setGuideDeletionRect:(NSRect) rect;
-- (NSRect)				guideDeletionRect;
+@property NSRect guideDeletionRect;
 
-- (void)				setGuidesDrawnInEnclosingScrollview:(BOOL) drawOutside;
-- (BOOL)				guidesDrawnInEnclosingScrollview;
+@property BOOL guidesDrawnInEnclosingScrollview;
 
 // snapping points and rects to the guides:
 
@@ -97,9 +103,7 @@
 
 @end
 
-// each guide is implemented by an instance of DKGuide:
-
-
+//! each guide is implemented by an instance of DKGuide:
 @interface DKGuide : NSObject <NSCoding>
 {
 @private
@@ -108,33 +112,12 @@
 	NSColor*			m_colour;
 }
 
-- (void)				setGuidePosition:(CGFloat) pos;
-- (CGFloat)				guidePosition;
+@property CGFloat guidePosition;
 
-- (void)				setIsVerticalGuide:(BOOL) vert;
-- (BOOL)				isVerticalGuide;
+@property BOOL isVerticalGuide;
 
-- (void)				setGuideColour:(NSColor*) colour;
-- (NSColor*)			guideColour;
+@property (copy) NSColor *guideColour;
 
 - (void)				drawInRect:(NSRect) rect lineWidth:(CGFloat) lw;
 
 @end
-
-
-/*
-
-A guide layer implements any number of horizontal and vertical guidelines and provides methods for snapping points and rectangles
-to them.
-
-A drawing typically has one guide layer, though you are not limited to just one - however since DKDrawing will generally provide
-snapping to both guides and grid as a high-level method, having more than one guide layer can create ambiguities for the user
-unless your client code takes account of the possibility of multiple guide layers.
-
-The default snap tolerance for guides is 6 points.
-
-By default guides don't snap to the grid. You can force a guide to snap to the grid even if this setting is off by dragging with
-the shift key down.
-
-*/
-

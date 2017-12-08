@@ -89,9 +89,15 @@ NSString*	kDKDrawingScrollwheelSensePrefsKey				= @"kDKDrawingcrollwheelSense";	
 ///
 ///********************************************************************************************************************
 
-+ (void)				setScrollwheelModiferKeyMask:(NSEventModifierFlags) aMask
++ (void)				setScrollwheelModifierKeyMask:(NSEventModifierFlags) aMask
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:aMask forKey:kDKScrollwheelModifierKeyMaskPreferenceKey];
+}
+
+
++ (void)				setScrollwheelModiferKeyMask:(NSEventModifierFlags) aMask
+{
+	self.scrollwheelModifierKeyMask = aMask;
 }
 
 

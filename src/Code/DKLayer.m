@@ -36,6 +36,7 @@ static NSInteger	sLayerIndexSeed = 4;
 #pragma mark -
 @implementation DKLayer
 #pragma mark As a DKLayer
+@synthesize knobsShouldAdjustToViewScale = m_knobsAdjustToScale;
 
 
 static NSArray*	s_selectionColours = nil;
@@ -291,7 +292,6 @@ static NSArray*	s_selectionColours = nil;
 ///********************************************************************************************************************
 
 
-
 ///*********************************************************************************************************************
 ///
 /// method:			group
@@ -349,7 +349,7 @@ static NSArray*	s_selectionColours = nil;
 ///
 ///********************************************************************************************************************
 
-- (NSUInteger)		level
+- (NSInteger)		level
 {
 	return [[self layerGroup] level] + 1;
 }
@@ -1671,7 +1671,7 @@ static NSArray*	s_selectionColours = nil;
 
 - (void)				setKnobsShouldAdustToViewScale:(BOOL) ka
 {
-	m_knobsAdjustToScale = ka;
+	self.knobsShouldAdjustToViewScale = ka;
 }
 
 
@@ -2123,7 +2123,7 @@ static NSArray*	s_selectionColours = nil;
 	{
 		[self setVisible:YES];
 		[self setLocked:NO];
-		[self setKnobsShouldAdustToViewScale:YES];
+		[self setKnobsShouldAdjustToViewScale:YES];
 		[self setShouldDrawToPrinter:YES];
 		[self setSelectionColour:[[self class] selectionColourForIndex:sLayerIndexSeed++]];
 		mLayerUniqueKey = [[DKUniqueID uniqueKey] retain];
@@ -2179,7 +2179,7 @@ static NSArray*	s_selectionColours = nil;
 			[self setSelectionColour:selColour];
 		
 		[self setKnobs:[coder decodeObjectForKey:@"DKLayer_knobs"]];
-		[self setKnobsShouldAdustToViewScale:YES];
+		[self setKnobsShouldAdjustToViewScale:YES];
 
 		[self setVisible:[coder decodeBoolForKey:@"visible"]];
 		// Check older files for presence of flag - if not there, assume YES
