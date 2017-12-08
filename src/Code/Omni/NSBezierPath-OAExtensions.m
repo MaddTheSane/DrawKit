@@ -1484,6 +1484,7 @@ static inline BOOL pdrangeCoversPDrange(double rstart, double rlength, double r2
     return (rstart <= r2start) && (rlength - r2length >= r2start - rstart);
 }
 
+__unused
 static inline BOOL drangeCoversDrange(double rstart, double rlength, double r2start, double r2length)
 {
     if (r2length < 0)
@@ -1531,6 +1532,7 @@ static inline void combineNDranges(double *r, double *len, double r1, double r1l
     *len = MIN(newDL, newDR);
 }
 
+__unused
 static inline void combineDranges(double *r, double *len, double r1, double r1len, double r2, double r2len)
 {
     if(r1len >= 0)
@@ -1805,6 +1807,7 @@ static inline double evaluateCubicSecondDerivative(const double *c, double x)
     return  6 * c[3] * x + 2 * c[2] ;
 }
 
+__unused
 static inline OAdPoint evaluateCubicPt(const OAdPoint *c, double t)
 {
     return (OAdPoint){

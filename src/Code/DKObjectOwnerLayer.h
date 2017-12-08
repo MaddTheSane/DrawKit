@@ -95,7 +95,7 @@ typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 
 // getting objects:
 
-@property (readonly) NSUInteger countOfObjects;							// KVC/KVO compliant
+@property (readonly) NSUInteger countOfObjects;						// KVC/KVO compliant
 - (DKDrawableObject*)	objectInObjectsAtIndex:(NSUInteger) indx;	// KVC/KVO compliant
 - (DKDrawableObject*)	topObject;
 - (DKDrawableObject*)	bottomObject;
@@ -176,10 +176,10 @@ typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 - (void)				addObjects:(NSArray*) objects fromPasteboard:(NSPasteboard*) pb atDropLocation:(NSPoint) p;
 - (BOOL)				updatePasteCountWithPasteboard:(NSPasteboard*) pb;
 @property (getter=isRecordingPasteOffset) BOOL recordingPasteOffset;
-- (NSInteger)			pasteCount;
+@property (readonly) NSInteger pasteCount;
 @property NSPoint pasteOrigin;
 @property NSSize pasteOffset;
-- (void)				setPasteOffsetX:(CGFloat) x y:(CGFloat) y;
+- (void)				setPasteOffsetX:(CGFloat) x y:(CGFloat) y NS_SWIFT_NAME(setPasteOffset(x:y:));
 - (void)				objects:(NSArray*) objects wereDraggedFromPoint:(NSPoint) startPt toPoint:(NSPoint) endPt;
 
 // hit testing:
@@ -199,8 +199,7 @@ typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 @property BOOL allowsEditing;
 @property BOOL allowsSnapToObjects;
 
-- (void)				setLayerCacheOption:(DKLayerCacheOption) option;
-- (DKLayerCacheOption)	layerCacheOption;
+@property DKLayerCacheOption layerCacheOption;
 
 @property (getter=isHighlightedForDrag) BOOL highlightedForDrag;
 - (void)				drawHighlightingForDrag;
@@ -219,9 +218,9 @@ typedef NS_OPTIONS(NSUInteger, DKLayerCacheOption)
 
 @interface DKObjectOwnerLayer (Deprecated)
 
-- (NSEnumerator*)		objectTopToBottomEnumerator;
-- (NSEnumerator*)		objectBottomToTopEnumerator;
-- (NSArray*)			nativeObjectsFromPasteboard:(NSPasteboard*) pb;
+- (NSEnumerator*)		objectTopToBottomEnumerator DEPRECATED_ATTRIBUTE;
+- (NSEnumerator*)		objectBottomToTopEnumerator DEPRECATED_ATTRIBUTE;
+- (NSArray*)			nativeObjectsFromPasteboard:(NSPasteboard*) pb DEPRECATED_ATTRIBUTE;
 
 @end
 

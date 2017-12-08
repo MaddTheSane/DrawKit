@@ -13,6 +13,7 @@
 
 @implementation DKShapeCluster
 #pragma mark As a DKShapeCluster
+@synthesize masterObject=m_masterObjRef;
 
 
 ///*********************************************************************************************************************
@@ -82,11 +83,6 @@
 /// notes:			
 ///
 ///********************************************************************************************************************
-
-- (DKDrawableShape*)	masterObject
-{
-	return m_masterObjRef;
-}
 
 
 #pragma mark -

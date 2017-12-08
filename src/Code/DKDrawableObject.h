@@ -18,6 +18,24 @@
 @class DKObjectOwnerLayer, DKStyle, DKDrawing, DKDrawingTool, DKShapeGroup;
 
 
+/*!
+ A drawable object is owned by a DKObjectDrawingLayer, which is responsible for drawing it when required and handling
+ selections. This object is responsible for the visual representation of the selection as well as any content.
+ 
+ It can draw whatever it likes within <bounds>, which it is responsible for calculating correctly.
+ 
+ hitTest can return an integer to indicate which part was hit - a value of 0 means nothing hit. The returned value's meaning
+ is otherwise private to the class, but is returned in the mouse event methods.
+ 
+ This is intended to be a semi-abstract class - it draws nothing itself. Subclasses include DKDrawableShape and DKDrawablePath -
+ often subclassing one of those will be more straightforward than subclassing this. A subclass must implement NSCoding and
+ NSCopying to be archivable, etc. There are also numerous informal protocols for geometry, snapping, hit testing, drawing and ungrouping
+ that need to be implemented correctly for a subclass to work fully correctly within DK.
+ 
+ The user info is a dictionary attached to an object. It plays no part in the graphics system, but can be used by applications
+ to attach arbitrary data to any drawable object.
+ 
+ */
 @interface DKDrawableObject : NSObject <DKStorableObject, DKRenderable, NSCoding, NSCopying>
 {
 @private
@@ -45,28 +63,25 @@
 	BOOL				m_unused_padding:4;		// not used - reserved
 }
 
-+ (BOOL)				displaysSizeInfoWhenDragging;
-+ (void)				setDisplaysSizeInfoWhenDragging:(BOOL) doesDisplay;
+@property (class) BOOL displaysSizeInfoWhenDragging;
 
 + (NSRect)				unionOfBoundsOfDrawablesInArray:(NSArray*) array;
-+ (NSInteger)			initialPartcodeForObjectCreation;
-+ (BOOL)				isGroupable;
+@property (class, readonly) NSInteger initialPartcodeForObjectCreation;
+@property (class, readonly, getter=isGroupable) BOOL groupable;
 
 // ghosting settings:
 
-+ (void)				setGhostColour:(NSColor*) ghostColour;
-+ (NSColor*)			ghostColour;
+@property (class, retain) NSColor *ghostColour;
 
 // pasteboard types for drag/drop:
 
-+ (NSArray*)			pasteboardTypesForOperation:(DKPasteboardOperationType) op;
++ (NSArray<NSPasteboardType>*)pasteboardTypesForOperation:(DKPasteboardOperationType) op;
 + (NSArray*)			nativeObjectsFromPasteboard:(NSPasteboard*) pb;
 + (NSUInteger)			countOfNativeObjectsOnPasteboard:(NSPasteboard*) pb;
 
 // interconversion table used when changing one drawable into another - can be customised
 
-+ (NSDictionary*)		interconversionTable;
-+ (void)				setInterconversionTable:(NSDictionary*) icTable;
+@property (class, copy) NSDictionary<NSString*,Class> *interconversionTable;
 + (Class)				classForConversionRequestFor:(Class) aClass;
 + (void)				substituteClass:(Class) newClass forClass:(Class) baseClass;
 
@@ -76,45 +91,34 @@
 
 // relationships:
 
-- (DKObjectOwnerLayer*)	layer;
-- (DKDrawing*)			drawing;
-- (NSUndoManager*)		undoManager;
-- (id<DKDrawableContainer>)	container;
-- (void)				setContainer:(id<DKDrawableContainer>) aContainer;
-- (NSUInteger)			indexInContainer;
+@property (readonly, retain) DKObjectOwnerLayer *layer;
+@property (readonly, retain) DKDrawing *drawing;
+@property (readonly, retain) NSUndoManager *undoManager;
+@property (nonatomic, assign) id<DKDrawableContainer> container;
+@property (readonly) NSUInteger indexInContainer;
 
 // state:
 
-- (void)				setVisible:(BOOL) vis;
-- (BOOL)				visible;
-- (void)				setLocked:(BOOL) locked;
-- (BOOL)				locked;
-- (void)				setLocationLocked:(BOOL) lockLocation;
-- (BOOL)				locationLocked;
-- (void)				setMouseSnappingEnabled:(BOOL) ems;
-- (BOOL)				mouseSnappingEnabled;
-- (void)				setGhosted:(BOOL) ghosted;
-- (BOOL)				isGhosted;
+@property BOOL visible;
+@property BOOL locked;
+@property BOOL locationLocked;
+@property BOOL mouseSnappingEnabled;
+@property (getter=isGhosted) BOOL ghosted;
 
 // internal state accessors:
 
-- (BOOL)				isTrackingMouse;
-- (void)				setTrackingMouse:(BOOL) tracking;
-
-- (NSSize)				mouseDragOffset;
-- (void)				setMouseDragOffset:(NSSize) offset;
-
-- (BOOL)				mouseHasMovedSinceStartOfTracking;
-- (void)				setMouseHasMovedSinceStartOfTracking:(BOOL) moved;
+@property (getter=isTrackingMouse) BOOL trackingMouse;
+@property NSSize mouseDragOffset;
+@property BOOL mouseHasMovedSinceStartOfTracking;
 
 // selection state:
 
-- (BOOL)				isSelected;
+@property (readonly, getter=isSelected) BOOL selected;
 - (void)				objectDidBecomeSelected;
 - (void)				objectIsNoLongerSelected;
-- (BOOL)				objectMayBecomeSelected;
-- (BOOL)				isPendingObject;
-- (BOOL)				isKeyObject;
+@property (readonly) BOOL objectMayBecomeSelected;
+@property (readonly, getter=isPendingObject) BOOL pendingObject;
+@property (readonly, getter=isKeyObject) BOOL keyObject;
 
 - (NSSet*)				subSelection;
 
@@ -143,11 +147,11 @@
 - (void)				updateRulerMarkers;
 
 - (void)				setNeedsDisplayInRect:(NSRect) rect;
-- (void)				setNeedsDisplayInRects:(NSSet*) setOfRects;
-- (void)				setNeedsDisplayInRects:(NSSet*) setOfRects withExtraPadding:(NSSize) padding;
+- (void)				setNeedsDisplayInRects:(NSSet<NSValue*>*) setOfRects;
+- (void)				setNeedsDisplayInRects:(NSSet<NSValue*>*) setOfRects withExtraPadding:(NSSize) padding;
 
 - (NSBezierPath*)		renderingPath;
-- (BOOL)				useLowQualityDrawing;
+@property (readonly) BOOL useLowQualityDrawing;
 
 - (NSUInteger)			geometryChecksum;
 
@@ -158,59 +162,54 @@
 
 // style:
 
-- (void)				setStyle:(DKStyle*) aStyle;
-- (DKStyle*)			style;
+@property (nonatomic, copy) DKStyle *style;
 - (void)				styleWillChange:(NSNotification*) note;
 - (void)				styleDidChange:(NSNotification*) note;
-- (NSSet*)				allStyles;
-- (NSSet*)				allRegisteredStyles;
-- (void)				replaceMatchingStylesFromSet:(NSSet*) aSet;
+@property (readonly, copy) NSSet<DKStyle*> *allStyles;
+@property (readonly, copy) NSSet<DKStyle*> *allRegisteredStyles;
+- (void)				replaceMatchingStylesFromSet:(NSSet<DKStyle*>*) aSet;
 - (void)				detachStyle;
 
 // geometry:
 // size (invariant with angle)
 
-- (void)				setSize:(NSSize) size;
-- (NSSize)				size;
-- (void)				resizeWidthBy:(CGFloat) xFactor heightBy:(CGFloat) yFactor;
+@property (nonatomic) NSSize size;
+- (void)				resizeWidthBy:(CGFloat) xFactor heightBy:(CGFloat) yFactor NS_SWIFT_NAME(resizeBy(width:height:));
 
 // location within the drawing
 
-- (void)				setLocation:(NSPoint) p;
-- (NSPoint)				location;
-- (void)				offsetLocationByX:(CGFloat) dx byY:(CGFloat) dy;
+@property (nonatomic) NSPoint location;
+- (void)				offsetLocationByX:(CGFloat) dx byY:(CGFloat) dy NS_SWIFT_NAME(offsetLocationBy(x:y:));
 
 // angle of object with respect to its container
 
-- (void)				setAngle:(CGFloat) angle;
-- (CGFloat)				angle;
-- (CGFloat)				angleInDegrees;
+@property (nonatomic) CGFloat angle;
+@property (readonly) CGFloat angleInDegrees;
 - (void)				rotateByAngle:(CGFloat) da;
 
 // relative offset of locus within the object
 
-- (void)				setOffset:(NSSize) offs;
-- (NSSize)				offset;
+@property (nonatomic) NSSize offset;
 - (void)				resetOffset;
 
 // path transforms
 
-- (NSAffineTransform*)	transform;
-- (NSAffineTransform*)	containerTransform;
+@property (readonly, copy) NSAffineTransform *transform;
+@property (readonly, copy) NSAffineTransform *containerTransform;
 - (void)				applyTransform:(NSAffineTransform*) transform;
 
 // bounding rects:
 
-- (NSRect)				bounds;
-- (NSRect)				apparentBounds;
-- (NSRect)				logicalBounds;
-- (NSSize)				extraSpaceNeeded;
+@property (readonly) NSRect bounds;
+@property (readonly) NSRect apparentBounds;
+@property (readonly) NSRect logicalBounds;
+@property (readonly) NSSize extraSpaceNeeded;
 
 // creation tool protocol:
 
 - (void)				creationTool:(DKDrawingTool*) tool willBeginCreationAtPoint:(NSPoint) p;
 - (void)				creationTool:(DKDrawingTool*) tool willEndCreationAtPoint:(NSPoint) p;
-- (BOOL)				objectIsValid;
+@property (readonly) BOOL objectIsValid;
 
 // grouping/ungrouping protocol:
 
@@ -227,9 +226,10 @@
 - (NSPoint)				snappedMousePoint:(NSPoint) mp withControlFlag:(BOOL) snapControl;
 - (NSPoint)				snappedMousePoint:(NSPoint) mp forSnappingPointsWithControlFlag:(BOOL) snapControl;
 
-- (NSArray*)			snappingPoints;
-- (NSArray*)			snappingPointsWithOffset:(NSSize) offset;
-- (NSSize)				mouseOffset;
+// NSPoints
+@property (readonly, copy) NSArray<NSValue*> *snappingPoints;
+- (NSArray<NSValue*>*)	snappingPointsWithOffset:(NSSize) offset;
+@property (readonly) NSSize mouseOffset;
 
 // getting dimensions in drawing coordinates
 
@@ -245,8 +245,7 @@
 - (DKKnobType)			knobTypeForPartCode:(NSInteger) pc;
 - (BOOL)				rectHitsPath:(NSRect) r;
 - (BOOL)				pointHitsPath:(NSPoint) p;
-- (BOOL)				isBeingHitTested;
-- (void)				setBeingHitTested:(BOOL) hitTesting;
+@property (nonatomic, getter=isBeingHitTested) BOOL beingHitTested;
 
 // mouse events:
 
@@ -270,9 +269,9 @@
 
 // user info:
 
-- (void)				setUserInfo:(NSDictionary*) info;
-- (void)				addUserInfo:(NSDictionary*) info;
-- (NSMutableDictionary*)userInfo;
+- (void)				setUserInfo:(NSDictionary<NSString*,id>*) info;
+- (void)				addUserInfo:(NSDictionary<NSString*,id>*) info;
+- (NSMutableDictionary<NSString*,id>*)userInfo;
 - (id)					userInfoObjectForKey:(NSString*) key;
 - (void)				setUserInfoObject:(id) obj forKey:(NSString*) key;
 
@@ -343,24 +342,4 @@ extern NSString*		kDKDrawableClickedPointKey;
 
 extern NSString*		kDKGhostColourPreferencesKey;
 extern NSString*		kDKDragFeedbackEnabledPreferencesKey;
-
-/*
- A drawable object is owned by a DKObjectDrawingLayer, which is responsible for drawing it when required and handling
- selections. This object is responsible for the visual representation of the selection as well as any content.
- 
- It can draw whatever it likes within <bounds>, which it is responsible for calculating correctly.
- 
- hitTest can return an integer to indicate which part was hit - a value of 0 means nothing hit. The returned value's meaning
- is otherwise private to the class, but is returned in the mouse event methods.
- 
- This is intended to be a semi-abstract class - it draws nothing itself. Subclasses include DKDrawableShape and DKDrawablePath -
- often subclassing one of those will be more straightforward than subclassing this. A subclass must implement NSCoding and
- NSCopying to be archivable, etc. There are also numerous informal protocols for geometry, snapping, hit testing, drawing and ungrouping
- that need to be implemented correctly for a subclass to work fully correctly within DK.
- 
- The user info is a dictionary attached to an object. It plays no part in the graphics system, but can be used by applications
- to attach arbitrary data to any drawable object.
-
-*/
-
 

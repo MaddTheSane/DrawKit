@@ -22,6 +22,7 @@ static inline NSUInteger depthForObjectCount( NSUInteger n )
     return  ( n > 0? MAX((NSUInteger) ceil(log((CGFloat) n)) / log(2.0f), kDKMinimumDepth ) : 0 );
 }
 
+__unused
 static inline NSUInteger childNodeAtIndex( NSUInteger nodeIndex )
 {
 	return (nodeIndex << 1) + 1;

@@ -25,6 +25,23 @@ typedef NS_OPTIONS(NSUInteger, DKGroupCacheOption)
 
 
 
+/*!
+ 
+ This is a group objects that can group any number of shapes or paths.
+ 
+ It inherits from DKDrawableShape so that it gets the usual sizing and rotation behaviours.
+ 
+ This operates by establishing its own coordinate system in which the objects are embedded. An informal protocol is used that allows a shape or
+ path to obtain the transform of its "parent". When that parent is a group, the transform is manipulated such that the path is modified just
+ prior to rendering to allow for the group's size, rotation, etc.
+ 
+ Be aware of one "gotcha" with this class - a bit of a chicken-and-egg situation. When objects are grouped, they are offset to be local to the group's
+ overall location. For grouping to be undoable, the objects being grouped need to have a valid container at the time this location offset is done,
+ so that there is an undo manager available to record that change. If not they might end up in the wrong place when undoing the "group" command.
+ 
+ For the normal case of grouping existing objects within a layer, this is not an issue, but can be if you are programmatically creating groups.
+ 
+ */
 @interface DKShapeGroup : DKDrawableShape <NSCoding, NSCopying, DKDrawableContainer>
 {
 @private
@@ -47,16 +64,16 @@ typedef NS_OPTIONS(NSUInteger, DKGroupCacheOption)
 
 // setting up the group:
 
-- (id)					initWithObjectsInArray:(NSArray*) objects;
+- (id)					initWithObjectsInArray:(NSArray<DKDrawableObject*>*) objects;
 
-- (void)				setGroupObjects:(NSArray*) objects;
-- (NSArray*)			groupObjects;
-- (void)				calcBoundingRectOfObjects:(NSArray*) objects;
-- (NSSize)				extraSpaceNeededByObjects:(NSArray*) objects;
+- (void)				setGroupObjects:(NSArray<DKDrawableObject*>*) objects;
+- (NSArray<DKDrawableObject*>*)groupObjects;
+- (void)				calcBoundingRectOfObjects:(NSArray<DKDrawableObject*>*) objects;
+- (NSSize)				extraSpaceNeededByObjects:(NSArray<DKDrawableObject*>*) objects;
 - (NSRect)				groupBoundingRect;
 - (NSSize)				groupScaleRatios;
 
-- (void)				setObjects:(NSArray*) objects;
+- (void)				setObjects:(NSArray<DKDrawableObject*>*) objects;
 
 // drawing the group:
 
@@ -66,16 +83,13 @@ typedef NS_OPTIONS(NSUInteger, DKGroupCacheOption)
 - (NSPoint)				convertPointToContainer:(NSPoint) p; 
 - (void)				drawGroupContent;
 
-- (void)				setClipContentToPath:(BOOL) clip;
-- (BOOL)				clipContentToPath;
+@property BOOL clipContentToPath;
 
-- (void)				setTransformsVisually:(BOOL) tv;
-- (BOOL)				transformsVisually;
+@property BOOL transformsVisually;
 
 // caching:
 
-- (void)				setCacheOptions:(DKGroupCacheOption) cacheOption;
-- (DKGroupCacheOption)	cacheOptions;
+@property DKGroupCacheOption cacheOptions;
 
 // ungrouping:
 
@@ -92,23 +106,3 @@ enum
 	kDKCreateGroupWithShapes		= 0,
 	kDKCreateGroupWithPaths			= 1
 };
-
-
-
-/*
-
-This is a group objects that can group any number of shapes or paths.
-
-It inherits from DKDrawableShape so that it gets the usual sizing and rotation behaviours.
-
-This operates by establishing its own coordinate system in which the objects are embedded. An informal protocol is used that allows a shape or
-path to obtain the transform of its "parent". When that parent is a group, the transform is manipulated such that the path is modified just
-prior to rendering to allow for the group's size, rotation, etc.
-
-Be aware of one "gotcha" with this class - a bit of a chicken-and-egg situation. When objects are grouped, they are offset to be local to the group's
-overall location. For grouping to be undoable, the objects being grouped need to have a valid container at the time this location offset is done,
-so that there is an undo manager available to record that change. If not they might end up in the wrong place when undoing the "group" command.
-
-For the normal case of grouping existing objects within a layer, this is not an issue, but can be if you are programmatically creating groups.
-
-*/

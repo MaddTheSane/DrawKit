@@ -1356,7 +1356,6 @@ static BOOL				s_NoDKDefaults = NO;
 			
 			if( swatch != nil )
 			{
-				[swatch setScalesWhenResized:YES];
 				[swatch setSize:NSMakeSize( 28, 28 )];
 				[swatch lockFocus];
 				[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationLow];

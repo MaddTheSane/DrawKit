@@ -1956,10 +1956,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (NSInteger)					pasteCount
-{
-	return mPasteCount;
-}
+@synthesize pasteCount=mPasteCount;
 
 
 ///*********************************************************************************************************************
@@ -1976,10 +1973,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (NSPoint)				pasteOrigin
-{
-	return m_pasteAnchor;
-}
+@synthesize pasteOrigin=m_pasteAnchor;
 
 
 ///*********************************************************************************************************************
@@ -1996,11 +1990,6 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (void)				setPasteOrigin:(NSPoint) po
-{
-	m_pasteAnchor = po;
-}
-
 
 ///*********************************************************************************************************************
 ///
@@ -2016,10 +2005,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (BOOL)				isRecordingPasteOffset
-{
-	return m_recordPasteOffset;
-}
+@synthesize recordingPasteOffset=m_recordPasteOffset;
 
 
 ///*********************************************************************************************************************
@@ -2036,11 +2022,6 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (void)				setRecordingPasteOffset:(BOOL) record
-{
-	m_recordPasteOffset = record;
-}
-
 
 ///*********************************************************************************************************************
 ///
@@ -2056,10 +2037,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (NSSize)				pasteOffset
-{
-	return m_pasteOffset;
-}
+@synthesize pasteOffset = m_pasteOffset;
 
 
 ///*********************************************************************************************************************
@@ -2075,11 +2053,6 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 /// notes:			
 ///
 ///********************************************************************************************************************
-
-- (void)				setPasteOffset:(NSSize) offset
-{
-	m_pasteOffset = offset;
-}
 
 
 ///*********************************************************************************************************************
@@ -2460,10 +2433,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (void)				setLayerCacheOption:(DKLayerCacheOption) option
-{
-	mLayerCachingOption = option;
-}
+@synthesize layerCacheOption = mLayerCachingOption;
 
 ///*********************************************************************************************************************
 ///
@@ -2481,10 +2451,6 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 ///
 ///********************************************************************************************************************
 
-- (DKLayerCacheOption)	layerCacheOption
-{
-	return mLayerCachingOption;
-}
 
 
 ///*********************************************************************************************************************
@@ -3094,7 +3060,7 @@ static DKLayerCacheOption sDefaultCacheOption = kDKLayerCacheNone;
 		{
 			// storage was archived, so get its objects and assign them to the real storage
 			
-			[self setObjects:[tempStorage objects]];
+			[self setObjects:(NSArray<DKDrawableObject*>*)[tempStorage objects]];
 		}
 		else
 		{

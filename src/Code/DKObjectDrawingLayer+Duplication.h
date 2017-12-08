@@ -12,6 +12,15 @@
 
 @class DKDrawableObject;
 
+/*!
+ 
+ Some handy methods for implementing various kinds of object duplications.
+ 
+ 
+ 
+ 
+ 
+ */
 @interface DKObjectDrawingLayer (Duplication)
 
 - (NSArray<DKDrawableObject*>*)polarDuplicate:(NSArray<DKDrawableObject*>*) objectsToDuplicate
@@ -34,15 +43,3 @@
 				
 
 @end
-
-
-
-/*
-
-Some handy methods for implementing various kinds of object duplications.
-
-
-
-
-
-*/

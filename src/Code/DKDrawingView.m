@@ -1824,7 +1824,7 @@ static Class	s_textEditorClass = Nil;
 		}
 	}
 	
-	[super changeAttributes:sender];
+	//[super changeAttributes:sender];
 }
 
 

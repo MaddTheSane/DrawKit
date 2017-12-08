@@ -17,8 +17,8 @@
 
 
 #pragma mark Static Functions
-static NSInteger vertLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context );
-static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context );
+static NSComparisonResult vertLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context );
+static NSComparisonResult horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context );
 
 
 #pragma mark -
@@ -97,7 +97,7 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (void)		alignObjects:(NSArray*) objects withAlignment:(NSInteger) align
+- (void)		alignObjects:(NSArray*) objects withAlignment:(DKAlignmentAlign) align
 {
 	[self alignObjects:objects toMasterObject:[self keyObject] withAlignment:align];
 }
@@ -119,32 +119,28 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (void)		alignObjects:(NSArray*) objects toMasterObject:(id) object withAlignment:(NSInteger) align
+- (void)		alignObjects:(NSArray<DKDrawableObject*>*) objects toMasterObject:(id) object withAlignment:(DKAlignmentAlign) align
 {
 	// if we are distributing the objects, use the distributor method first - master
 	// doesn't come into it
 	
-	if (( align & kDKAlignmentDistributionMask ) != 0 )
+	if (( align & kDKAlignmentAlignDistributionMask ) != 0 )
 		[self distributeObjects:objects withAlignment:align];
 	
 	// apply other alignment flag if there is any
 	
-	if (( align & ~kDKAlignmentDistributionMask ) != 0 )
+	if (( align & ~kDKAlignmentAlignDistributionMask ) != 0 )
 	{
-		NSEnumerator*   iter;
-		id				mo;
 		NSRect			mb, ob;
 		NSPoint			alignOffset;
 		
 		NSAssert( object != nil, @"cannot align - master object is nil");
 		
-		LogEvent_(kUserEvent, @"Aligning objects with alignment = %d", align );
+		LogEvent_(kUserEvent, @"Aligning objects with alignment = %lu", (unsigned long)align );
 		
 		mb = [object apparentBounds];
 		
-		iter = [objects objectEnumerator];
-		
-		while(( mo = [iter nextObject]))
+		for(DKDrawableObject *mo in objects)
 		{
 			if ( mo != object )
 			{
@@ -173,7 +169,7 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (void)		alignObjects:(NSArray*) objects toLocation:(NSPoint) loc withAlignment:(NSInteger) align
+- (void)		alignObjects:(NSArray<DKDrawableObject*>*) objects toLocation:(NSPoint) loc withAlignment:(DKAlignmentAlign) align
 {
 	#pragma unused(objects)
 	#pragma unused(loc)
@@ -202,18 +198,14 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (void)		alignObjectEdges:(NSArray*) objects toGrid:(DKGridLayer*) grid
+- (void)		alignObjectEdges:(NSArray<DKDrawableObject*>*) objects toGrid:(DKGridLayer*) grid
 {
 	NSAssert( grid != nil, @"grid parameter is nil" );
 
-	NSEnumerator*		iter;
-	DKDrawableObject*	mo;
 	NSRect				objRect;
 	NSSize				offset;
 	
-	iter = [objects objectEnumerator];
-	
-	while(( mo = [iter nextObject]))
+	for(DKDrawableObject *mo in objects)
 	{
 		if([mo respondsToSelector:@selector(adjustToFitGrid:)])
 			[(id)mo adjustToFitGrid:grid];
@@ -251,17 +243,13 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (void)		alignObjectLocation:(NSArray*) objects toGrid:(DKGridLayer*) grid
+- (void)		alignObjectLocation:(NSArray<DKDrawableObject*>*) objects toGrid:(DKGridLayer*) grid
 {
 	NSAssert( grid != nil, @"grid parameter is nil" );
 	
-	NSEnumerator*		iter;
-	DKDrawableObject*	mo;
 	NSPoint				p;
 	
-	iter = [objects objectEnumerator];
-	
-	while(( mo = [iter nextObject]))
+	for(DKDrawableObject *mo in objects)
 	{
 		p = [grid  nearestGridIntersectionToPoint:[mo location]];
 		[mo setLocation:p];
@@ -286,15 +274,15 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (CGFloat)		totalVerticalSpace:(NSArray*) objects
+- (CGFloat)		totalVerticalSpace:(NSArray<DKDrawableObject*>*) objects
 {
 	CGFloat		span, sumHeight = 0.0;
 	NSUInteger	i;
-	id			mo;
 	NSRect		br;
 	CGFloat		prevLowerEdge;
-	
-	prevLowerEdge = NSMaxY( [[objects objectAtIndex:0] logicalBounds ] );
+	DKDrawableObject *mo;
+
+	prevLowerEdge = NSMaxY( [[objects firstObject] logicalBounds ] );
 	span = NSMinY( [[objects lastObject] logicalBounds ] ) - prevLowerEdge;
 	
 	for ( i = 1; i < [objects count] - 1; i++ )
@@ -324,15 +312,15 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (CGFloat)		totalHorizontalSpace:(NSArray*) objects
+- (CGFloat)		totalHorizontalSpace:(NSArray<DKDrawableObject*>*) objects
 {
 	CGFloat		span, sumWidth = 0.0;
 	NSUInteger	i;
-	id			mo;
 	NSRect		br;
 	CGFloat		prevLowerEdge;
-	
-	prevLowerEdge = NSMaxX( [[objects objectAtIndex:0] logicalBounds ] );
+	DKDrawableObject *mo;
+
+	prevLowerEdge = NSMaxX( [[objects firstObject] logicalBounds ] );
 	span = NSMinX( [[objects lastObject] logicalBounds ] ) - prevLowerEdge;
 	
 	for ( i = 1; i < [objects count] - 1; i++ )
@@ -414,13 +402,13 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-- (BOOL)		distributeObjects:(NSArray*) objects withAlignment:(NSInteger) align
+- (BOOL)		distributeObjects:(NSArray*) objects withAlignment:(DKAlignmentAlign) align
 {
 	// distribute the objects - this is usually called from the alignment method as needed - calling it directly will
 	// ignore any edge alignment set.
 	
-	NSArray*			sorted;
-	NSInteger					numToAlign, i;
+	NSArray<DKDrawableObject*> *sorted;
+	NSInteger			numToAlign, i;
 	CGFloat				spanDistance, spanIncrement, min, max;
 	DKDrawableObject*	mo;
 	
@@ -437,8 +425,8 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 		
 		// find the span distance - the difference between the first and last objects
 		
-		min = [(DKDrawableObject*)[sorted objectAtIndex:0] location].y;
-		max = [(DKDrawableObject*)[sorted lastObject] location].y;
+		min = [[sorted objectAtIndex:0] location].y;
+		max = [[sorted lastObject] location].y;
 	
 		spanDistance = max - min;	//NSMidY( bottom ) - NSMidY( top );
 		spanIncrement = spanDistance / (CGFloat)( numToAlign - 1 );
@@ -468,8 +456,8 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 		
 		// find the span distance - the difference between the first and last objects
 		
-		min = [(DKDrawableObject*)[sorted objectAtIndex:0] location].x;
-		max = [(DKDrawableObject*)[sorted lastObject] location].x;
+		min = [[sorted objectAtIndex:0] location].x;
+		max = [[sorted lastObject] location].x;
 		
 		spanDistance = max - min;		//NSMidX( bottom ) - NSMidX( top );
 		spanIncrement = spanDistance / (CGFloat)( numToAlign - 1 );
@@ -935,7 +923,7 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-static NSInteger vertLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context )
+static NSComparisonResult vertLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context )
 {
 	#pragma unused(context)
 	
@@ -967,7 +955,7 @@ static NSInteger vertLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void
 ///
 ///********************************************************************************************************************
 
-static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context )
+static NSComparisonResult horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, void* context )
 {
 	#pragma unused(context)
 	
@@ -1001,7 +989,7 @@ static NSInteger horizLocSortFunc( DKDrawableObject* a, DKDrawableObject* b, voi
 ///
 ///********************************************************************************************************************
 
-NSPoint calculateAlignmentOffset( NSRect mr, NSRect sr, NSInteger alignment )
+NSPoint calculateAlignmentOffset( NSRect mr, NSRect sr, DKAlignmentAlign alignment )
 {
 	NSPoint p = { 0, 0 };
 	

@@ -1493,7 +1493,9 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = DK;
 				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Apptree.net;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "DrawKit" */;
 			compatibilityVersion = "Xcode 3.2";

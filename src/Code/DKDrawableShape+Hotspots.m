@@ -136,6 +136,11 @@
 #pragma mark -
 @implementation DKHotspot
 #pragma mark As a DKHotspot
+@synthesize delegate=m_delegate;
+@synthesize owner=m_owner;
+@synthesize partcode=m_partcode;
+@synthesize relativeLocation=m_relLoc;
+
 - (id)					initHotspotWithOwner:(DKDrawableShape*) shape partcode:(NSInteger) pc delegate:(id) delegate
 {
 	self = [super init];
@@ -158,12 +163,6 @@
 
 
 #pragma mark -
-- (void)				setOwner:(DKDrawableShape*) shape
-{
-	m_owner = shape;
-}
-
-
 - (void)				setOwner:(DKDrawableShape*) shape withPartcode:(NSInteger) pc
 {
 	m_owner = shape;
@@ -171,55 +170,10 @@
 }
 
 
-- (DKDrawableShape*)	owner
-{
-	return m_owner;
-}
-
-
-#pragma mark -
-- (void)				setPartcode:(NSInteger) pc
-{
-	m_partcode = pc;
-}
-
-
-- (NSInteger)					partcode
-{
-	return m_partcode;
-}
-
-
-#pragma mark -
-- (void)				setRelativeLocation:(NSPoint) rloc
-{
-	m_relLoc = rloc;
-}
-
-
-- (NSPoint)				relativeLocation
-{
-	return m_relLoc;
-}
-
-
 #pragma mark -
 - (void)				drawHotspotAtPoint:(NSPoint) p inState:(DKHotspotState) state
 {
 	[[self owner] drawHotspotAtPoint:p inState:state];
-}
-
-
-#pragma mark -
-- (void)				setDelegate:(id) delegate
-{
-	m_delegate = delegate;
-}
-
-
-- (id)					delegate
-{
-	return m_delegate;
 }
 
 

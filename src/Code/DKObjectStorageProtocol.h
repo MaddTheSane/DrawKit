@@ -28,7 +28,7 @@ typedef NS_OPTIONS(NSUInteger, DKObjectStorageOptions)
 - (id<DKObjectStorage>)		storage;
 - (void)					setStorage:(id<DKObjectStorage>) storage;
 
-@property  NSUInteger index;
+@property (readwrite) NSUInteger index;
 
 @property (readwrite, getter=isMarked) BOOL marked;
 
@@ -44,24 +44,24 @@ typedef NS_OPTIONS(NSUInteger, DKObjectStorageOptions)
 // objects returned by these methods should be returned in bottom-to-top (drawing) Z-order unless the kDKZOrderMayBeRelaxed flag is set in which case
 // the order can be arbitrary. Z-order and object index are synonymous
 
-- (NSArray*)				objectsIntersectingRect:(NSRect) aRect inView:(NSView*) aView options:(DKObjectStorageOptions) options;
-- (NSArray*)				objectsContainingPoint:(NSPoint) aPoint;
-- (NSArray*)				objects;
+- (NSArray<id<DKStorableObject>>*)				objectsIntersectingRect:(NSRect) aRect inView:(NSView*) aView options:(DKObjectStorageOptions) options;
+- (NSArray<id<DKStorableObject>>*)				objectsContainingPoint:(NSPoint) aPoint;
+- (NSArray<id<DKStorableObject>>*)				objects;
 
 // bulk load the storage e.g. when dearchiving
 
-- (void)					setObjects:(NSArray*) objects;
+- (void)					setObjects:(NSArray<id<DKStorableObject>>*) objects;
 
 // insertion and deletion is observable using KVO
 
-- (NSUInteger)				countOfObjects;
+@property (readonly) NSUInteger countOfObjects;
 - (id<DKStorableObject>)	objectInObjectsAtIndex:(NSUInteger) indx;													// KVC/KVO compliant
-- (NSArray*)				objectsAtIndexes:(NSIndexSet*) set;														// KVC/KVO compliant
+- (NSArray<id<DKStorableObject>>*)				objectsAtIndexes:(NSIndexSet*) set;														// KVC/KVO compliant
 
 - (void)					insertObject:(id<DKStorableObject>) obj inObjectsAtIndex:(NSUInteger) indx;				// KVC/KVO compliant
 - (void)					removeObjectFromObjectsAtIndex:(NSUInteger) indx;											// KVC/KVO compliant
 - (void)					replaceObjectInObjectsAtIndex:(NSUInteger) indx withObject:(id<DKStorableObject>) obj;	// KVC/KVO compliant
-- (void)					insertObjects:(NSArray*) objs atIndexes:(NSIndexSet*) set;								// KVC/KVO compliant
+- (void)					insertObjects:(NSArray<id<DKStorableObject>>*) objs atIndexes:(NSIndexSet*) set;								// KVC/KVO compliant
 - (void)					removeObjectsAtIndexes:(NSIndexSet*) set;												// KVC/KVO compliant
 
 - (BOOL)					containsObject:(id<DKStorableObject>) object;

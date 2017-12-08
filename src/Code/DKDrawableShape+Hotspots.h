@@ -12,6 +12,7 @@
 
 
 @class DKHotspot;
+@protocol DKHotspotDelegate;
 
 
 typedef NS_ENUM(NSInteger, DKHotspotState)
@@ -49,31 +50,42 @@ enum
 #pragma mark -
 
 
+/*!
+ 
+ A HOTSPOT is an object attached to a shape to provide a direct user-interface for implementing custom actions, etc.
+ 
+ Hotspots are clickable areas on a shape indicated by a special "knob" appearance. They can appear anywhere within the bounds. When clicked,
+ they will be tracked and can do any useful thing they wish. The original purpose is to allow the direct manipulation of certain shape parameters
+ such as radius of round corners, and so on, but the design is completely general-purpose.
+ 
+ The action of a hotspot is handled by default by its delegate, though you could also subclass it and implement the action directly if you wish.
+ 
+ The appearance of a hotspot is drawn by default by a method of DKKnob.
+ 
+ */
 @interface DKHotspot : NSObject <NSCoding, NSCopying>
 {
-	DKDrawableShape*	m_owner;
-	NSInteger					m_partcode;
+	__unsafe_unretained DKDrawableShape*		m_owner;
+	NSInteger			m_partcode;
 	NSPoint				m_relLoc;
-	id					m_delegate;
+	__unsafe_unretained id<DKHotspotDelegate>	m_delegate;
 }
 
 
 - (id)					initHotspotWithOwner:(DKDrawableShape*) shape partcode:(NSInteger) pc delegate:(id) delegate;
 
+@property (assign) DKDrawableShape *owner;
 - (void)				setOwner:(DKDrawableShape*) shape;
 - (void)				setOwner:(DKDrawableShape*) shape withPartcode:(NSInteger) pc;
 - (DKDrawableShape*)	owner;
 
-- (void)				setPartcode:(NSInteger) pc;
-- (NSInteger)			partcode;
+@property NSInteger partcode;
 
-- (void)				setRelativeLocation:(NSPoint) rloc;
-- (NSPoint)				relativeLocation;
+@property NSPoint relativeLocation;
 
 - (void)				drawHotspotAtPoint:(NSPoint) p inState:(DKHotspotState) state;
 
-- (void)				setDelegate:(id) delegate;
-- (id)					delegate;
+@property (assign) id<DKHotspotDelegate> delegate;
 
 - (void)				startMouseTracking:(NSEvent*) event inView:(NSView*) view;
 - (void)				continueMouseTracking:(NSEvent*) event inView:(NSView*) view;
@@ -86,7 +98,8 @@ enum
 
 #pragma mark -
 
-@interface NSObject (DKHotspotDelegate)
+@protocol DKHotspotDelegate <NSObject>
+@optional
 
  - (void)				hotspot:(DKHotspot*) hs willBeginTrackingWithEvent:(NSEvent*) event inView:(NSView*) view;
  - (void)				hotspot:(DKHotspot*) hs isTrackingWithEvent:(NSEvent*) event inView:(NSView*) view;
@@ -95,17 +108,3 @@ enum
 
 @end
 
-
-/*
-
-A HOTSPOT is an object attached to a shape to provide a direct user-interface for implementing custom actions, etc.
-
-Hotspots are clickable areas on a shape indicated by a special "knob" appearance. They can appear anywhere within the bounds. When clicked,
-they will be tracked and can do any useful thing they wish. The original purpose is to allow the direct manipulation of certain shape parameters
-such as radius of round corners, and so on, but the design is completely general-purpose. 
-
-The action of a hotspot is handled by default by its delegate, though you could also subclass it and implement the action directly if you wish.
-
-The appearance of a hotspot is drawn by default by a method of DKKnob.
-
-*/

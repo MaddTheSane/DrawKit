@@ -14,10 +14,18 @@
 @class DKDrawing, DKLayer, DKImageDataManager, DKDrawableObject, DKMetadataItem;
 
 
+/*!
+ 
+ Objects that claim ownership of a \c DKDrawableObject must formally implement this protocol.
+ 
+ This includes DKObjectOwnerLayer, \c DKShapeGroup
+ 
+ 
+ */
 @protocol DKDrawableContainer <NSObject>
 
 - (DKDrawing*)				drawing;
-- (DKLayer*)				layer;
+- (__kindof DKLayer*)		layer;
 - (NSAffineTransform*)		renderingTransform;
 - (DKImageDataManager*)		imageManager;
 - (NSUInteger)				indexOfObject:(DKDrawableObject*) obj;
@@ -27,18 +35,5 @@
 - (id)						metadataObjectForKey:(NSString*) key;
 
 @end
-
-
-
-
-
-/*
-
-Objects that claim ownership of a DKDrawableObject must formally implement this protocol.
- 
-This includes DKObjectOwnerLayer, DKShapeGroup
-
-
-*/
 
 

@@ -14,7 +14,25 @@
 @class DKShapeGroup;
 
 
-
+/*!
+ 
+ This layer adds the concept of selection to drawable objects as defined by DKObjectOwnerLayer. Selected objects are held in the \c -selection
+ list, which is a set (there is no order to selected objects per se - though sometimes the relative Z-stacking order of objects in the selection
+ is needed, and the method -selectedObjectsPreservingStackingOrder et. al. will provide that.
+ 
+ Note that for selection, the locked state of owned objects is ignored (because it is OK to select a locked object, just not to
+ do anything with it except unlock it).
+ 
+ Commands directed at this layer are usually meant to to go to "the selection", either multiple or single objects.
+ 
+ This class provides no direct mouse handlers for actually changing the selection - typically the selection and other manipulation
+ of objects in this layer is done through the agency of tools and a DKToolController.
+ 
+ The actual appearance of the selection is mainly down to the objects themselves, with some information supplied by the layer (for example
+ the layer's selectionColour). Also, the layer's (or more typically the drawing's) DKKnob class is generally used by objects to display their
+ selected state.
+ 
+ */
 @interface DKObjectDrawingLayer : DKObjectOwnerLayer <NSCoding>
 {
 @private
@@ -40,19 +58,19 @@
 
 // convenience constructor:
 
-+ (instancetype) layerWithObjectsInArray:(NSArray*) objects;
++ (instancetype) layerWithObjectsInArray:(NSArray<DKDrawableObject*>*) objects;
 
 // useful lists of objects:
 
-- (NSArray*)			selectedAvailableObjects;											// KVC/KVO compliant (read only)
-- (NSArray*)			selectedAvailableObjectsOfClass:(Class) aClass;
-- (NSArray*)			selectedVisibleObjects;
-- (NSSet*)				selectedObjectsReturning:(NSInteger) answer toSelector:(SEL) selector;
-- (NSSet*)				selectedObjectsRespondingToSelector:(SEL) selector;
-- (NSArray*)			duplicatedSelection;
-- (NSArray*)			selectedObjectsPreservingStackingOrder;
+@property (readonly, copy) NSArray<DKDrawableObject*> *selectedAvailableObjects; // KVC/KVO compliant (read only)
+- (NSArray<__kindof DKDrawableObject*>*)			selectedAvailableObjectsOfClass:(Class) aClass;
+- (NSArray<DKDrawableObject*>*)			selectedVisibleObjects;
+- (NSSet<DKDrawableObject*>*)				selectedObjectsReturning:(NSInteger) answer toSelector:(SEL) selector;
+- (NSSet<DKDrawableObject*>*)				selectedObjectsRespondingToSelector:(SEL) selector;
+- (NSArray<DKDrawableObject*>*)			duplicatedSelection;
+- (NSArray<DKDrawableObject*>*)			selectedObjectsPreservingStackingOrder;
 
-- (NSUInteger)			countOfSelectedAvailableObjects;									// KVC/KVO compliant
+@property (readonly) NSUInteger countOfSelectedAvailableObjects; // KVC/KVO compliant
 - (DKDrawableObject*)	objectInSelectedAvailableObjectsAtIndex:(NSUInteger) indx;			// KVC/KVO compliant (read only)
 
 // doing stuff to each one:
@@ -68,20 +86,20 @@
 
 // the selection:
 
-@property (copy) NSSet *selection;
-- (DKDrawableObject*)	singleSelection;
-- (NSUInteger)			countOfSelection;
+@property (copy) NSSet<DKDrawableObject*> *selection;
+@property (readonly, retain) DKDrawableObject *singleSelection;
+@property (readonly) NSUInteger countOfSelection;
 
 // selection operations:
 
 - (void)				deselectAll;
 - (void)				selectAll;
 - (void)				addObjectToSelection:(DKDrawableObject*) obj;
-- (void)				addObjectsToSelectionFromArray:(NSArray*) objs;
+- (void)				addObjectsToSelectionFromArray:(NSArray<DKDrawableObject*>*) objs;
 - (BOOL)				replaceSelectionWithObject:(DKDrawableObject*) obj;
 - (void)				removeObjectFromSelection:(DKDrawableObject*) obj;
-- (void)				removeObjectsFromSelectionInArray:(NSArray*) objs;
-- (BOOL)				exchangeSelectionWithObjectsFromArray:(NSArray*) sel;
+- (void)				removeObjectsFromSelectionInArray:(NSArray<DKDrawableObject*>*) objs;
+- (BOOL)				exchangeSelectionWithObjectsFromArray:(NSArray<DKDrawableObject*>*) sel;
 - (void)				scrollToSelectionInView:(NSView*) aView;
 
 // style operations on multiple items:
@@ -133,10 +151,10 @@
 
 // grouping & ungrouping operations:
 
-- (BOOL)				shouldGroupObjects:(NSArray*) objectsToBeGrouped intoGroup:(DKShapeGroup*) aGroup;
+- (BOOL)				shouldGroupObjects:(NSArray<DKDrawableObject*>*) objectsToBeGrouped intoGroup:(DKShapeGroup*) aGroup;
 - (void)				didAddGroup:(DKShapeGroup*) aGroup;
 - (BOOL)				shouldUngroup:(DKShapeGroup*) aGroup;
-- (void)				didUngroupObjects:(NSArray*) ungroupedObjects;
+- (void)				didUngroupObjects:(NSArray<DKDrawableObject*>*) ungroupedObjects;
 
 // user actions:
 
@@ -179,31 +197,10 @@
 
 enum
 {
-	kDKMakeColinearJoinTag				= 200,  // set this tag value in "Join Paths" menu item to make the join colinear
-	kDKPasteCommandContextualMenuTag	= 201	// used for contextual 'paste' menu to use mouse position when positioning pasted items
+	kDKMakeColinearJoinTag				= 200,  //!< set this tag value in "Join Paths" menu item to make the join colinear
+	kDKPasteCommandContextualMenuTag	= 201	//!< used for contextual 'paste' menu to use mouse position when positioning pasted items
 };
 
 
 extern NSNotificationName const kDKLayerSelectionDidChange;
 extern NSNotificationName const kDKLayerKeyObjectDidChange;
-
-/*
-
-This layer adds the concept of selection to drawable objects as defined by DKObjectOwnerLayer. Selected objects are held in the -selection
-list, which is a set (there is no order to selected objects per se - though sometimes the relative Z-stacking order of objects in the selection
-is needed, and the method -selectedObjectsPreservingStackingOrder et. al. will provide that.
-
-Note that for selection, the locked state of owned objects is ignored (because it is OK to select a locked object, just not to
-do anything with it except unlock it).
-
-Commands directed at this layer are usually meant to to go to "the selection", either multiple or single objects.
-
-This class provides no direct mouse handlers for actually changing the selection - typically the selection and other manipulation
-of objects in this layer is done through the agency of tools and a DKToolController.
-
-The actual appearance of the selection is mainly down to the objects themselves, with some information supplied by the layer (for example
-the layer's selectionColour). Also, the layer's (or more typically the drawing's) DKKnob class is generally used by objects to display their
-selected state.
-
-*/
-

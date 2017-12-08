@@ -344,7 +344,8 @@ static NSDictionary*	s_interconversionTable = nil;
 {
 	[icTable retain];
 	[s_interconversionTable release];
-	s_interconversionTable = icTable;
+	s_interconversionTable = [icTable copy];
+	[icTable release];
 }
 
 

@@ -9,6 +9,7 @@
 ///**********************************************************************************************************************************
 
 #import "DKDrawableShape.h"
+#import "DKDrawableShape+Hotspots.h"
 
 //! option constants for crop or scale image
 typedef NS_ENUM(NSInteger, DKImageCroppingOptions)
@@ -19,8 +20,26 @@ typedef NS_ENUM(NSInteger, DKImageCroppingOptions)
 
 
 // the class
-
-@interface DKImageShape : DKDrawableShape <NSCoding, NSCopying>
+/*!
+ 
+ DKImageShape is a drawable shape that displays an image. The image is scaled and rotated to the path bounds and clipped to the
+ path. The opacity of the image can be set, and whether the image is drawn before or after the normal path rendering.
+ 
+ This object is quite flexible - by changing the path clipping and drawing styles, a very wide range of different effects are
+ possible. (n.b. if you don't attach a style, the path is not drawn at all [the default], but still clips the image. The default
+ path is a rect so that the entire image is drawn.
+ 
+ There are two basic modes of operation - scaling and cropping. Scaling fills the shape's bounds with the image. Cropping keeps the image at its
+ original size and allows the path to clip it as it is resized. In both cases the image offset can be used to position the image within the bounds.
+ A hotspot is added to allow the user to drag the image offset position around.
+ 
+ Image shapes automatically manage image data efficiently, such that if there is more than one shape with the same image, only one copy of
+ the data is maintained, and that data is the original compressed data from the file (if it did come from a file). This data sharing is
+ facilitated by a central DKImageDataManager object, which is managed by the drawing. Note that using certian operations, such as creating
+ the shape with an NSImage will bypass this benefit.
+ 
+ */
+@interface DKImageShape : DKDrawableShape <NSCoding, NSCopying, DKHotspotDelegate>
 {
 @private
 	NSString*				mImageKey;				// key in the image manager holding original data for this image
@@ -35,44 +54,35 @@ typedef NS_ENUM(NSInteger, DKImageCroppingOptions)
 	NSData*					mOriginalImageData;		// original image data (shared with image manager)
 }
 
-+ (DKStyle*)				imageShapeDefaultStyle;
+@property (class, readonly, retain) DKStyle *imageShapeDefaultStyle;
 
 - (id)						initWithImage:(NSImage*) anImage;
 - (id)						initWithImageData:(NSData*) imageData;
 - (id)						initWithContentsOfFile:(NSString*) filepath;
 
-- (void)					setImage:(NSImage*) anImage;
-- (NSImage*)				image;
-- (NSImage*)				imageAtRenderedSize;
+@property (retain) NSImage *image;
+@property (readonly, copy) NSImage *imageAtRenderedSize;
 - (void)					setImageWithKey:(NSString*) key coder:(NSCoder*) coder;
 - (void)					transferImageKeyToNewContainer:(id<DKDrawableContainer>) container;
 
 - (BOOL)					setImageWithPasteboard:(NSPasteboard*) pb;
 - (BOOL)					writeImageToPasteboard:(NSPasteboard*) pb;
 
-- (void)					setImageKey:(NSString*) key;
-- (NSString*)				imageKey;
+@property (copy) NSString *imageKey;
 
-- (void)					setImageData:(NSData*) data;
-- (NSData*)					imageData;
+@property (copy) NSData *imageData;
 
-- (void)					setImageOpacity:(CGFloat) opacity;
-- (CGFloat)					imageOpacity;
+@property CGFloat imageOpacity;
 
-- (void)					setImageDrawsOnTop:(BOOL) onTop;
-- (BOOL)					imageDrawsOnTop;
+@property BOOL imageDrawsOnTop;
 
-- (void)					setCompositingOperation:(NSCompositingOperation) op;
-- (NSCompositingOperation)	compositingOperation;
+@property NSCompositingOperation compositingOperation;
 
-- (void)					setImageScale:(CGFloat) scale;
-- (CGFloat)					imageScale;
+@property CGFloat imageScale;
 
-- (void)					setImageOffset:(NSPoint) imgoff;
-- (NSPoint)					imageOffset;
+@property NSPoint imageOffset;
 
-- (void)					setImageCroppingOptions:(DKImageCroppingOptions) crop;
-- (DKImageCroppingOptions)	imageCroppingOptions;
+@property DKImageCroppingOptions imageCroppingOptions;
 
 // user actions
 
@@ -104,22 +114,3 @@ extern NSString*	kDKOriginalFileMetadataKey;
 extern NSString*	kDKOriginalImageDimensionsMetadataKey;
 extern NSString*	kDKOriginalNameMetadataKey;
 
-/*
-
-DKImageShape is a drawable shape that displays an image. The image is scaled and rotated to the path bounds and clipped to the
-path. The opacity of the image can be set, and whether the image is drawn before or after the normal path rendering.
-
-This object is quite flexible - by changing the path clipping and drawing styles, a very wide range of different effects are
-possible. (n.b. if you don't attach a style, the path is not drawn at all [the default], but still clips the image. The default
-path is a rect so that the entire image is drawn.
-
-There are two basic modes of operation - scaling and cropping. Scaling fills the shape's bounds with the image. Cropping keeps the image at its
-original size and allows the path to clip it as it is resized. In both cases the image offset can be used to position the image within the bounds.
-A hotspot is added to allow the user to drag the image offset position around.
- 
- Image shapes automatically manage image data efficiently, such that if there is more than one shape with the same image, only one copy of
- the data is maintained, and that data is the original compressed data from the file (if it did come from a file). This data sharing is
- facilitated by a central DKImageDataManager object, which is managed by the drawing. Note that using certian operations, such as creating
- the shape with an NSImage will bypass this benefit.
-
-*/

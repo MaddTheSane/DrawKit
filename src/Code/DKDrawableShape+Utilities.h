@@ -10,10 +10,9 @@
 #import "DKDrawableShape.h"
 
 
+//! utilities for calculating regions within a shape and drawing images allowing
+//! for scale, rotation, etc.
 @interface DKDrawableShape (Utilities)
-
-// utilities for calculating regions within a shape and drawing images allowing
-// for scale, rotation, etc.
 
 - (NSBezierPath*)			pathWithRelativeRect:(NSRect) relRect;
 - (NSBezierPath*)			pathWithRelativePosition:(NSPoint) relLoc finalSize:(NSSize) size;

@@ -138,10 +138,7 @@ enum
 	
 	if ( ![self lockedOrHidden] && [self countOfSelection] > 0 )
 	{
-		NSEnumerator*		iter = [[self availableObjectsInRect:[self selectionBounds]] objectEnumerator];
-		DKDrawableObject*	od;
-		
-		while(( od = [iter nextObject]))
+		for(DKDrawableObject *od in [self availableObjectsInRect:[self selectionBounds]])
 		{
 			if ([self isSelectedObject:od])
 				[ao addObject:od];
