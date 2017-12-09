@@ -19,7 +19,7 @@
  */
 @interface DKStyle (TextAdditions)
 
-@property (class, retain) DKStyle *defaultTextStyle;
+@property (class, readonly, retain) DKStyle *defaultTextStyle;
 + (instancetype)		textStyleWithFont:(NSFont*) font;
 + (NSString*)			styleNameForFont:(NSFont*) font;
 

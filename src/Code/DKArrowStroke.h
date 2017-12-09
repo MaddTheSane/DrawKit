@@ -11,8 +11,7 @@
 #import "DKStroke.h"
 
 
-// arrow head kinds - each end can be specified independently:
-
+//! arrow head kinds - each end can be specified independently:
 typedef NS_ENUM(NSInteger, DKArrowHeadKind)
 {
 	kDKArrowHeadNone					= 0,
@@ -29,8 +28,7 @@ typedef NS_ENUM(NSInteger, DKArrowHeadKind)
 };
 
 
-// positioning of dimension label, or none:
-
+//! positioning of dimension label, or none:
 typedef NS_ENUM(NSInteger, DKDimensioningLineOptions)
 {
 	kDKDimensionNone					= 0,
@@ -39,8 +37,7 @@ typedef NS_ENUM(NSInteger, DKDimensioningLineOptions)
 	kDKDimensionPlaceBelowLine			= 3
 };
 
-// dimension kind - sets additional embellishments on the dimension text:
-
+//! dimension kind - sets additional embellishments on the dimension text:
 typedef NS_ENUM(NSInteger, DKDimensionTextKind)
 {
 	kDKDimensionLinear					= 0,
@@ -49,8 +46,7 @@ typedef NS_ENUM(NSInteger, DKDimensionTextKind)
 	kDKDimensionAngle					= 3
 };
 
-// tolerance options:
-
+//! tolerance options:
 typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 {
 	kDKDimensionToleranceNotShown		= 0,
@@ -59,6 +55,14 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 
 // the class:
 
+/*!
+ 
+ \c DKArrowStroke is a rasterizer that implements arrowheads on the ends of paths. The heads are drawn by filling the
+ arrowhead using the same colour as the stroke, thus seamlessly blending the head into the path. Where multiple
+ strokes are used, the resulting effect should be correct when angles are kept the same and lengths are calculated
+ from the stroke width.
+ 
+ */
 @interface DKArrowStroke : DKStroke <NSCoding, NSCopying>
 {
 @private
@@ -74,17 +78,14 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 	DKDimensionToleranceOption	mDimToleranceOptions;
 }
 
-+ (void)						setDimensioningLineTextAttributes:(NSDictionary*) attrs;
-+ (NSDictionary*)				dimensioningLineTextAttributes;
-+ (DKArrowStroke*)				standardDimensioningLine;
+@property (class, retain /*, null_resettable*/) NSDictionary<NSAttributedStringKey,id> *dimensioningLineTextAttributes;
+@property (class, readonly, retain) DKArrowStroke *standardDimensioningLine;
 + (NSNumberFormatter*)			defaultDimensionLineFormatter;
 
 // head kind at each end
 
-- (void)						setArrowHeadAtStart:(DKArrowHeadKind) kind;
-- (void)						setArrowHeadAtEnd:(DKArrowHeadKind) kind;
-- (DKArrowHeadKind)				arrowHeadAtStart;
-- (DKArrowHeadKind)				arrowHeadAtEnd;
+@property DKArrowHeadKind arrowHeadAtStart;
+@property DKArrowHeadKind arrowHeadAtEnd;
 
 // head widths and lengths (some head kinds may set these also)
 
@@ -97,12 +98,8 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 - (void)						setOutlineColour:(NSColor*) colour width:(CGFloat) width;
 #endif
 
-@property (copy) NSColor *outlineColor;
+@property (copy) NSColor *outlineColour;
 @property CGFloat outlineWidth;
-- (void)						setOutlineColour:(NSColor*) colour;
-- (NSColor*)					outlineColour;
-- (void)						setOutlineWidth:(CGFloat) width;
-- (CGFloat)						outlineWidth;
 
 - (NSImage*)					arrowSwatchImageWithSize:(NSSize) size strokeWidth:(CGFloat) width;
 - (NSImage*)					standardArrowSwatchImage;
@@ -111,33 +108,26 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 
 // dimensioning lines:
 
-- (void)						setFormatter:(NSNumberFormatter*) fmt;
-- (NSNumberFormatter*)			formatter;
+@property (retain) NSNumberFormatter *formatter;
 - (void)						setFormat:(NSString*) format;
 
-- (void)						setDimensioningLineOptions:(DKDimensioningLineOptions) dimOps;
-- (DKDimensioningLineOptions)	dimensioningLineOptions;
+@property (nonatomic) DKDimensioningLineOptions dimensioningLineOptions;
 
 - (NSAttributedString*)			dimensionTextForObject:(id) obj;
 - (CGFloat)						widthOfDimensionTextForObject:(id) obj;
 - (NSString*)					toleranceTextForObject:(id) object;
 
-- (void)						setDimensionTextKind:(DKDimensionTextKind) kind;
-- (DKDimensionTextKind)			dimensionTextKind;
+@property (nonatomic) DKDimensionTextKind dimensionTextKind;
 
-- (void)						setDimensionToleranceOption:(DKDimensionToleranceOption) option;
-- (DKDimensionToleranceOption)	dimensionToleranceOption;
+@property DKDimensionToleranceOption dimensionToleranceOption;
 
-- (void)						setTextAttributes:(NSDictionary*) dict;
-- (NSDictionary*)				textAttributes;
-- (void)						setFont:(NSFont*) font;
-- (NSFont*)						font;
+@property (copy) NSDictionary<NSAttributedStringKey,id> *textAttributes;
+@property (retain) NSFont *font;
 
 @end
 
-// informal protocol for requesting dimension information from an object. If it does not respond, the rasterizer infers the values from the path length and
-// its internal values.
-
+//! informal protocol for requesting dimension information from an object. If it does not respond, the rasterizer infers the values from the path length and
+//! its internal values.
 @interface NSObject (DKArrowSrokeDimensioning)
 
 - (NSDictionary*)				dimensionValuesForArrowStroke:(DKArrowStroke*) arrowStroke;
@@ -153,11 +143,3 @@ extern NSString*				kDKNegativeToleranceKey;
 extern NSString*				kDKDimensionValueKey;
 extern NSString*				kDKDimensionUnitsKey;
 
-/*
-
-DKArrowStroke is a rasterizer that implements arrowheads on the ends of paths. The heads are drawn by filling the
-arrowhead using the same colour as the stroke, thus seamlessly blending the head into the path. Where multiple
-strokes are used, the resulting effect should be correct when angles are kept the same and lengths are calculated
-from the stroke width.
-
-*/

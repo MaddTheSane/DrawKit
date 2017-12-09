@@ -182,10 +182,11 @@
 
 - (id)						initWithCoder:(NSCoder*) coder
 {
-	[super initWithCoder:coder];
+	if (self = [super initWithCoder:coder]) {
 	mPathCache = [[NSMutableDictionary alloc] init];
 	mCacheList = [[NSMutableArray alloc] init];
 	[self setRoughness:[coder decodeDoubleForKey:@"DKRoughStroke_roughness"]];
+	}
 	
 	return self;
 }

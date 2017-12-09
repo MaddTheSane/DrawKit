@@ -61,7 +61,7 @@ static BOOL					sShouldDrawShadows = YES;
 static BOOL					sAntialias = YES;
 static BOOL					sSubstitute = NO;
 
-@interface DKStyle (Private)
+@interface DKStyle ()
 
 - (NSSize)		extraSpaceNeededIgnoringMitreLimit;
 
@@ -704,10 +704,7 @@ static BOOL					sSubstitute = NO;
 ///
 ///********************************************************************************************************************
 
-- (NSDictionary*)		textAttributes
-{
-	return m_textAttributes;
-}
+@synthesize textAttributes=m_textAttributes;
 
 
 ///*********************************************************************************************************************
@@ -1019,10 +1016,7 @@ static BOOL					sSubstitute = NO;
 ///
 ///********************************************************************************************************************
 
-- (void)				setUndoManager:(NSUndoManager*) undomanager
-{
-	m_undoManagerRef = undomanager;
-}
+@synthesize undoManager=m_undoManagerRef;
 
 
 ///*********************************************************************************************************************
@@ -1039,10 +1033,6 @@ static BOOL					sSubstitute = NO;
 ///
 ///********************************************************************************************************************
 
-- (NSUndoManager*)		undoManager
-{
-	return m_undoManagerRef;
-}
 
 
 ///*********************************************************************************************************************
@@ -2413,14 +2403,14 @@ static BOOL					sSubstitute = NO;
 
 - (id)				mutableCopyWithZone:(NSZone*) zone
 {
-	DKStyle* copy = [super copyWithZone:zone];	
-	[copy setLocked:NO];
-	[copy setName:nil];
-	[copy setStyleSharable:[self isStyleSharable]];
+	DKStyle* copy = [super copyWithZone:zone];
+	copy.locked = NO;
+	copy.name = nil;
+	copy.styleSharable = self.styleSharable;
 	
-	NSDictionary* attribs = [[self textAttributes] deepCopy];
+	NSDictionary* attribs = [self.textAttributes deepCopy];
 	
-	[copy setTextAttributes:attribs];
+	copy.textAttributes = attribs;
 	[attribs release];
 	
 	// the copy needs to start observing all of its components:
@@ -2432,6 +2422,3 @@ static BOOL					sSubstitute = NO;
 
 
 @end
-
-
-

@@ -103,7 +103,12 @@
 @property BOOL locked;
 @property BOOL locationLocked;
 @property BOOL mouseSnappingEnabled;
-@property (getter=isGhosted) BOOL ghosted;
+/*!
+ @brief object is ghosted rather than with its full style.
+ @discussion ghosting is an alternative to hiding - ghosted objects are still visible but are only drawn using
+ a thin outline. See also: +setGhostingColour:
+ */
+@property (nonatomic, getter=isGhosted) BOOL ghosted;
 
 // internal state accessors:
 

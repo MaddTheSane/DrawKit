@@ -202,10 +202,11 @@ NSString*	kDKOriginalNameMetadataKey				= @"dk_original_name";
 ///
 ///********************************************************************************************************************
 
-- (id)						initWithImageNamed:(NSString*) imageName
+- (id)						initWithImageNamed:(NSImageName) imageName
 {
-	[self initWithImage:[NSImage imageNamed:imageName]];
+	if (self = [self initWithImage:[NSImage imageNamed:imageName]]) {
 	[self setString:imageName forKey:kDKOriginalNameMetadataKey];
+	}
 	
 	return self;
 }

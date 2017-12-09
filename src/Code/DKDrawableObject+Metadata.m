@@ -363,7 +363,9 @@ NSString*	kDKUndoableChangesUserDefaultsKey	= @"DKMetadataChangesAreNotUndoable"
 #endif	
 	
 	[self metadataWillChangeKey:key];
-	[[self metadata] removeObjectForKey:[key lowercaseString]];
+	if (key) {
+		[[self metadata] removeObjectForKey:[key lowercaseString]];
+	}
 	[self metadataDidChangeKey:key];
 }
 

@@ -369,6 +369,7 @@ static NSString* sDelimiter = DEFAULT_DELIMITER_STRING;
 
 - (id)				initWithCoder:(NSCoder*) coder
 {
+	if (self = [super init]) {
 	mKeys = [[NSMutableArray alloc] init];
 	
 	// deal with earlier format
@@ -378,6 +379,7 @@ static NSString* sDelimiter = DEFAULT_DELIMITER_STRING;
 		[self setString:mStr withAttributes:nil];
 	else
 		[self setMasterString:[coder decodeObjectForKey:@"DKOTextSubstitutor_attributedString"]];
+	}
 	
 	return self;
 }

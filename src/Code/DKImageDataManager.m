@@ -285,6 +285,7 @@ NSString*	kDKImageDataManagerPasteboardType = @"net.apptree.drawkit.imgdatamgrty
 
 - (id)				initWithCoder:(NSCoder*) coder
 {
+	if (self = [super init]) {
 	mRepository = [[coder decodeObjectForKey:@"DKImageDataManager_repo"] retain];
 	mHashList = [[NSMutableDictionary alloc] init];
 	
@@ -301,6 +302,7 @@ NSString*	kDKImageDataManagerPasteboardType = @"net.apptree.drawkit.imgdatamgrty
 	
 	if([coder respondsToSelector:@selector(setImageManager:)])
 		[(DKKeyedUnarchiver*)coder setImageManager:self];
+	}
 	
 	return self;
 }

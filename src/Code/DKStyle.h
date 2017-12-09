@@ -42,22 +42,24 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 @interface DKStyle : DKRastGroup <NSCoding, NSCopying, NSMutableCopying>
 {
 @private
-	NSDictionary*			m_textAttributes;		// supports text additions
-	NSUndoManager*			m_undoManagerRef;		// style's undo manager
-	BOOL					m_shared;				// YES if the style is shared
-	BOOL					m_locked;				// YES if style can't be edited
-	id						m_renderClientRef;		// valid only while actually drawing
-	NSString*				m_uniqueKey;			// unique key, set once for all time
-	BOOL					m_mergeFlag;			// set to YES when a style is read in from a file and was saved in a registered state.
-	NSTimeInterval			m_lastModTime;			// timestamp to determine when styles have been updated
-	NSUInteger				m_clientCount;			// keeps count of the clients using the style
-	NSMutableDictionary*	mSwatchCache;			// cache of swatches at various sizes previously requested
+	NSDictionary<NSAttributedStringKey, id>*			m_textAttributes;		//!< supports text additions
+	NSUndoManager*			m_undoManagerRef;		//!< style's undo manager
+	BOOL					m_shared;				//!< YES if the style is shared
+	BOOL					m_locked;				//!< YES if style can't be edited
+	id						m_renderClientRef;		//!< valid only while actually drawing
+	NSString*				m_uniqueKey;			//!< unique key, set once for all time
+	BOOL					m_mergeFlag;			//!< set to \c YES when a style is read in from a file and was saved in a registered state.
+	NSTimeInterval			m_lastModTime;			//!< timestamp to determine when styles have been updated
+	NSUInteger				m_clientCount;			//!< keeps count of the clients using the style
+	NSMutableDictionary*	mSwatchCache;			//!< cache of swatches at various sizes previously requested
 }
 
 // basic standard styles:
 
-+ (DKStyle*)			defaultStyle;			// very boring, black stroke and light gray fill
-+ (DKStyle*)			defaultTrackStyle;		// grey stroke over wider black stroke, no fill
+//! very boring, black stroke and light gray fill
+@property (class, readonly, retain) DKStyle *defaultStyle;
+//! grey stroke over wider black stroke, no fill
+@property (class, readonly, retain) DKStyle *defaultTrackStyle;
 
 // easy construction of other simple styles:
 
@@ -65,7 +67,7 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 + (DKStyle*)			styleWithFillColour:(NSColor*) fc strokeColour:(NSColor*) sc strokeWidth:(CGFloat) sw;
 + (DKStyle*)			styleFromPasteboard:(NSPasteboard*) pb;
 
-+ (NSArray*)			stylePasteboardTypes;
+@property (class, readonly, copy) NSArray<NSPasteboardType> *stylePasteboardTypes;
 + (BOOL)				canInitWithPasteboard:(NSPasteboard*) pb;
 
 // pasted styles - separate non-persistent registry
@@ -94,12 +96,12 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 - (void)				notifyClientsAfterChange;
 - (void)				styleWasAttached:(DKDrawableObject*) toObject;
 - (void)				styleWillBeRemoved:(DKDrawableObject*) fromObject;
-- (NSUInteger)			countOfClients;
+@property (readonly) NSUInteger countOfClients;
 
 // (text) attributes - basic support
 
-- (void)				setTextAttributes:(NSDictionary*) attrs;
-- (NSDictionary*)		textAttributes;
+//! supports text additions
+@property (nonatomic, copy) NSDictionary<NSAttributedStringKey, id>* textAttributes;
 @property (readonly) BOOL hasTextAttributes;
 - (void)				removeTextAttributes;
 
@@ -111,8 +113,8 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 // registry info:
 
 @property (readonly, getter=isStyleRegistered) BOOL styleRegistered;
-- (NSArray*)			registryKeys;
-- (NSString*)			uniqueKey;
+@property (readonly, copy) NSArray<NSString*> *registryKeys;
+@property (readonly, copy) NSString *uniqueKey;
 - (void)				assignUniqueKey;
 @property (readonly) BOOL requiresRemerge;
 - (void)				clearRemergeFlag;
@@ -122,17 +124,16 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 // undo:
 
-- (void)				setUndoManager:(NSUndoManager*) undomanager;
-- (NSUndoManager*)		undoManager;
+@property (assign) NSUndoManager *undoManager;
 - (void)				changeKeyPath:(NSString*) keypath ofObject:(id) object toValue:(id) value;
 
 // stroke utilities:
 
 - (void)				scaleStrokeWidthsBy:(CGFloat) scale withoutInformingClients:(BOOL) quiet;
-- (CGFloat)				maxStrokeWidth;
-- (CGFloat)				maxStrokeWidthDifference;
+@property (readonly) CGFloat maxStrokeWidth;
+@property (readonly) CGFloat maxStrokeWidthDifference;
 - (void)				applyStrokeAttributesToPath:(NSBezierPath*) path;
-- (NSUInteger)			countOfStrokes;
+@property (readonly) NSUInteger countOfStrokes;
 
 // clipboard:
 
@@ -152,7 +153,7 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 - (NSImage*)			styleSwatchWithSize:(NSSize) size type:(DKStyleSwatchType) type;
 - (NSImage*)			standardStyleSwatch;
-- (NSImage*)			image;
+@property (readonly, copy) NSImage *image;
 - (NSImage*)			imageToFitSize:(NSSize) aSize;
 - (NSString*)			swatchCacheKeyForSize:(NSSize) size type:(DKStyleSwatchType) type;
 

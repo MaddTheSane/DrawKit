@@ -95,7 +95,7 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 		[handle drawAtPoint:p angle:radians];
 	}
 	return;
-#endif
+#else
 
 	CGFloat scale = 1.0;
 	
@@ -169,6 +169,7 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 			//[userInfo release];
 		}
 	}
+#endif
 }
 
 
@@ -181,6 +182,7 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 	// skip this fancy stuff
 	
 #if USE_DK_HANDLES
+#pragma unused(userInfo)
 	if([[self owner] respondsToSelector:@selector(knobsWantDrawingActiveState)])
 	{
 		BOOL active = [[self owner] knobsWantDrawingActiveState];
@@ -197,7 +199,7 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 		[handle drawAtPoint:p angle:radians];
 	}
 	return;
-#endif	
+#else
 
 	CGFloat scale = 1.0;
 	
@@ -263,6 +265,7 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 			[self drawKnobPath:path ofType:knobType userInfo:userInfo];
 		}
 	}
+#endif
 }
 
 
@@ -372,53 +375,13 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 		return NO;
 }
 
-
-
-
-- (void)			setControlBarColour:(NSColor*) clr
-{
-	[clr retain];
-	[mControlBarColour release];
-	mControlBarColour = clr;
-}
-
-
-- (NSColor*)		controlBarColour
-{
-	return mControlBarColour;
-}
-
-
-
-- (void)			setControlBarWidth:(CGFloat) width
-{
-	mControlBarWidth = width;
-}
-
-
-- (CGFloat)			controlBarWidth
-{
-	return mControlBarWidth;
-}
-
-
-- (void)			setScalingRatio:(CGFloat) scaleRatio
-{
-	mScaleRatio = scaleRatio;
-}
-
-
-- (CGFloat)			scalingRatio
-{
-	return mScaleRatio;
-}
+@synthesize controlBarColour=mControlBarColour;
+@synthesize controlBarWidth=mControlBarWidth;
+@synthesize scalingRatio=mScaleRatio;
 
 #pragma mark -
 #pragma mark - low-level methods (mostly internal and overridable)
-- (void)			setControlKnobSize:(NSSize) cks
-{
-	m_knobSize = cks;
-}
+@synthesize controlKnobSize=m_knobSize;
 
 
 - (void)			setControlKnobSizeForViewScale:(CGFloat) scale
@@ -435,12 +398,6 @@ static NSSize			sKnobSize = { 6.0, 6.0 };
 	ns.width /= ff;
 	ns.height /= ff;
 	[self setControlKnobSize:ns];
-}
-
-
-- (NSSize)			controlKnobSize
-{
-	return m_knobSize;
 }
 
 

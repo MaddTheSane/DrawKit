@@ -3154,14 +3154,14 @@ static id	sDearchivingHelper = nil;
 	
 	// create an image manager - it is not necessary for this object to be archived
 	
-	mImageManager = [[DKImageDataManager alloc] init];
+	DKImageDataManager *tmpManager = [[DKImageDataManager alloc] init];
 	
 	// if the coder can respond to the -setImageManager: method, set it. This allows certain objects to dearchive images that
 	// are held by the image manager even though the object doesn't have a valid reference to the drawing to get it. It can get it from the
 	// dearchiver instead.
 	
 	if([coder respondsToSelector:@selector(setImageManager:)])
-		[(DKKeyedUnarchiver*)coder setImageManager:mImageManager];
+		[(DKKeyedUnarchiver*)coder setImageManager:tmpManager];
 	
 	// older files had a flat layer structure and the drawing didn't inherit from the layer group - this
 	// flag detects that and decodes the archive accordingly
@@ -3175,6 +3175,7 @@ static id	sDearchivingHelper = nil;
 		
 	if (self != nil)
 	{
+		mImageManager = tmpManager;
 		if([coder containsValueForKey:@"DKDrawing_isFlipped"])
 			[self setFlipped:[coder decodeBoolForKey:@"DKDrawing_isFlipped"]];
 		else
@@ -3235,6 +3236,8 @@ static id	sDearchivingHelper = nil;
 		// file - would that be better? I'm unsure whether the active layer is legitimately part of a saved file's state.
 		
 		[self setActiveLayer:[self firstLayerOfClass:[DKObjectDrawingLayer class]]];
+	} else {
+		[tmpManager release];
 	}
 	
 	return self;

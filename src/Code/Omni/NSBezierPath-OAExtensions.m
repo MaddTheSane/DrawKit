@@ -1133,7 +1133,7 @@ static double subpathElementLength( subpathWalkingState *iter, double errorBudge
         double totalLength;
         NSInteger filledLengths, curLength;
         
-        lengths = malloc((cursor.elementCount+1) * sizeof(lengths));
+        lengths = malloc((cursor.elementCount+1) * sizeof(*lengths));
         filledLengths = 0;
         totalLength = 0;
 

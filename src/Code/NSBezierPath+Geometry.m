@@ -887,7 +887,7 @@ static BOOL		CornerBevel( const NSPoint* pointsIn, CGFloat offset, NSBezierPath*
 	NSBezierPathElement element;
 	NSPoint				ap[3];
 	NSPoint				v[3];
-	NSPoint				fp, cp1, cp2, pcp;
+	NSPoint				fp, cp1, cp2, pcp=NSZeroPoint;
 	
 	fp = cp1 = cp2 = NSZeroPoint;
 	v[0] = v[1] = v[2] = NSZeroPoint;

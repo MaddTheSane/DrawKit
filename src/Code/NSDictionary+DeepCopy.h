@@ -11,45 +11,38 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSDictionary (DeepCopy)
+/*
+ 
+ implements a deep copy of a dictionary and array. The keys are unchanged but each object is copied.
+ 
+ if the dictionary contains another dictionary or an array, it is also deep copied.
+ 
+ to retain the semantics of a normal copy, the object returned is not autoreleased.
+ 
+ */
+@interface NSDictionary<KeyType, ObjectType> (DeepCopy)
 
-- (NSDictionary*)		deepCopy;
+- (NSDictionary<KeyType, ObjectType>*)deepCopy NS_RETURNS_RETAINED;
 
 @end
 
 
-@interface NSArray (DeepCopy)
+@interface NSArray<ObjectType> (DeepCopy)
 
-- (NSArray*)			deepCopy;
+- (NSArray<ObjectType>*)deepCopy NS_RETURNS_RETAINED;
 
 @end
 
 
 @interface NSObject (DeepCopy)
 
-- (id)					deepCopy;
+- (id)deepCopy NS_RETURNS_RETAINED;
 
 @end
 
 
-@interface NSMutableArray (DeepCopy)
+@interface NSMutableArray<ObjectType> (DeepCopy)
 
-- (NSMutableArray*)		deepCopy;
+- (NSMutableArray<ObjectType>*)deepCopy NS_RETURNS_RETAINED;
 
 @end
-
-
-
-/*
-
-implements a deep copy of a dictionary and array. The keys are unchanged but each object is copied.
-
-if the dictionary contains another dictionary or an array, it is also deep copied.
-
-to retain the semantics of a normal copy, the object returned is not autoreleased.
-
-
-
-
-*/
-

@@ -762,10 +762,10 @@ static NSPoint*		ConvertToBezierForm( const NSPoint inp, const NSPoint bez[4] )
  */
 static NSInteger FindRoots( NSPoint* w, NSInteger degree, CGFloat* t, NSInteger depth )
 {  
-    NSInteger			i;
+    NSInteger	i;
     NSPoint 	Left[6], Right[6];	// control polygons
-    NSInteger			left_count,	 right_count;
-    CGFloat		left_t[6], right_t[6];
+    NSInteger	left_count,	 right_count;
+	CGFloat		left_t[6]={0}, right_t[6]={0};
 
     switch ( CrossingCount( w, degree ))
 	{
@@ -994,8 +994,8 @@ static double ComputeXIntercept( NSPoint* v, NSInteger degree)
 NSPoint		NearestPointOnCurve( const NSPoint inp, const NSPoint bez[4], double* tValue )
 {
     NSPoint*	w;						// Ctl pts for 5th-degree eqn
-    double		t_candidate[5];			// Possible roots    
-    NSInteger			n_solutions;			// Number of roots found
+	CGFloat		t_candidate[5]={0};		// Possible roots
+    NSInteger	n_solutions;			// Number of roots found
     double		t;						// Parameter value of closest pt
 
     // Convert problem to 5th-degree Bezier form

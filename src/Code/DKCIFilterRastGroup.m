@@ -40,32 +40,16 @@
 	{
 		[filter retain];
 		[m_filter release];
-		m_filter = filter;
+		m_filter = [filter copy];
+		[filter release];
 	
 		[self invalidateCache];
 	}
 }
 
 
-- (NSString*)				filter
-{
-	return m_filter;
-}
-
-
-#pragma mark -
-- (void)					setArguments:(NSDictionary*) dict
-{
-	[dict retain];
-	[m_arguments release];
-	m_arguments = dict;
-}
-
-
-- (NSDictionary*)			arguments
-{
-	return m_arguments;
-}
+@synthesize filter=m_filter;
+@synthesize arguments=m_arguments;
 
 
 #pragma mark -

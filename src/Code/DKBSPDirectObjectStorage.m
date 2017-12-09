@@ -467,10 +467,11 @@ static void			unmarkFunc( const void* value, void* context )
 {
 	// this method is here solely to support backward compatibility with b5; storage is no longer archived.
 
-	mTreeDepth = [coder decodeIntegerForKey:@"DKBSPDirectStorage_treeDepth"];
-	[self setCanvasSize:[coder decodeSizeForKey:@"DKBSPDirectStorage_canvasSize"]];
-	mAutoRebuild = YES;
-	[super initWithCoder:coder];
+	if (self = [super initWithCoder:coder]) {
+		mTreeDepth = [coder decodeIntegerForKey:@"DKBSPDirectStorage_treeDepth"];
+		[self setCanvasSize:[coder decodeSizeForKey:@"DKBSPDirectStorage_canvasSize"]];
+		mAutoRebuild = YES;
+	}
 	
 	return self;
 }

@@ -1829,6 +1829,14 @@ static BOOL		sWasInside = NO;
 }
 
 
+- (void)dealloc
+{
+	[m_colour release];
+	
+	[super dealloc];
+}
+
+
 #pragma mark -
 #pragma mark As part of NSCoding Protocol
 - (void)				encodeWithCoder:(NSCoder*) coder

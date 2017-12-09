@@ -207,7 +207,7 @@ static DKRouteAlgorithmType s_Algorithm = kDKUseNearestNeighbour;//kDKUseSimulat
 		
 		mOrder = malloc( sizeof(NSInteger) * n );
 		NSInteger kludge = 1;
-#if __LP64__
+#if defined(__LP64__) && __LP64__
 		memset_pattern8(mOrder, &kludge, sizeof(NSInteger) * n);
 #else
 		memset_pattern4(mOrder, &kludge, sizeof(NSInteger) * n);
@@ -479,7 +479,7 @@ static DKDirection	directionOfAngle( const CGFloat angle )
 {
 	// given an angle in radians, returns its basic direction.
 	
-	CGFloat fortyFiveDegrees = M_PI * 0.25;
+	CGFloat fortyFiveDegrees = M_PI_4;
 	CGFloat oneThirtyFiveDegrees = M_PI * 0.75;
 	
 	if( angle >= -fortyFiveDegrees && angle < fortyFiveDegrees )
@@ -516,11 +516,13 @@ static void		trnspt(NSInteger iorder[], NSInteger ncity, NSInteger n[]);
 NSInteger*	ivector(long nl, long nh)
 {
 	NSInteger *v;
+	size_t vSize = ((nh-nl+1+NR_END)*sizeof(NSInteger));
 
-	v=(NSInteger *)malloc((size_t) ((nh-nl+1+NR_END)*sizeof(NSInteger)));
-	if ( v != NULL )
+	v=(NSInteger *)malloc(vSize);
+	if ( v != NULL ) {
+		memset(v, 0, vSize);
 		return v-nl+NR_END;
-	else
+	} else
 		return NULL;
 }
 
@@ -848,7 +850,7 @@ reﬂect the movement of the path segment.
 
 void	trnspt( NSInteger iorder[], NSInteger ncity, NSInteger n[])
 { 
-	NSInteger	m1, m2, m3, nn, j, jj, *jorder; 
+	NSInteger	m1, m2, m3, nn, jj, *jorder;
 	jorder = ivector(1, ncity); 
 	
 	m1 = 1+((n[2] - n[1] +ncity) % ncity);						// Find number of cities from n[1] to n[2] 
@@ -856,27 +858,27 @@ void	trnspt( NSInteger iorder[], NSInteger ncity, NSInteger n[])
 	m3 = 1+((n[3] - n[6] +ncity) % ncity);						// ...and the number from n[6] to n[3]. 
 	nn = 1; 
 
-	for( j = 1; j <= m1; ++j )
+	for(NSInteger j = 1; j <= m1; ++j )
 	{ 
 		jj = 1+((j + n[1] -2) % ncity);							// Copy the chosen segment. 
 		jorder[nn++] = iorder[jj]; 
 	} 
 
-	for( j = 1; j <= m2; ++j)
+	for(NSInteger j = 1; j <= m2; ++j)
 	{
 		// The ncopy the segment from n[4]to n[5]. 
 		jj = 1+((j + n[4] -2) % ncity); 
 		jorder[nn++] = iorder[jj]; 
 	}
 	 
-	for( j = 1; j <= m3; ++j)
+	for(NSInteger j = 1; j <= m3; ++j)
 	{
 		// Finally, the segment from n[6] to n[3]. 
 		jj = 1+((j + n[6] -2) % ncity); 
 		jorder[nn++] = iorder[jj]; 
 	} 
 	
-	for( j = 1; j <= ncity; ++j)
+	for(NSInteger j = 1; j <= ncity; ++j)
 	{
 		// Copy jorder back into iorder. 
 		iorder[j] = jorder[j];

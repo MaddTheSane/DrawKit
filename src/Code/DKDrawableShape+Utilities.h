@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSBezierPath*)			pathWithRelativeRect:(NSRect) relRect;
 - (NSBezierPath*)			pathWithRelativePosition:(NSPoint) relLoc finalSize:(NSSize) size;
-- (NSBezierPath*)			pathWithFinalSize:(NSSize) size offsetBy:(NSPoint) offset fromPartcode:(NSInteger) pc;
-- (NSBezierPath*)			path:(NSBezierPath*) inPath withFinalSize:(NSSize) size offsetBy:(NSPoint) offset fromPartcode:(NSInteger) pc;
+- (nullable NSBezierPath*)	pathWithFinalSize:(NSSize) size offsetBy:(NSPoint) offset fromPartcode:(NSInteger) pc;
+- (nullable NSBezierPath*)	path:(NSBezierPath*) inPath withFinalSize:(NSSize) size offsetBy:(NSPoint) offset fromPartcode:(NSInteger) pc;
 
 - (NSPoint)					pointForRelativeLocation:(NSPoint) relLoc;
 

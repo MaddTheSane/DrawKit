@@ -23,10 +23,25 @@ typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 
 
 
+/*!
+ 
+ simple class used to provide the drawing of knobs for object selection. You can override this and replace it (attached to any layer)
+ to customise the appearance of the selection knobs for all drawn objects in that layer.
+ 
+ The main method a drawable will call is drawKnobAtPoint:ofType:userInfo:
+ 
+ The type (DKKnobType) is a functional description of the knob only - this class maps that functional description to a consistent appearance taking
+ into account the basic type and a couple of generic state flags. Clients should generally avoid trying to do drawing themselves of knobs, but if they do,
+ should use the lower level methods here to get consistent results.
+ 
+ Subclasses may want to customise many aspects of a knob's appearance, and can override any suitable factored methods according to their needs. Customisations
+ might include the shape of a knob, its colours, whether stroked or filled or both, etc.
+ 
+ */
 @interface DKKnob : NSObject <NSCoding, NSCopying>
 {
 @private
-	id				m_ownerRef;					// the object that owns (and hence retains) this - typically a DKLayer
+	id<DKKnobOwner>	m_ownerRef;					// the object that owns (and hence retains) this - typically a DKLayer
 	NSSize			m_knobSize;					// the currently cached knob size
 	CGFloat			mScaleRatio;				// ratio to zoom factor used to scale knob size (default = 0.3)
 	NSColor*		mControlKnobColour;			// colour of square knobs
@@ -38,10 +53,11 @@ typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 	CGFloat			mControlBarWidth;			// control bar width
 }
 
-+ (id)				standardKnobs;
++ (DKKnob*)			standardKnobs;
 
 // main high-level methods that will be called by clients
 
+//! the object that owns (and hence retains) this - typically a \c DKLayer
 @property (assign) id<DKKnobOwner>	owner;
 
 - (void)			drawKnobAtPoint:(NSPoint) p ofType:(DKKnobType) knobType userInfo:(id) userInfo;
@@ -56,25 +72,27 @@ typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 
 - (BOOL)			hitTestPoint:(NSPoint) p inKnobAtPoint:(NSPoint) kp ofType:(DKKnobType) knobType userInfo:(id) userInfo;
 
-- (void)			setControlBarColour:(NSColor*) clr;
-- (NSColor*)		controlBarColour;
-- (void)			setControlBarWidth:(CGFloat) width;
-- (CGFloat)			controlBarWidth;
+//! colour of control bars
+@property (retain) NSColor *controlBarColour;
+//! control bar width
+@property CGFloat controlBarWidth;
 
-- (void)			setScalingRatio:(CGFloat) scaleRatio;
-- (CGFloat)			scalingRatio;
+//! ratio to zoom factor used to scale knob size (default = 0.3)
+@property CGFloat scalingRatio;
 
 // low-level methods (mostly internal and overridable)
 
-- (void)			setControlKnobSize:(NSSize) cks;
+//! control knob size
+@property NSSize controlKnobSize;
+
 - (void)			setControlKnobSizeForViewScale:(CGFloat) scale;
-- (NSSize)			controlKnobSize;
 
 // new model APIs
 
 - (DKHandle*)		handleForType:(DKKnobType) knobType;
 - (DKHandle*)		handleForType:(DKKnobType) knobType colour:(NSColor*) colour;
-- (NSSize)			actualHandleSize;
+//! the size of the handle as it is actually drawn to hte screen, taking into account all the scale factors, etc.
+@property (readonly) NSSize actualHandleSize;
 
 @end
 
@@ -83,50 +101,50 @@ typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 
 @interface DKKnob (Deprecated)
 
-+ (void)			setControlKnobColour:(NSColor*) clr;
-+ (NSColor*)		controlKnobColour;
++ (void)			setControlKnobColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
++ (NSColor*)		controlKnobColour DEPRECATED_ATTRIBUTE;
 
-+ (void)			setRotationKnobColour:(NSColor*) clr;
-+ (NSColor*)		rotationKnobColour;
++ (void)			setRotationKnobColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
++ (NSColor*)		rotationKnobColour DEPRECATED_ATTRIBUTE;
 
-+ (void)			setControlOnPathPointColour:(NSColor*) clr;
-+ (NSColor*)		controlOnPathPointColour;
-+ (void)			setControlOffPathPointColour:(NSColor*) clr;
-+ (NSColor*)		controlOffPathPointColour;
++ (void)			setControlOnPathPointColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
++ (NSColor*)		controlOnPathPointColour DEPRECATED_ATTRIBUTE;
++ (void)			setControlOffPathPointColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
++ (NSColor*)		controlOffPathPointColour DEPRECATED_ATTRIBUTE;
 
-+ (void)			setControlBarColour:(NSColor*) clr;
-+ (NSColor*)		controlBarColour;
++ (void)			setControlBarColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
++ (NSColor*)		controlBarColour DEPRECATED_ATTRIBUTE;
 
-+ (void)			setControlKnobSize:(NSSize) size;
-+ (NSSize)			controlKnobSize;
++ (void)			setControlKnobSize:(NSSize) size DEPRECATED_ATTRIBUTE;
++ (NSSize)			controlKnobSize DEPRECATED_ATTRIBUTE;
 
-+ (void)			setControlBarWidth:(CGFloat) width;
-+ (CGFloat)			controlBarWidth;
++ (void)			setControlBarWidth:(CGFloat) width DEPRECATED_ATTRIBUTE;
++ (CGFloat)			controlBarWidth DEPRECATED_ATTRIBUTE;
 
-+ (NSRect)			controlKnobRectAtPoint:(NSPoint) kp;
++ (NSRect)			controlKnobRectAtPoint:(NSPoint) kp DEPRECATED_ATTRIBUTE;
 
-- (NSColor*)		fillColourForKnobType:(DKKnobType) knobType;
-- (NSColor*)		strokeColourForKnobType:(DKKnobType) knobType;
-- (CGFloat)			strokeWidthForKnobType:(DKKnobType) knobType;
+- (NSColor*)		fillColourForKnobType:(DKKnobType) knobType DEPRECATED_ATTRIBUTE;
+- (NSColor*)		strokeColourForKnobType:(DKKnobType) knobType DEPRECATED_ATTRIBUTE;
+- (CGFloat)			strokeWidthForKnobType:(DKKnobType) knobType DEPRECATED_ATTRIBUTE;
 
 // setting colours and sizes per-DKKnob instance
 
-- (void)			setControlKnobColour:(NSColor*) clr;
-- (NSColor*)		controlKnobColour;
-- (void)			setRotationKnobColour:(NSColor*) clr;
-- (NSColor*)		rotationKnobColour;
+- (void)			setControlKnobColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
+- (NSColor*)		controlKnobColour DEPRECATED_ATTRIBUTE;
+- (void)			setRotationKnobColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
+- (NSColor*)		rotationKnobColour DEPRECATED_ATTRIBUTE;
 
-- (void)			setControlOnPathPointColour:(NSColor*) clr;
-- (NSColor*)		controlOnPathPointColour;
-- (void)			setControlOffPathPointColour:(NSColor*) clr;
-- (NSColor*)		controlOffPathPointColour;
+- (void)			setControlOnPathPointColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
+- (NSColor*)		controlOnPathPointColour DEPRECATED_ATTRIBUTE;
+- (void)			setControlOffPathPointColour:(NSColor*) clr DEPRECATED_ATTRIBUTE;
+- (NSColor*)		controlOffPathPointColour DEPRECATED_ATTRIBUTE;
 
-- (NSRect)			controlKnobRectAtPoint:(NSPoint) kp;
-- (NSRect)			controlKnobRectAtPoint:(NSPoint) kp ofType:(DKKnobType) knobType;
+- (NSRect)			controlKnobRectAtPoint:(NSPoint) kp DEPRECATED_ATTRIBUTE;
+- (NSRect)			controlKnobRectAtPoint:(NSPoint) kp ofType:(DKKnobType) knobType DEPRECATED_ATTRIBUTE;
 
-- (NSBezierPath*)	knobPathAtPoint:(NSPoint) p ofType:(DKKnobType) knobType angle:(CGFloat) radians userInfo:(id) userInfo;
-- (void)			drawKnobPath:(NSBezierPath*) path ofType:(DKKnobType) knobType userInfo:(id) userInfo;
-- (DKKnobDrawingFlags) drawingFlagsForKnobType:(DKKnobType) knobType;
+- (NSBezierPath*)	knobPathAtPoint:(NSPoint) p ofType:(DKKnobType) knobType angle:(CGFloat) radians userInfo:(id) userInfo DEPRECATED_ATTRIBUTE;
+- (void)			drawKnobPath:(NSBezierPath*) path ofType:(DKKnobType) knobType userInfo:(id) userInfo DEPRECATED_ATTRIBUTE;
+- (DKKnobDrawingFlags) drawingFlagsForKnobType:(DKKnobType) knobType DEPRECATED_ATTRIBUTE;
 
 @end
 
@@ -134,20 +152,3 @@ typedef NS_OPTIONS(NSUInteger, DKKnobDrawingFlags)
 // keys in the userInfo that can be used to pass additional information to the knob drawing methods
 
 extern NSString*	kDKKnobPreferredHighlightColour;		// references an NSColor
-
-
-/*
-
-simple class used to provide the drawing of knobs for object selection. You can override this and replace it (attached to any layer)
-to customise the appearance of the selection knobs for all drawn objects in that layer.
-
-The main method a drawable will call is drawKnobAtPoint:ofType:userInfo:
-
-The type (DKKnobType) is a functional description of the knob only - this class maps that functional description to a consistent appearance taking
-into account the basic type and a couple of generic state flags. Clients should generally avoid trying to do drawing themselves of knobs, but if they do,
-should use the lower level methods here to get consistent results.
-
-Subclasses may want to customise many aspects of a knob's appearance, and can override any suitable factored methods according to their needs. Customisations
-might include the shape of a knob, its colours, whether stroked or filled or both, etc.
-
-*/

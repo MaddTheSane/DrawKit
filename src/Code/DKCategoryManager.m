@@ -2206,6 +2206,7 @@ static id sDearchivingHelper = nil;
 
 - (id)					initWithCoder:(NSCoder*) coder
 {
+	if (self = [super init]) {
 	m_masterList = [[coder decodeObjectForKey:@"master"] retain];
 	m_categories = [[coder decodeObjectForKey:@"categories"] retain];
 	m_recentlyAdded = [[coder decodeObjectForKey:@"recent_add"] retain];
@@ -2223,7 +2224,8 @@ static id sDearchivingHelper = nil;
 			|| m_recentlyUsed == nil)
 	{
 		[self autorelease];
-		self = nil;
+		return nil;
+	}
 	}
 
 	return self;

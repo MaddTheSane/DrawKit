@@ -44,7 +44,7 @@
 
 - (id)		initWithTimeInterval:(NSTimeInterval) t forDelegate:(id) del
 {
-	[super init];
+	if (self = [super init]) {
 	[self setDelegate:del];
 	
 	mTotal = t;
@@ -55,6 +55,7 @@
 	mTimer = [NSTimer scheduledTimerWithTimeInterval:1/48.0f target:self selector:@selector(osfx_callback:) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:mTimer forMode:NSEventTrackingRunLoopMode];
 	mStart = [NSDate timeIntervalSinceReferenceDate];
+	}
 
 	return self;
 }

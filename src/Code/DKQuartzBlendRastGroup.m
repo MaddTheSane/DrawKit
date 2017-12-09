@@ -17,30 +17,8 @@ static CGImageRef	CreateMaskFromImage( NSImage* image );
 
 @implementation DKQuartzBlendRastGroup
 #pragma mark As a DKQuartzBlendRastGroup
-- (void)			setBlendMode:(CGBlendMode) mode
-{
-	m_blendMode = mode;
-}
-
-
-- (CGBlendMode)		blendMode
-{
-	return m_blendMode;
-}
-
-
-#pragma mark -
-- (void)			setAlpha:(CGFloat) alpha
-{
-	m_alpha = alpha;
-}
-
-
-- (CGFloat)			alpha
-{
-	return m_alpha;
-}
-
+@synthesize blendMode = m_blendMode;
+@synthesize alpha=m_alpha;
 
 #pragma mark -
 - (void)			setMaskImage:(NSImage*) image

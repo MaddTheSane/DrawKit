@@ -1086,7 +1086,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 
 - (id)				initWithCoder:(NSCoder*) coder
 {
-	[super initWithCoder:coder];
+	if (self = [super initWithCoder:coder]) {
 	[self setRadius:[coder decodeDoubleForKey:@"DKRegularPoly_outerRadius"]];
 	[self setInnerRadius:[coder decodeDoubleForKey:@"DKRegularPoly_innerRadius"]];
 	[self setTipSpread:[coder decodeDoubleForKey:@"DKRegularPoly_tipSpread"]];
@@ -1095,6 +1095,7 @@ static CGFloat			sAngleConstraint = 0.261799387799;	// 15°
 	[self setNumberOfSides:[coder decodeIntegerForKey:@"DKRegularPoly_numberOfSides"]];
 	[self setLocation:[coder decodePointForKey:@"DKRegularPoly_location"]];
 	[self setShowsSpreadControls:[coder decodeBoolForKey:@"DKRegularPoly_showSpreadControls"]];
+	}
 	
 	return self;
 }
