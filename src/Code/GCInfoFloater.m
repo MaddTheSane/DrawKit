@@ -68,7 +68,7 @@
 		if (m_infoViewRef == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)

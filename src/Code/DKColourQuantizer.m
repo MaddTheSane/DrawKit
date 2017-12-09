@@ -91,7 +91,7 @@ static inline void indexToRGB_332( NSUInteger i, NSUInteger rgb[3] )
 		if (m_cTable == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	

@@ -99,7 +99,7 @@
 		if (m_filter == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	
@@ -240,7 +240,7 @@
 		if (m_filter == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

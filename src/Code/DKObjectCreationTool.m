@@ -143,7 +143,7 @@ static DKStyle*	sCreatedObjectsStyle = nil;
 		if (m_prototypeObject == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

@@ -2230,7 +2230,7 @@ static BOOL					sSubstitute = NO;
 		if (m_uniqueKey == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

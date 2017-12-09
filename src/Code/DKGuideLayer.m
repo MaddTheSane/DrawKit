@@ -1578,7 +1578,7 @@ static BOOL		sWasInside = NO;
 		if (m_hGuides == nil || m_vGuides == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)
@@ -1626,7 +1626,7 @@ static BOOL		sWasInside = NO;
 		if (m_hGuides == nil || m_vGuides == nil )
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -1822,7 +1822,7 @@ static BOOL		sWasInside = NO;
 		if (m_colour == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

@@ -69,7 +69,7 @@ NSString*	kDKOriginalNameMetadataKey				= @"dk_original_name";
 	if (image == nil)
 	{
 		[self autorelease];
-		self = nil;
+		return nil;
 	}else
 	{
 		self = [self initWithImage:image];
@@ -139,7 +139,7 @@ NSString*	kDKOriginalNameMetadataKey				= @"dk_original_name";
 		if (m_image == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 
@@ -180,7 +180,7 @@ NSString*	kDKOriginalNameMetadataKey				= @"dk_original_name";
 	else
 	{
 		[self autorelease];
-		self = nil;
+		return nil;
 	}
 	
 	return self;
@@ -246,7 +246,7 @@ NSString*	kDKOriginalNameMetadataKey				= @"dk_original_name";
 	else
 	{
 		[self autorelease];
-		self = nil;
+		return nil;
 	}
 	return self;
 }

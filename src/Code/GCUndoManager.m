@@ -1297,7 +1297,7 @@
 		else
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	

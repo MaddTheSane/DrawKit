@@ -1385,7 +1385,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 		if (m_colorStops == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -1453,7 +1453,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 		if (m_colorStops == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)
@@ -1528,7 +1528,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 		if (mColor == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -1724,7 +1724,7 @@ static NSInteger cmpColorStops (DKColorStop* lh, DKColorStop* rh, void *context)
 		if (mColor == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

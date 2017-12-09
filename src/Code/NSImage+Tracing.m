@@ -359,7 +359,7 @@ NSString*	kDKTracingParam_opttolerance	= @"kDKTracingParam_opttolerance";
 		if (mBits == NULL)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)

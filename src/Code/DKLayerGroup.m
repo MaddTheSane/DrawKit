@@ -1651,7 +1651,7 @@ NSString*		kDKLayerGroupDidReorderLayers			= @"kDKLayerGroupDidReorderLayers";
 		if (m_layers == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

@@ -53,7 +53,7 @@
 		if (m_colour == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

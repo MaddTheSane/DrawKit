@@ -155,7 +155,7 @@
 		if (m_owner == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -231,7 +231,7 @@
 		if (m_owner == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

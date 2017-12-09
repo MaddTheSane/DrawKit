@@ -590,7 +590,7 @@ static id	sDearchivingHelper = nil;
 				|| mControllers == nil )
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -3216,7 +3216,7 @@ static id	sDearchivingHelper = nil;
 			NSLog(@"drawing failed initialization (%@)", self );
 			
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 		
 		// notify all the contained layers that they were added to the root drawing, allowing them to perform any special

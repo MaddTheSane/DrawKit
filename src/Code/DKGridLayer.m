@@ -1594,7 +1594,7 @@ static NSColor*		sMajorColour = nil;
 				|| m_majorColour == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)

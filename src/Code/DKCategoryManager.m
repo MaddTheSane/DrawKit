@@ -2177,7 +2177,7 @@ static id sDearchivingHelper = nil;
 				|| m_recentlyUsed == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)

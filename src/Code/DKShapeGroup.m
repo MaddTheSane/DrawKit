@@ -165,7 +165,7 @@
 		if (m_objects == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)
@@ -1324,7 +1324,7 @@
 		if (m_objects == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	if (self != nil)

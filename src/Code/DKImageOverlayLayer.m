@@ -31,7 +31,7 @@
 		if (m_image == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	
@@ -204,7 +204,7 @@
 		if (m_image == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

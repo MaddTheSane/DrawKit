@@ -737,7 +737,7 @@
 		if (m_renderList == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	

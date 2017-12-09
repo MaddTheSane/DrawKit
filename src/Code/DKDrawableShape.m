@@ -2513,7 +2513,7 @@ static NSSize			sTempSavedOffset;
 		if (m_path == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;

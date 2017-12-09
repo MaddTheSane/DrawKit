@@ -3829,7 +3829,7 @@ static void	 drawFunction3( const void* value, void* context )
 		if (m_selection == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -3930,7 +3930,7 @@ static void	 drawFunction3( const void* value, void* context )
 		if (m_selection == nil)
 		{
 			[self autorelease];
-			self = nil;
+			return nil;
 		}
 	}
 
