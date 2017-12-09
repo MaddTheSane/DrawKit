@@ -14,9 +14,7 @@
 
 @class	DKDrawableObject, DKUndoManager;
 
-// swatch types that can be passed to -styleSwatchWithSize:type:
-
-
+//! swatch types that can be passed to -styleSwatchWithSize:type:
 typedef NS_ENUM(NSInteger, DKStyleSwatchType)
 {
 	kDKStyleSwatchAutomatic			= -1,
@@ -25,9 +23,7 @@ typedef NS_ENUM(NSInteger, DKStyleSwatchType)
 };
 
 
-// options that can be passed to -derivedStyleWithPasteboard:withOptions:
-
-
+//! options that can be passed to -derivedStyleWithPasteboard:withOptions:
 typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 {
 	kDKDerivedStyleDefault			= 0,
@@ -79,21 +75,18 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 // default sharing flag
 
-+ (void)				setStylesAreSharableByDefault:(BOOL) share;
-+ (BOOL)				stylesAreSharableByDefault;
+@property (class) BOOL stylesAreSharableByDefault;
 
 // shadows:
 
 + (NSShadow*)			defaultShadow;
 + (BOOL)				setWillDrawShadows:(BOOL) drawShadows;
-+ (BOOL)				willDrawShadows;
+@property (class, readonly) BOOL willDrawShadows;
 
 // performance options:
 
-+ (void)				setShouldAntialias:(BOOL) aa;
-+ (BOOL)				shouldAntialias;
-+ (void)				setShouldSubstitutePlaceholderStyle:(BOOL) substitute;
-+ (BOOL)				shouldSubstitutePlaceholderStyle;
+@property (class) BOOL shouldAntialias;
+@property (class) BOOL shouldSubstitutePlaceholderStyle;
 
 // updating & notifying clients:
 
@@ -107,25 +100,23 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 - (void)				setTextAttributes:(NSDictionary*) attrs;
 - (NSDictionary*)		textAttributes;
-- (BOOL)				hasTextAttributes;
+@property (readonly) BOOL hasTextAttributes;
 - (void)				removeTextAttributes;
 
 // shared and locked status:
 
-- (void)				setStyleSharable:(BOOL) share;
-- (BOOL)				isStyleSharable;
-- (void)				setLocked:(BOOL) lock;
-- (BOOL)				locked;
+@property (getter=isStyleSharable) BOOL styleSharable;
+@property BOOL locked;
 
 // registry info:
 
-- (BOOL)				isStyleRegistered;
+@property (readonly, getter=isStyleRegistered) BOOL styleRegistered;
 - (NSArray*)			registryKeys;
 - (NSString*)			uniqueKey;
 - (void)				assignUniqueKey;
-- (BOOL)				requiresRemerge;
+@property (readonly) BOOL requiresRemerge;
 - (void)				clearRemergeFlag;
-- (NSTimeInterval)		lastModificationTimestamp;
+@property (readonly) NSTimeInterval lastModificationTimestamp;
 
 - (BOOL)				isEqualToStyle:(DKStyle*) aStyle;
 
@@ -151,11 +142,11 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 // query methods:
 
-- (BOOL)				hasStroke;
-- (BOOL)				hasFill;
-- (BOOL)				hasHatch;
-- (BOOL)				hasTextAdornment;
-- (BOOL)				isEmpty;
+@property (readonly) BOOL hasStroke;
+@property (readonly) BOOL hasFill;
+@property (readonly) BOOL hasHatch;
+@property (readonly) BOOL hasTextAdornment;
+@property (readonly, getter=isEmpty) BOOL empty;
 
 // swatch images:
 
@@ -179,8 +170,8 @@ typedef NS_ENUM(NSInteger, DKDerivedStyleOptions)
 
 // pasteboard types:
 
-extern NSString*		kDKStylePasteboardType;
-extern NSString*		kDKStyleKeyPasteboardType;
+extern NSPasteboardType	kDKStylePasteboardType;
+extern NSPasteboardType	kDKStyleKeyPasteboardType;
 
 // notifications:
 

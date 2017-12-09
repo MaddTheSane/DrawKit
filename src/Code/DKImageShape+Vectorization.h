@@ -22,16 +22,14 @@ typedef NS_ENUM(NSInteger, DKVectorizingMethod)
 	kDKVectorizeColour		= 1
 };
 
-// this category implements very high-level vectorizing operations on an image shape. At its simplest,
-// it vectorizes the image using the default settings and replaces the image object by a group containing the
-// shapes resulting. For the user, this looks like a vectorization operation was applied "in place".
-
-// Apps are free to implement this in a more controlled way if they wish, for example by using a dialog
-// to set up the various parameters.
-
-// Be sure to also check out NSImage+Tracing because that's where the real work is done.
-
-
+//! this category implements very high-level vectorizing operations on an image shape. At its simplest,
+//! it vectorizes the image using the default settings and replaces the image object by a group containing the
+//! shapes resulting. For the user, this looks like a vectorization operation was applied "in place".
+//!
+//! Apps are free to implement this in a more controlled way if they wish, for example by using a dialog
+//! to set up the various parameters.
+//!
+//! Be sure to also check out NSImage+Tracing because that's where the real work is done.
 @interface DKImageShape (Vectorization)
 
 + (void)			setPreferredVectorizingMethod:(DKVectorizingMethod) method;

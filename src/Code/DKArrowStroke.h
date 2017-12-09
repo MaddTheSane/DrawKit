@@ -88,10 +88,8 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 
 // head widths and lengths (some head kinds may set these also)
 
-- (void)						setArrowHeadWidth:(CGFloat) width;
-- (CGFloat)						arrowHeadWidth;
-- (void)						setArrowHeadLength:(CGFloat) length;
-- (CGFloat)						arrowHeadLength;
+@property CGFloat arrowHeadWidth;
+@property CGFloat arrowHeadLength;
 
 - (void)						standardArrowForStrokeWidth:(CGFloat) sw;
 
@@ -99,6 +97,8 @@ typedef NS_ENUM(NSInteger, DKDimensionToleranceOption)
 - (void)						setOutlineColour:(NSColor*) colour width:(CGFloat) width;
 #endif
 
+@property (copy) NSColor *outlineColor;
+@property CGFloat outlineWidth;
 - (void)						setOutlineColour:(NSColor*) colour;
 - (NSColor*)					outlineColour;
 - (void)						setOutlineWidth:(CGFloat) width;

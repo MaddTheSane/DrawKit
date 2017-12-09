@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "DKDrawableShape.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 //! utilities for calculating regions within a shape and drawing images allowing
 //! for scale, rotation, etc.
@@ -23,3 +24,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

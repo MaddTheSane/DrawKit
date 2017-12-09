@@ -14,6 +14,11 @@
 @class DKTextAdornment, DKDrawingView;
 
 
+/*!
+ 
+ Very similar to a DKTextShape but based on a path and defaulting to text-on-a-path rendering. Has virtually identical public API to DKTextShape.
+ 
+ */
 @interface DKTextPath : DKDrawablePath <NSCopying, NSCoding>
 {
 @private
@@ -24,13 +29,12 @@
 
 // convenience constructors:
 
-+ (DKTextPath*)				textPathWithString:(NSString*) str onPath:(NSBezierPath*) aPath;
++ (instancetype)			textPathWithString:(NSString*) str onPath:(NSBezierPath*) aPath;
 
 // class defaults:
 
-+ (void)					setDefaultTextString:(NSString*) str;
-+ (NSString*)				defaultTextString;
-+ (Class)					textAdornmentClass;
+@property (class, copy) NSString *defaultTextString;
+@property (class, readonly) Class textAdornmentClass;
 + (NSArray*)				pastableTextTypes;
 + (DKStyle*)				textPathDefaultStyle;
 
@@ -58,38 +62,30 @@
 
 - (NSDictionary*)			textAttributes;
 
-- (void)					setFont:(NSFont*) font;
-- (NSFont*)					font;
-- (void)					setFontSize:(CGFloat) size;
-- (CGFloat)					fontSize;
-- (void)					setTextColour:(NSColor*) colour;
-- (NSColor*)				textColour;
+@property (copy) NSFont *font;
+@property CGFloat fontSize;
+@property (copy) NSColor *textColour;
 
 - (void)					scaleTextBy:(CGFloat) factor;
 
 // paragraph style attributes:
 
-- (void)					setVerticalAlignment:(DKVerticalTextAlignment) align;
-- (DKVerticalTextAlignment)	verticalAlignment;
-- (void)					setVerticalAlignmentProportion:(CGFloat) prop;
-- (CGFloat)					verticalAlignmentProportion;
-- (void)					setParagraphStyle:(NSParagraphStyle*) ps;
-- (NSParagraphStyle*)		paragraphStyle;
-- (NSTextAlignment)			alignment;
+@property DKVerticalTextAlignment verticalAlignment;
+@property CGFloat verticalAlignmentProportion;
+@property (copy) NSParagraphStyle *paragraphStyle;
+@property (readonly) NSTextAlignment alignment;
 
-- (void)					setLayoutMode:(DKTextLayoutMode) mode;
-- (DKTextLayoutMode)		layoutMode;
+@property DKTextLayoutMode layoutMode;
 
 // editing the text:
 
 - (void)					startEditingInView:(DKDrawingView*) view;
 - (void)					endEditing;
-- (BOOL)					isEditing;
+@property (readonly, getter=isEditing) BOOL editing;
 
 // the internal adornment object:
 
-- (DKTextAdornment*)		textAdornment;
-- (void)					setTextAdornment:(DKTextAdornment*) adornment;
+@property (copy) DKTextAdornment* textAdornment;
 
 // user actions:
 
@@ -130,12 +126,4 @@
 - (IBAction)				takeTextVerticalAlignmentFromSender:(id) sender;
 
 @end
-
-
-/*
-
-Very similar to a DKTextShape but based on a path and defaulting to text-on-a-path rendering. Has virtually identical public API to DKTextShape.
-
-*/
-
 

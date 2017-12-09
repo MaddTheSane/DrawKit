@@ -931,11 +931,11 @@ static BOOL				s_NoDKDefaults = NO;
 ///
 ///********************************************************************************************************************
 
-- (NSArray*)				styleNames
+- (NSArray<NSString*>*)				styleNames
 {
 	NSEnumerator*	iter = [[self allObjects] objectEnumerator];
 	DKStyle*		style;
-	NSMutableArray*	names = [NSMutableArray array];
+	NSMutableArray<NSString*>*	names = [NSMutableArray array];
 	
 	while(( style = [iter nextObject]))
 		[names addObject:[style name]];

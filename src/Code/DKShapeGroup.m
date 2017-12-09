@@ -218,10 +218,7 @@
 
 	NSPoint	loc;
 	
-	NSEnumerator*		iter = [m_objects objectEnumerator];
-	DKDrawableObject*	obj;
-
-	while(( obj = [iter nextObject]))
+	for(DKDrawableObject *obj in m_objects)
 	{
 		loc = [self convertPointFromContainer:[obj location]];
 		[obj setLocation:loc];

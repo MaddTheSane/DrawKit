@@ -29,43 +29,34 @@
 	CGFloat				m_width;
 }
 
-+ (DKStroke*)			defaultStroke;
-+ (DKStroke*)			strokeWithWidth:(CGFloat) width colour:(NSColor*) colour;
+@property (class, readonly, retain) DKStroke *defaultStroke;
++ (instancetype)		strokeWithWidth:(CGFloat) width colour:(NSColor*) colour;
 
-- (id)					initWithWidth:(CGFloat) width colour:(NSColor*) colour;
+- (instancetype)		initWithWidth:(CGFloat) width colour:(NSColor*) colour;
 
-- (void)				setColour:(NSColor*) colour;
-- (NSColor*)			colour;
+@property (copy) NSColor *colour;
 
-- (void)				setWidth:(CGFloat) width;
-- (CGFloat)				width;
+@property CGFloat width;
 - (void)				scaleWidthBy:(CGFloat) scale;
 - (CGFloat)				allowance;
 
-- (void)				setDash:(DKStrokeDash*) dash;
-- (DKStrokeDash*)		dash;
+@property (retain) DKStrokeDash *dash;
 - (void)				setAutoDash;
 
-- (void)				setLateralOffset:(CGFloat) offset;
-- (CGFloat)				lateralOffset;
+@property  CGFloat lateralOffset;
 
-- (void)				setShadow:(NSShadow*) shadow;
-- (NSShadow*)			shadow;
+@property (copy) NSShadow *shadow;
 
 - (void)				strokeRect:(NSRect) rect;
 - (void)				applyAttributesToPath:(NSBezierPath*) path;
 
-- (void)				setLineCapStyle:(NSLineCapStyle) lcs;
-- (NSLineCapStyle)		lineCapStyle;
+@property NSLineCapStyle lineCapStyle;
 
-- (void)				setLineJoinStyle:(NSLineJoinStyle) ljs;
-- (NSLineJoinStyle)		lineJoinStyle;
+@property NSLineJoinStyle lineJoinStyle;
 
-- (void)				setMiterLimit:(CGFloat) limit;
-- (CGFloat)				miterLimit;
+@property CGFloat miterLimit;
 
-- (void)				setTrimLength:(CGFloat) tl;
-- (CGFloat)				trimLength;
+@property CGFloat trimLength;
 
 - (NSSize)				extraSpaceNeededIgnoringMitreLimit;
 

@@ -14,8 +14,7 @@
 @class DKObjectDrawingLayer;
 
 
-// caching options
-
+//! caching options
 typedef NS_OPTIONS(NSUInteger, DKGroupCacheOption)
 {
 	kDKGroupCacheNone			= 0,

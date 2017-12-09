@@ -27,49 +27,7 @@ typedef NS_ENUM(NSInteger, DKClippingOption)
 
 
 
-@interface DKRasterizer : GCObservableObject <DKRasterizer, NSCoding, NSCopying>
-{
-@private
-	DKRastGroup*		mContainerRef;		// group that contains this
-	NSString*			m_name;				// optional name
-	BOOL				m_enabled;			// YES if actually drawn
-	DKClippingOption	mClipping;			// set path clipping to this
-}
-
-+ (DKRasterizer*)	rasterizerFromPasteboard:(NSPasteboard*) pb;
-
-- (DKRastGroup*)	container;
-- (void)			setContainer:(DKRastGroup*) container;
-
-- (void)			setName:(NSString*) name;
-- (NSString*)		name;
-- (NSString*)		label;
-
-- (BOOL)			isValid;
-- (NSString*)		styleScript;
-
-- (void)			setEnabled:(BOOL) enable;
-- (BOOL)			enabled;
-
-- (void)			setClipping:(DKClippingOption) clipping;
-- (void)			setClippingWithoutNotifying:(DKClippingOption) clipping;
-- (DKClippingOption) clipping;
-
-- (NSBezierPath*)	renderingPathForObject:(id<DKRenderable>) object;
-
-- (BOOL)			copyToPasteboard:(NSPasteboard*) pb;
-
-@end
-
-
-extern NSPasteboardType	kDKRasterizerPasteboardType;
-
-extern NSString*	kDKRasterizerPropertyWillChange;
-extern NSString*	kDKRasterizerPropertyDidChange;
-extern NSString*	kDKRasterizerChangedPropertyKey;
-
-
-/*
+/*!
  DKRasterizer is an abstract base class that implements the DKRasterizer protocol. Concrete subclasses
  include DKStroke, DKFill, DKHatching, DKFillPattern, DKGradient, etc.
  
@@ -81,10 +39,53 @@ extern NSString*	kDKRasterizerChangedPropertyKey;
  above the bounds of the path. For example a standard stroke is aligned on the path, so the extra space should
  be half of the stroke width in both width and height. This additional space is used to compute the correct bounds
  of a shape when a set of rendering operations is applied to it.
+ 
+ */
+@interface DKRasterizer : GCObservableObject <DKRasterizer, NSCoding, NSCopying>
+{
+@private
+	DKRastGroup*		mContainerRef;		//!< group that contains this
+	NSString*			m_name;				//!< optional name
+	BOOL				m_enabled;			//!< YES if actually drawn
+	DKClippingOption	mClipping;			//!< set path clipping to this
+}
 
-*/
++ (DKRasterizer*)	rasterizerFromPasteboard:(NSPasteboard*) pb;
+
+- (DKRastGroup*)	container;
+- (void)			setContainer:(DKRastGroup*) container;
+
+@property (copy) NSString *name;
+- (NSString*)		label;
+
+@property (readonly, getter=isValid) BOOL valid;
+@property (readonly, copy) NSString *styleScript;
+
+@property BOOL enabled;
+
+@property DKClippingOption clipping;
+- (void)			setClippingWithoutNotifying:(DKClippingOption) clipping;
+
+- (NSBezierPath*)	renderingPathForObject:(id<DKRenderable>) object;
+
+- (BOOL)			copyToPasteboard:(NSPasteboard*) pb;
+
+@end
 
 
+extern NSPasteboardType	kDKRasterizerPasteboardType;
+
+extern NSNotificationName	kDKRasterizerPropertyWillChange;
+extern NSNotificationName	kDKRasterizerPropertyDidChange;
+extern NSNotificationName	kDKRasterizerChangedPropertyKey;
+
+
+
+
+/*!
+ Renderers can now have a delegate attached which is able to modify behaviours such as changing the path rendered, etc.
+ 
+ */
 @interface NSObject (DKRendererDelegate)
 
 - (NSBezierPath*)	renderer:(DKRasterizer*) aRenderer willRenderPath:(NSBezierPath*) aPath;
@@ -92,7 +93,4 @@ extern NSString*	kDKRasterizerChangedPropertyKey;
 @end
 
 
-/*
- Renderers can now have a delegate attached which is able to modify behaviours such as changing the path rendered, etc.
 
-*/

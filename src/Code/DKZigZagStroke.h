@@ -18,13 +18,10 @@
 	CGFloat		mSpread;
 }
 
-- (void)		setWavelength:(CGFloat) w;
-- (CGFloat)		wavelength;
+@property CGFloat wavelength;
 
-- (void)		setAmplitude:(CGFloat) amp;
-- (CGFloat)		amplitude;
+@property CGFloat amplitude;
 
-- (void)		setSpread:(CGFloat) sp;
-- (CGFloat)		spread;
+@property CGFloat spread;
 
 @end

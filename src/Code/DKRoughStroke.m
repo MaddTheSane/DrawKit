@@ -13,6 +13,7 @@
 
 @implementation DKRoughStroke
 #pragma mark As a DKRoughStroke
+@synthesize roughness = mRoughness;
 
 - (void)					setRoughness:(CGFloat) roughness
 {
@@ -23,11 +24,6 @@
 	}
 }
 
-
-- (CGFloat)					roughness
-{
-	return mRoughness;
-}
 
 - (NSString*)				pathKeyForPath:(NSBezierPath*) path
 {

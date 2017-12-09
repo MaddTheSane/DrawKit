@@ -10,6 +10,9 @@
 #import <Cocoa/Cocoa.h>
 
 
+/*!
+ This stores a particular dash pattern for stroking an NSBezierPath, and can be owned by a DKStroke.
+ */
 @interface DKStrokeDash : NSObject <NSCoding, NSCopying>
 {
 @private
@@ -21,8 +24,8 @@
 }
 
 + (DKStrokeDash*)	defaultDash;
-+ (DKStrokeDash*)	dashWithPattern:(CGFloat[]) dashes count:(NSInteger) count;
-+ (DKStrokeDash*)	dashWithName:(NSString*) name;
++ (instancetype)	dashWithPattern:(CGFloat[]) dashes count:(NSInteger) count;
++ (instancetype)	dashWithName:(NSString*) name;
 + (void)			registerDash:(DKStrokeDash*) dash withName:(NSString*) name;
 + (NSArray*)		registeredDashes;
 
@@ -31,18 +34,15 @@
 - (id)				initWithPattern:(CGFloat[]) dashes count:(NSInteger) count;
 - (void)			setDashPattern:(CGFloat[]) dashes count:(NSInteger) count;
 - (void)			getDashPattern:(CGFloat[]) dashes count:(NSInteger*) count;
-- (NSInteger)		count;
-- (void)			setPhase:(CGFloat) ph;
+@property (readonly) NSInteger count;
 - (void)			setPhaseWithoutNotifying:(CGFloat) ph;
-- (CGFloat)			phase;
-- (CGFloat)			length;
+@property CGFloat phase;
+@property (readonly)  CGFloat length;
 - (CGFloat)			lengthAtIndex:(NSUInteger) indx;
 
-- (void)			setScalesToLineWidth:(BOOL) stlw;
-- (BOOL)			scalesToLineWidth;
+@property BOOL scalesToLineWidth;
 
-- (void)			setIsBeingEdited:(BOOL) edit;
-- (BOOL)			isBeingEdited;
+@property BOOL isBeingEdited;
 
 - (void)			applyToPath:(NSBezierPath*) path;
 - (void)			applyToPath:(NSBezierPath*) path withPhase:(CGFloat) phase;
@@ -56,15 +56,11 @@
 
 @interface DKStrokeDash (Deprecated)
 
-+ (void)			saveDefaults;
-+ (void)			loadDefaults;
++ (void)			saveDefaults DEPRECATED_ATTRIBUTE;
++ (void)			loadDefaults DEPRECATED_ATTRIBUTE;
 
 @end
 
-
-/*
- This stores a particular dash pattern for stroking an NSBezierPath, and can be owned by a DKStroke.
-*/
 
 #define			kDKStandardDashSwatchImageSize		(NSMakeSize( 80.0, 4.0 ))
 #define			kDKStandardDashSwatchStrokeWidth	2.0

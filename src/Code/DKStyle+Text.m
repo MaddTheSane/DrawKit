@@ -269,17 +269,17 @@ static NSString* kDKBasicTextStyleDefaultKey	= @"326CF635-7863-42C6-900D-CFFC7D5
 
 
 #pragma mark -
-- (void)				setUnderlined:(NSInteger) uval
+- (void)				setUnderlined:(NSUnderlineStyle) uval
 {
 	if(![self locked])
 	{
-		[self changeTextAttribute:NSUnderlineStyleAttributeName  toValue:[NSNumber numberWithInteger:uval]];
+		[self changeTextAttribute:NSUnderlineStyleAttributeName  toValue:@(uval)];
 		[[self undoManager] setActionName:NSLocalizedString(@"Underline", @"undo string for underline text")];
 	}
 }
 
 
-- (NSInteger)					underlined
+- (NSUnderlineStyle)					underlined
 {
 	return [[[self textAttributes] objectForKey:NSUnderlineStyleAttributeName] integerValue];
 }

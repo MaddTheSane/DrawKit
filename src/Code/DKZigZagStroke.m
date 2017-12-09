@@ -15,6 +15,10 @@
 
 @implementation DKZigZagStroke
 #pragma mark As a DKZigZagStroke
+@synthesize wavelength = mWavelength;
+@synthesize amplitude = mAmplitude;
+@synthesize spread = mSpread;
+
 - (void)		setWavelength:(CGFloat) w
 {
 	NSAssert( w > 0, @"wavelength must be > 0");
@@ -26,32 +30,6 @@
 - (CGFloat)		wavelength
 {
 	return mWavelength;
-}
-
-
-#pragma mark -
-- (void)		setAmplitude:(CGFloat) amp
-{
-	mAmplitude = amp;
-}
-
-
-- (CGFloat)		amplitude
-{
-	return mAmplitude;
-}
-
-
-#pragma mark -
-- (void)		setSpread:(CGFloat) sp
-{
-	mSpread = sp;
-}
-
-
-- (CGFloat)		spread
-{
-	return mSpread;
 }
 
 

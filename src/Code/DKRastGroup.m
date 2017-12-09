@@ -18,6 +18,7 @@
 
 @implementation DKRastGroup
 #pragma mark As a DKRenderGroup
+
 ///*********************************************************************************************************************
 ///
 /// method:			setRenderList:
