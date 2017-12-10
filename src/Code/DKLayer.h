@@ -56,6 +56,7 @@
 
 @property (class, copy) NSArray<NSColor*> *selectionColours;
 + (NSColor*)		selectionColourForIndex:(NSUInteger) index;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 // owning drawing:
 
